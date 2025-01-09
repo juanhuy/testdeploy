@@ -7,6 +7,67 @@
     <title>Vite + React + TS</title> 
     <link rel="stylesheet" href="src/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Vite + React + TS</title>
+    <style>
+      .center_tittle{
+        text-align: center;
+        font-weight: bold;
+        font-family: Arial, sans-serif;
+        margin-top: 50px;
+      }
+      .center_tittle1{
+        margin-top: 30px;
+        font-size: 40px;
+      }
+      .center_tittle2{
+        margin-top: 10px;
+        font-size:  25px;
+      }
+      .image_container {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 100px;
+      }
+      .image_container img{
+        width: 100%;
+        height: auto;
+      }
+      .image_container1{
+        display: flex; 
+        justify-content: flex-start; 
+        gap: 125px; 
+        margin-top: 20px;
+  
+      }
+      .image_container1 img:nth-child(1) {
+        margin-left: 150px;
+        width: 40%;
+        height: auto; 
+      }
+  
+      .image_container1 img:nth-child(2) {
+        width: 30%; 
+        height: auto;
+      }
+      .image_item{
+        text-align: left;
+      }
+      .image_item p{
+        margin: 10px 0 5px;
+        font-size: 16px;
+      }
+      .price{
+        font-weight: bold;
+      }
+      .box{
+        margin-top: 40px;
+        height: 120vh;
+        background-image: url(https://cdn.sforum.vn/sforum/wp-content/uploads/2022/12/hinh-nen-powerpoint-tet-20-2.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+        padding: 20px;
+      }
+    </style>
   </head>
   <header id="header" class="header">
     <div class="container">
@@ -36,7 +97,123 @@
   
   </header>
   <body>
-    <!-- <div id="root"></div>
-     <script type="module" src="/src/main.tsx"></script> --> 
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <h1 class="center_tittle">Bộ Sưu Tập Mới</h1>
+  <div class="image_container">
+    <div class="image_item">
+      <img src = "https://lunacy.vn/1111111111111111111/images/desk/1824007265129074688_1.jpeg" alt="Image1">
+      <p>ABC TANKTOP</p>
+      <p class="price">219.000đ <del>259.000đ</del></p>
+    </div>
+    <div class="image_item">
+      <img src = "https://lunacy.vn/1111111111111111111/images/desk/1828015900528218112_1.jpeg" alt="Image2">
+      <p>REC TEE</p>
+      <P class="price">259.000đ <del>369.000đ</del></P>
+    </div>
+    <div class="image_item">
+      <img src = "https://lunacy.vn/1111111111111111111/images/desk/1824016887181217792_1.jpeg" alt="Image3">
+      <p>COASTLINE SHORT</p>
+      <p class="price">189.000đ <del>219.000đ</del></p>
+    </div>
+    <div class="image_item">
+      <img src = "https://lunacy.vn/1111111111111111111/images/desk/1824022838512717825_2.jpeg" alt="Image4">
+      <p>LEAP SHORT</p>
+      <p class="price">189.000đ <del>219.000đ</del></p>
+    </div>
+    <div class="image_item">
+      <img src = "https://lunacy.vn/1111111111111111111/images/desk/1819611401023393792_1.jpeg" alt="Image5">
+      <p>POLO CURVE</p>
+      <p class="price">279.000đ <del>299.000đ</del></p>
+    </div>
+    <div class="image_item">
+      <img src = "https://lunacy.vn/1111111111111111111/images/desk/1827937463687974912_1.jpeg" alt="Image6">
+      <p>XLUNACY SHORT</p>
+      <p class="price">189.000 <del>219.000đ</del></p>
+    </div>
+    <div class="image_item">
+      <img src = "https://lunacy.vn/1111111111111111111/images/desk/1819599644418641920_1.jpeg" alt="Image7">
+      <p>RACI TEE</p>
+      <p class="price">259.000đ <del>369.000đ</del></p>
+    </div>
+    <div class="image_item">
+      <img src = "https://lunacy.vn/1111111111111111111/images/desk/1791693642004434944_1.jpeg" alt="Image8">
+      <p>NUMBER 10 TEE</p>
+      <p class="price">259.000đ <del>319.000đ</del></p>
+    </div>
+    <div class="image_item">
+      <img src = "https://lunacy.vn/1111111111111111111/images/desk/1785875761106784257_2.jpeg" alt="Image9">
+      <p>FLEXION SHIRT</p>
+      <p class="price">299.000đ <del>359.000đ</del></p>
+    </div>
+    <div class="image_item">
+      <img src = "https://lunacy.vn/1111111111111111111/images/desk/1828015900528218112_1.jpeg" alt="Image10">
+      <p>CROSS TEE</p>
+      <P class="price">179.000đ <del>269.000đ</del></P>
+    </div>
+    <div class="image_item">
+      <img src = "https://lunacy.vn/1111111111111111111/images/desk/1781530473525153792_1.jpeg" alt="Image11">
+      <p>LOVE YOURSELF TEE</p>
+      <p class="price">259.000đ <del>319.000đ</del></p>
+    </div>
+    <div class="image_item">
+      <img src = "https://lunacy.vn/1111111111111111111/images/desk/1773287109101096960_1.jpeg" alt="Image12">
+      <p>DAZZI SHORT</p>
+      <p class="price">189.000đ <del>219.000đ</del></p>
+    </div>
+    <div class="image_item">
+      <img src = "https://lunacy.vn/1111111111111111111/images/desk/1767125533046345728_1.jpeg" alt="Image13">
+      <p>THE CONTEMPORARY</p>
+      <p class="price">279.000đ <del>339.000đ</del></p>
+    </div>
+    <div class="image_item">
+      <img src = "https://lunacy.vn/1111111111111111111/images/desk/1769994295936290816_1.jpeg" alt="Image14">
+      <p>EXTREME TEE</p>
+      <p class="price">239.000 <del>279.000đ</del></p>
+    </div>
+    <div class="image_item">
+      <img src = "https://lunacy.vn/1111111111111111111/images/desk/1739476491588079616_1.jpeg" alt="Image15">
+      <p>DELUS TEE</p>
+      <p class="price">279.000đ <del>339.000đ</del></p>
+    </div>
+    <div class="image_item">
+      <img src = "https://lunacy.vn/1111111111111111111/images/desk/1737398407170887680_1.jpeg" alt="Image16">
+      <p>UNTIDY SHIRT</p>
+      <p class="price">279.000đ <del>339.000đ</del></p>
+    </div>
+    <div class="image_item">
+      <img src = "https://lunacy.vn/1111111111111111111/images/desk/1722552967531335680_1.jpeg" alt="Image13">
+      <p>XLUNACY TEE</p>
+      <p class="price">279.000đ <del>319.000đ</del></p>
+    </div>
+    <div class="image_item">
+      <img src = "https://lunacy.vn/1111111111111111111/images/desk/1718935355920486405_2.jpeg" alt="Image14">
+      <p>RAGLAN A DAY FULL OF YOU</p>
+      <p class="price">259.000 <del>339.000đ</del></p>
+    </div>
+    <div class="image_item">
+      <img src = "https://lunacy.vn/1111111111111111111/images/desk/1711929964749656066_3.jpeg" alt="Image15">
+      <p>FUTURISTIC TEE</p>
+      <p class="price">259.000đ <del>359.000đ</del></p>
+    </div>
+    <div class="image_item">
+      <img src = "https://lunacy.vn/1111111111111111111/images/desk/1711616393553645569_2.jpeg" alt="Image16">
+      <p>BASIC TO LUNATIC JACKET</p>
+      <p class="price">289.000đ <del>459.000đ</del></p>
+    </div>
+  </div>
+  <p class="center_tittle ">Xem thêm > </p>
+  <div class="box">
+    <h1 class="center_tittle center_tittle1">HỌA TIẾT</h1>
+    <h2 class="center_tittle center_tittle2">Của riêng bạn</h2>
+    <div class="image_container1">
+      <img src="https://lunacy.vn/1428355432291766272/images//desk/slider/hoa-tiet-cua-tieng-ban.jpeg" alt="">
+      <div>
+        <img src="https://lunacy.vn/1428355432291766272/images/vi/desk/slider/thiet-ke-noi-bat-1718862006896824320.jpeg" alt="">
+        <p class="center_tittle">THIẾT KẾ NỔI BẬT</p>
+        <p class="center_tittle">Xem thêm</p>
+      </div>
+    </div>
+  </div>
   </body>
 </html>
