@@ -25,7 +25,7 @@ export const AppDataSource = new DataSource({
   host: "localhost",
   port: 1433, 
   username: "sa",
-  password: "123456789",
+  password: "12345",
   database: "LTW",
   synchronize: true, // Set thành false trên môi trường production
   logging: true,

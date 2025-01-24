@@ -2,12 +2,14 @@
 <html lang="en">
  <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title> 
+    <title>Encommerse</title> 
     <link rel="stylesheet" href="src/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>Vite + React + TS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.x.x/css/swiper.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.x.x/js/swiper.min.js"></script>
+
     <style>
       .center_tittle{
         text-align: center;
@@ -97,6 +99,25 @@
   
   </header>
   <body>
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <img src="https://lunacy.vn/1428355432291766272/images/vi/desk/banner/lunacy-banner-home_1777967636173295616.jpeg" alt="LUNACY BANNER HOME">
+        </div>
+        <div class="swiper-slide">
+          <img src="https://lunacy.vn/1428355432291766272/images/vi/desk/banner/lunacy-banner-home_1777967636173295616.jpeg" alt="LUNACY BANNER HOME">
+        </div>
+        <div class="swiper-slide">
+          <img src="https://lunacy.vn/1428355432291766272/images/vi/desk/banner/lunacy-banner-home_1777967511757656064.jpeg" alt="LUNACY BANNER HOME">
+        </div>
+        <div class="swiper-slide">
+          <img src="https://lunacy.vn/1428355432291766272/images/vi/desk/banner/lunacy-banner-home_1777958180014264320.jpeg" alt="LUNACY BANNER HOME">
+        </div>
+      </div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-butoon-prev"></div>
+    </div>
+
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
     <h1 class="center_tittle">Bộ Sưu Tập Mới</h1>
@@ -216,4 +237,14 @@
     </div>
   </div>
   </body>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    var swiper = new Swiper(".mySwiper",{
+      navigattion:{
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    })
+  </script>
 </html>
