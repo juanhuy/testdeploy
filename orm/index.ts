@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import { AppDataSource } from "./ormconfig";
+import { AppDataSource } from "./data-source";
 
 AppDataSource.initialize()
   .then(() => {
