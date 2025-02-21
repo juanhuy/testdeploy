@@ -1,0 +1,224 @@
+.home-container {
+  width: 100%;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 36px;
+  margin-bottom: 30px;
+}
+
+.categories {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.categories button {
+  padding: 12px 25px;
+  margin: 0 15px;
+  font-size: 18px;
+  background-color: #f0f0f0;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.categories button:hover {
+  background-color: #ddd;
+}
+
+.category-products {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.product {
+  margin: 10px;
+  text-align: center;
+  width: 280px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.product:hover {
+  transform: scale(1.05);  /* Slight zoom effect on hover */
+}
+
+.product img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.product-name {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.product-price {
+  font-size: 16px;
+  color: #000000;
+  font-weight: bold;
+}
+
+.old-price {
+  text-decoration: line-through;
+  color: #777;
+}
+
+.stitched-container {
+  text-align: center;
+  background-color: #f8f9fa;
+  padding: 50px 20px;
+  margin-top: 50px;
+}
+
+.stitched-container h2 {
+  font-size: 36px;
+  font-weight: bold;
+  color: #0b0404;
+}
+
+.stitched-container p {
+  font-size: 18px;
+  margin-top: 10px;
+  color: #333;
+}
+
+/* Instagram Section */
+.instagram-container {
+  text-align: center;
+  padding: 50px 20px;
+  background-color: #fafafa;
+}
+
+.instagram-container h2 {
+  font-size: 36px;
+  font-weight: bold;
+  color: #333;
+}
+
+.instagram-photos {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.instagram-link {
+  text-decoration: none;  /* Bỏ gạch dưới */
+}
+
+.instagram-photos img {
+  width: 19%;  /* Điều chỉnh kích thước để 5 ảnh lấp đầy 1 hàng */
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer Section */
+.footer-container {
+  background-color: #333;
+  color: white;
+  padding: 50px 20px;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.footer-links div {
+  width: 30%;
+}
+
+.footer-links h3 {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.footer-links ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.footer-links ul li {
+  margin-bottom: 10px;
+}
+
+.footer-links ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+.footer-links ul li a:hover {
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 20px;
+}
+
+.footer-bottom p {
+  color: #777;
+}
+
+.social-links {
+  margin-top: 10px;
+}
+
+.social-links a {
+  color: white;
+  margin-right: 20px;
+  text-decoration: none;
+}
+
+.social-links a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 1024px) {
+  .instagram-photos img {
+    width: 23%;  /*chỉnh ảnh để chiếm 4 ảnh mỗi hàng trên màn hình nhỏ */
+  }
+}
+
+@media (max-width: 768px) {
+  .instagram-photos img {
+    width: 30%;  /*chỉnh ảnh để chiếm 3 ảnh mỗi hàng trên màn hình nhỏ */
+  }
+
+  .footer-links {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-links div {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .instagram-photos img {
+    width: 48%;  /*chỉnh ảnh để chiếm 2 ảnh mỗi hàng trên màn hình di động */
+  }
+
+  .footer-links {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-links div {
+    width: 100%;
+    text-align: center;
+  }
+}

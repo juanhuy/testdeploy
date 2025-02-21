@@ -15,6 +15,7 @@ export const AppDataSource = new DataSource({
   entities: ["src/entity/*.ts"],
   options: {
     encrypt: process.env.DB_ENCRYPT === "true",
+    trustServerCertificate: true,  // Bật để bỏ qua lỗi chứng chỉ tự ký
   },
 });
 
