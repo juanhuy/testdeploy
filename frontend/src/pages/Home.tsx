@@ -4,7 +4,7 @@ import CustomNavbar from '../components/Navbar';
 const Home: React.FC = () => {
   return (
     <div>
-      <CustomNavbar /> {/* Render Navbar component */}
+      <CustomNavbar/>
     </div>
   );
 };
