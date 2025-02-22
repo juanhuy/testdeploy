@@ -90,7 +90,7 @@ const CustomNavbar: React.FC = () => {
         </a>
       </div>
 
-      {/* Follow Us on Instagram */}
+      {/* Under follow Us on Instagram */}
       <div className="instagram-container">
         <div className="instagram-photos">
           <a href="https://www.instagram.com/p/DCGX7gUswHB/" target="_blank" rel="noopener noreferrer">

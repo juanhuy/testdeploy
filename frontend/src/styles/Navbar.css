@@ -103,9 +103,10 @@
   color: #333;
 }
 
+/* Instagram Photos */
 .instagram-photos {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;  /* Sử dụng space-between để căn chỉnh ảnh cách đều */
   flex-wrap: wrap;
   gap: 15px;
 }
@@ -118,7 +119,9 @@
   width: 19%;  /* Điều chỉnh kích thước để 5 ảnh lấp đầy 1 hàng */
   height: auto;
   border-radius: 10px;
+  object-fit: cover;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  vertical-align: middle;
 }
 
 /* Footer Section */
@@ -185,15 +188,16 @@
   text-decoration: underline;
 }
 
+/* Responsive Design for Instagram and Footer */
 @media (max-width: 1024px) {
   .instagram-photos img {
-    width: 23%;  /*chỉnh ảnh để chiếm 4 ảnh mỗi hàng trên màn hình nhỏ */
+    width: 23%;  /* Điều chỉnh ảnh để chiếm 4 ảnh mỗi hàng trên màn hình nhỏ */
   }
 }
 
 @media (max-width: 768px) {
   .instagram-photos img {
-    width: 30%;  /*chỉnh ảnh để chiếm 3 ảnh mỗi hàng trên màn hình nhỏ */
+    width: 30%;  /* Điều chỉnh ảnh để chiếm 3 ảnh mỗi hàng trên màn hình nhỏ */
   }
 
   .footer-links {
@@ -209,7 +213,7 @@
 
 @media (max-width: 480px) {
   .instagram-photos img {
-    width: 48%;  /*chỉnh ảnh để chiếm 2 ảnh mỗi hàng trên màn hình di động */
+    width: 48%;  /* Điều chỉnh ảnh để chiếm 2 ảnh mỗi hàng trên màn hình di động */
   }
 
   .footer-links {

@@ -1,0 +1,184 @@
+/* ===========================
+   RESET CƠ BẢN
+=========================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ===========================
+   FONT CHỮ TOÀN TRANG
+=========================== */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+}
+
+/* ===========================
+   LAYOUT ADMIN (SIDEBAR + CONTENT)
+=========================== */
+.layout-admin {
+  display: flex;       /* Chia layout theo chiều ngang */
+  min-height: 100vh;   /* Chiều cao tối thiểu 100% viewport */
+}
+
+.layout-sidebar {
+  width: 400px;             /* Chiều rộng sidebar */
+  background-color: #333;   /* Màu nền (xám đậm) */
+  color: #fff;              /* Chữ trắng */
+  padding: 500px;            /* Khoảng cách bên trong sidebar */
+  /* border-right: 1px solid #444;  Có thể mở nếu cần đường phân cách */
+}
+
+.layout-content {
+  flex: 1;                  /* Chiếm phần còn lại */
+  padding: 50px;            /* Khoảng cách cho nội dung */
+  overflow-y: auto;         /* Cuộn dọc nếu nội dung quá dài */
+  background-color: #ffffff;/* Nền trắng cho nội dung */
+  border-left: 1px solid #ccc; /* Đường viền mỏng giữa sidebar và nội dung */
+}
+
+/* ===========================
+   SIDEBAR MENU
+=========================== */
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin-top: 50px;         /* Khoảng cách phía trên menu */
+}
+
+.sidebar-menu li {
+  margin-bottom: 50px;      /* Khoảng cách giữa các mục menu */
+}
+
+.sidebar-menu li a {
+  display: block;
+  padding: 8px 15px;        /* Padding cho mục menu */
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;       /* Bo góc nhẹ */
+  transition: background-color 0.2s;
+}
+
+.sidebar-menu li a:hover {
+  background-color: #444;
+}
+
+/* ===========================
+   TIÊU ĐỀ CHUNG
+=========================== */
+h1, h2, h3 {
+  margin-bottom: 16px;
+  font-weight: bold;
+}
+
+/* ===========================
+   TRANG SẢN PHẨM, BẢNG, FORM, ETC.
+=========================== */
+/* Container trang sản phẩm 
+.product-page-container {
+Sử dụng layout-content đã có padding từ .layout-content
+}
+*/
+/* Header trang sản phẩm: chỉ chứa tiêu đề */
+.product-page-header {
+  margin-bottom: 20px;  /* Khoảng cách giữa tiêu đề và bảng */
+}
+
+/* Bảng sản phẩm */
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 100px;  /* Khoảng cách dưới bảng */
+  background-color: #fff;
+}
+
+/* Tiêu đề cột của bảng */
+.product-table th {
+  background-color: #f5f5f5;
+  border: 10px solid #ccc;
+  padding: 50px;
+  text-align: left;
+}
+
+/* Ô dữ liệu trong bảng */
+.product-table td {
+  border: 10px solid #ccc;
+  padding: 50px;
+}
+
+/* Nút Sửa, Xoá trong bảng */
+.product-table td button {
+  margin-right: 5px;
+  padding: 10px 30px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.product-table td button:hover {
+  opacity: 0.8;
+}
+
+/* Nút Sửa (màu vàng) */
+.btn-edit {
+  background-color: #ffc107;
+  color: #000;
+}
+
+/* Nút Xoá (màu đỏ) */
+.btn-delete {
+  background-color: #f44336;
+  color: #fff;
+}
+
+/* Footer trang sản phẩm: chứa nút "Thêm sản phẩm" đặt dưới bảng */
+.product-page-footer {
+  margin-top: 50px;             /* Khoảng cách phía trên footer */
+  display: flex;
+  justify-content: flex-end;    /* Căn phải, thay thành 'center' nếu muốn căn giữa */
+}
+
+/* Nút thêm sản phẩm */
+.add-product-button {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 6px 10px;  /* Điều chỉnh padding nếu cần thu nhỏ kích thước */
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.add-product-button:hover {
+  background-color: #45a049;
+}
+
+/* ===========================
+   CÁC LỚP TỰ ĐỊNH NGHĨA KHÁC
+=========================== */
+.flex {
+  display: flex;
+}
+
+.min-h-screen {
+  min-height: 100vh;
+}
+
+/* ===========================
+   (Tùy chọn) MEDIA QUERY cho màn hình nhỏ
+=========================== */
+/* 
+@media (max-width: 768px) {
+  .layout-admin {
+    flex-direction: column;  // Xếp dọc khi màn hình nhỏ
+  }
+  .layout-sidebar {
+    width: 100%;
+    margin-bottom: 20px;
+    border-right: none;
+    border-bottom: 1px solid #444;
+  }
+}
+*/
