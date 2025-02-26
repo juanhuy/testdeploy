@@ -3,57 +3,53 @@ import "../styles/navigator.css";
 
 function Navigator() {
   return (
-    <nav className="navbar">
-      <div className="nav-links">
-        <div className="nav-item">
-          <b>
+    <header>
+      <nav>
+        <ul className="nav_link left">
+          <li className="drop-down-menu">
             <a href="#">CLOTHING</a>
-          </b>
-          <div className="dropdown">
-            <a href="#">Blazers</a>
-            <a href="#">Bodysuits</a>
-            <a href="#">Bottoms</a>
-            <a href="#">Coats & Jackets</a>
-            <a href="#">Denim</a>
-            <a href="#">Dresses</a>
-            <a href="#">Jumpsuits</a>
-            <a href="#">Knitwear</a>
-            <a href="#">Loungewear</a>
-            <a href="#">Shorts</a>
-            <a href="#">Skirts</a>
-            <a href="#">Tops</a>
-          </div>
-        </div>
-        <div className="nav-item">
-          <b>
+            <ul className="drop-down">
+              <li>Blazers</li>
+              <li>Bodysuits</li>
+              <li>Bottoms</li>
+              <li>Coats & Jackets</li>
+              <li>Denim</li>
+              <li>Dresses</li>
+              <li>Jumpsuits</li>
+              <li>Knitwear</li>
+              <li>Loungewear</li>
+              <li>Shorts</li>
+              <li>Skirts</li>
+              <li>Tops</li>
+            </ul>
+          </li>
+          <li className="drop-down-menu">
             <a href="#">SWIMWEAR</a>
-          </b>
-          <div className="dropdown">
-            <a href="#">Bikinis</a>
-            <a href="#">One piece</a>
-          </div>
-        </div>
-        <div className="nav-item">
-          <b>
+            <ul className="drop-down">
+              <li>Bikinis</li>
+              <li>One piece</li>
+            </ul>
+          </li>
+          <li className="drop-down-menu">
             <a href="#">ACCESSORIES</a>
-          </b>
-          <div className="dropdown">
-            <a href="#">Jewelry</a>
-            <a href="#">Shoes and Beach Bags</a>
-          </div>
-        </div>
-        <b>
-          <a href="#">SALE</a>
-        </b>
-      </div>
-      {/* <div className="logo">stitched</div> */}
-      <div className="right">
-        {/* <i className="fa-regular fa-user"></i>
-        <i className="fa-solid fa-magnifying-glass"></i>
-        <i className="fa-regular fa-heart"></i>
-        <i className="fa-solid fa-bag-shopping"></i> <span>0.00 $</span> */}
-      </div>
-    </nav>
+            <ul className="drop-down">
+              <li>Jewelry</li>
+              <li>Shoes and Beach Bags</li>
+            </ul>
+          </li>
+          <li><a href="#">SALE</a></li>
+        </ul>
+      </nav>
+      <p>LOGO here</p>
+      <nav>
+        <ul className="nav_link right">
+          <li><a href="#">My account</a></li>
+          <li><a href="#">Search</a></li>
+          <li><a href="#">My Wishlist</a></li>
+          <li><a href="#">Shipping cart</a></li>
+        </ul>
+      </nav>
+    </header>
   );
 }
 

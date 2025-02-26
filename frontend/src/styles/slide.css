@@ -1,0 +1,35 @@
+.slide {
+    background-image: url("../../public/image/home/slider/image.jpeg");
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white; /* Ensures text is visible on any background */
+    text-align: center;
+}
+
+h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+button {
+    background-color: #FFFFFF;
+    color: #333;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+}
