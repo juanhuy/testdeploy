@@ -1,14 +1,23 @@
+
 import Navigator from "../components/Navigator";
-import Slide from "../components/Slide.tsx";
-import BestSeller from "../components/BestSeller.tsx";
+import Slide from "../components/Slide";
+import BestSeller from "../components/BestSeller";
+
+import React from 'react';
+import CustomNavbar from '../components/Navbar';
+
 
 const Home: React.FC = () => {
   return (
     <div>
-      <Navigator/><Slide/>
+      <Navigator/>
+        <Slide/>
         <BestSeller/>
+      <CustomNavbar/>
     </div>
   );
 };
 
+
 export default Home;
+
