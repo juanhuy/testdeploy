@@ -107,29 +107,38 @@
 .instagram-photos {
   display: flex;
   justify-content: space-between;  /* Sử dụng space-between để căn chỉnh ảnh cách đều */
-  flex-wrap: wrap;
-  gap: 15px;
+  flex-wrap: nowrap;  /* Không cho ảnh cuộn xuống hàng mới */
+  gap: 15px;  /* Tạo khoảng cách giữa các ảnh */
 }
 
 .instagram-link {
-  text-decoration: none;  /* Bỏ gạch dưới */
+  text-decoration: none;/* Bỏ gạch dưới */
+  color: #fffcfc;  
 }
 
 .instagram-photos img {
-  width: 19%;  /* Điều chỉnh kích thước để 5 ảnh lấp đầy 1 hàng */
-  height: auto;
+  width: 100%;  /* Điều chỉnh kích thước để 5 ảnh lấp đầy 1 hàng */
+  height: inherit;
   border-radius: 10px;
   object-fit: cover;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   vertical-align: middle;
+  aspect-ratio: 1 / 1; /* Tạo hình vuông và không làm méo ảnh + cắt từ giữa ra ngoài*/
 }
 
 /* Footer Section */
 .footer-container {
-  background-color: #333;
+  background-color: #000000;
   color: white;
   padding: 50px 20px;
+  align-items: center;
 }
+
+.footer-container img {
+  max-width: 75%; /* Giảm kích thước logo */
+  height: auto;
+}
+
 
 .footer-links {
   display: flex;
@@ -156,7 +165,7 @@
 }
 
 .footer-links ul li a {
-  color: white;
+  color: rgb(238, 238, 238);
   text-decoration: none;
 }
 
@@ -171,7 +180,7 @@
 }
 
 .footer-bottom p {
-  color: #777;
+  color: #949393;
 }
 
 .social-links {
