@@ -115,6 +115,7 @@
   text-decoration: none;/* Bỏ gạch dưới */
   color: #fffcfc;  
 }
+/* Điều chỉnh kích thước ảnh */
 
 .instagram-photos img {
   width: 100%;  /* Điều chỉnh kích thước để 5 ảnh lấp đầy 1 hàng */

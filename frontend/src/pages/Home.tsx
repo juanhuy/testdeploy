@@ -1,10 +1,15 @@
 import React from 'react';
-import CustomNavbar from '../components/Navbar';
+import OnSale from '../components/Onsale';
+import UbeenStitched from '../components/UbeenStitched';
+import Footer from '../components/Footer';
 
 const Home: React.FC = () => {
   return (
     <div>
-      <CustomNavbar/>
+      {/* <CustomNavbar/> */}
+      <OnSale/>
+      <UbeenStitched/> 
+      <Footer/>
     </div>
   );
 };

@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
-import { FaFacebook, FaInstagram } from 'react-icons/fa';
 import '../styles/Navbar.css';
 
-const CustomNavbar: React.FC = () => {
-  // State để theo dõi danh mục hiện tại
-  const [selectedCategory, setSelectedCategory] = useState<keyof Categories>('clothing');
-
-  // Dữ liệu của từng danh mục sản phẩm
+const OnSale: React.FC = () => {
   type Category = {
     name: string;
     img: string;
@@ -20,8 +15,10 @@ const CustomNavbar: React.FC = () => {
     accessories: Category[];
   };
 
+  const [selectedCategory, setSelectedCategory] = useState<keyof Categories>('clothing');
+
   const categories: Categories = {
-    clothing: [
+        clothing: [
       { name: 'DEXTER KNIT', img: 'https://stitched-lb.com/wp-content/uploads/2023/11/ezgif-4-65d54fe911.jpg', price: '21.00 $', oldPrice: '42.00 $' },
       { name: 'TEDDI SHIRT-SKIRT', img: 'https://stitched-lb.com/wp-content/uploads/2024/04/ezgif-5-97b83b6352.jpg', price: '89.00 $', oldPrice: '178.00 $' },
       { name: 'LETTIE MICRO SKIRT', img: 'https://stitched-lb.com/wp-content/uploads/2024/04/ezgif-5-78432ed3af.jpg', price: '72.50 $', oldPrice: '145.00 $' },
@@ -49,7 +46,6 @@ const CustomNavbar: React.FC = () => {
       { name: 'DEXTER KNIT', img: 'https://stitched-lb.com/wp-content/uploads/2023/07/629df46861cd3-640x640.png', price: '21.00 $', oldPrice: '42.00 $' },
     ]
   };
-
   // Hàm xử lý khi người dùng chọn một danh mục
   const handleCategoryChange = (category: keyof Categories) => {
     setSelectedCategory(category);
@@ -79,88 +75,8 @@ const CustomNavbar: React.FC = () => {
       <div className="category-products">
         {renderProducts(selectedCategory)}
       </div>
-
-      {/* #YouveBeenStitched */}
-      <div className="stitched-container">
-        <h2>#YouveBeenStitched</h2>
-        <a href="https://www.instagram.com/p/DCGX7gUswHB/" target="_blank" rel="noopener norferrer" className="instagram-link">
-          <p className='instagram-container'>FOLLOW US ON INSTAGRAM</p>
-        </a>
-      </div>
-
-      {/* Under follow Us on Instagram */}
-      <div className="instagram-container">
-        <div className="instagram-photos">
-          <a href="https://www.instagram.com/p/DCGX7gUswHB/" target="_blank" rel="noopener noreferrer">
-            <img src="https://stitched-lb.com/wp-content/uploads/sb-instagram-feed-images/468801123_18293763880234186_3886852729240463466_nfull.webp" alt="Instagram" />
-          </a>
-          <a href="https://www.instagram.com/p/DCGX7gUswHB/" target="_blank" rel="noopener noreferrer">
-            <img src="https://stitched-lb.com/wp-content/uploads/sb-instagram-feed-images/466630837_18291452107234186_6683339765308237086_nfull.webp" alt="Instagram" />
-          </a>
-          <a href="https://www.instagram.com/p/DCGX7gUswHB/" target="_blank" rel="noopener noreferrer">
-            <img src="https://stitched-lb.com/wp-content/uploads/sb-instagram-feed-images/466040031_18291036994234186_3859030666903875910_nfull.webp" alt="Instagram" />
-          </a>
-          <a href="https://www.instagram.com/p/DCGX7gUswHB/" target="_blank" rel="noopener noreferrer">
-            <img src="https://stitched-lb.com/wp-content/uploads/sb-instagram-feed-images/465014964_18289747729234186_5057716534431768962_nfull.webp" alt="Instagram" />
-          </a>
-          <a href="https://www.instagram.com/p/DCGX7gUswHB/" target="_blank" rel="noopener noreferrer">
-            <img src="https://stitched-lb.com/wp-content/uploads/sb-instagram-feed-images/464874879_18289582120234186_2759425204800171193_nfull.webp" alt="Instagram" />
-          </a>
-        </div>
-      </div>
-
-      {/* Footer Section */}
-      <div className="footer-container">
-        <div className="footer-links">
-          <div>
-            <img src="https://stitched-lb.com/wp-content/uploads/2024/07/Stitched-white@4x.png" alt="Stitcheb-lb" />
-          </div>
-          <div>
-            <h3>SHOP NOW</h3>
-            <ul>
-              <li><a href="#">Clothing</a></li>
-              <li><a href="#">Swimwear</a></li>
-              <li><a href="#">Accessories</a></li>
-              <li><a href="#">Sale</a></li>
-              <li><a href="#">Wishlist</a></li>
-            </ul>
-          </div>
-          <div>
-            <h3>USEFUL LINKS</h3>
-            <ul>
-              <li><a href="#">My account</a></li>
-              <li><a href="#">Get in Touch</a></li>
-              <li><a href="#">About</a></li>
-              <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">Terms and Conditions</a></li>
-              <li><a href="#">Price Match Policy</a></li>
-            </ul>
-          </div>
-          <div>
-            <h3>STAY UP-TO-DATE</h3>
-            <form>
-              <input type="email" placeholder="Your email address" />
-              <button type="submit">SIGN UP</button>
-            </form>
-            <div className="social-links">
-              <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
-                <FaInstagram size={24} color="white" />
-              </a>
-              <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
-                <FaFacebook size={24} color="white" />
-              </a>
-            </div>
-          </div>
-        </div>
-        <div className="footer-bottom">
-          <p>STITCHED © 2024 | DESIGNED & DEVELOPED BY 
-            <a href="https://www.tedmob.com" target="_blank" rel="noopener noreferrer" className="instagram-link"> TEDMOB.COM</a>
-          </p>
-        </div>
-
-      </div>
     </div>
   );
 };
 
-export default CustomNavbar;
+export default OnSale;
