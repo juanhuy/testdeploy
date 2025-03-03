@@ -1,0 +1,20 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Căn giữa logo */
+  padding: 10px 20px;
+  background-color: #fff;
+  height: 80px !important; /* Điều chỉnh chiều cao navbar */
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%; /* Đảm bảo logo nằm chính giữa */
+}
+
+.logo-img {
+  height: 80px !important; 
+  width: 150px !important; 
+}

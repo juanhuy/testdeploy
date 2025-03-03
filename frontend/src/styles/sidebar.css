@@ -1,0 +1,54 @@
+/* Định dạng tổng thể của Sidebar */
+/* Sidebar background color */
+.sidebar {
+  position: fixed;   /* Cố định vị trí sidebar */
+  left: 0;
+  top: 0;
+  background-color: #fff !important; /* Đặt màu nền đen */
+  color: #000 !important; /* Đặt màu chữ trắng để dễ nhìn */
+  width: 250px; /* Định dạng chiều rộng */
+  height: auto; /* Chiều cao toàn màn hình */
+  padding: 10px;
+  font-family: 'Roboto', sans-serif;
+}
+
+  
+  /* Định dạng tiêu đề trong Sidebar */
+  .sidebar h2 {
+    font-size: 2rem; /* Cỡ chữ 20px */
+    font-weight: bold; /* Chữ đậm */
+    margin-bottom: 1rem; /* Khoảng cách dưới 16px */
+    text-align: center; /* Căn giữa */
+}
+
+  
+  /* Bỏ kiểu danh sách mặc định */
+  .sidebar nav ul {
+    list-style: none; /* Xóa dấu chấm đầu dòng mặc định */
+    padding: 0; /* Xóa padding mặc định */
+  }
+  
+  /* Khoảng cách giữa các mục trong danh sách */
+  .sidebar nav ul li {
+    margin-bottom: 0rem; 
+    border-bottom: 1.5px solid #ccc;
+  }
+  .sidebar nav ul li:last-child {
+    border-bottom: none;
+  }
+  
+  /* Định dạng các link điều hướng */
+  .sidebar nav ul li a {
+    display: block; /* Giúp link chiếm toàn bộ chiều rộng của li */
+    font-size: 1.5rem;
+    padding: 1.5rem; /* Thêm padding cho click dễ hơn */
+    text-decoration: none; /* Bỏ gạch chân mặc định */
+    color: #000 !important;
+    transition: background 0.3s ease; /* Hiệu ứng hover mượt */
+  }
+  
+  /* Hiệu ứng hover khi rê chuột vào link */
+  .sidebar nav ul li a:hover {
+    background-color: grey /* Đổi màu nền sang xám nhạt */
+  }
+  

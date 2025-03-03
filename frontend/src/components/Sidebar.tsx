@@ -1,68 +1,43 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { FaTachometerAlt, FaBoxOpen, FaList, FaShoppingCart, FaUsers, FaTags, FaCog } from "react-icons/fa";
+import "../styles/sidebar.css"; // Đảm bảo import CSS đúng
 
-export default function Sidebar() {
+const Sidebar = () => {
   return (
-    <div
-      style={{
-        backgroundColor: "#000", // Nền đen
-        color: "#fff",           // Chữ trắng
-        minHeight: "100vh",      // Chiều cao tối thiểu bằng chiều cao màn hình
-        width: "150px",          // Chiều rộng
-      }}
-      className="w-96 p-8"
-    >
-      <div className="text-4xl font-bold border-b border-gray-700 mb-4">
-        ADMIN PAGE
-      </div>
-
+    <div className="sidebar"> {/* Đảm bảo có class này */}
+      <h2 className="text-xl font-bold mb-4">Admin Panel</h2>
       <nav>
-        <ul className="space-y-2 text-lg">
+        <ul>
           <li>
-            <Link 
-              to="/admin/products" 
-              style={{ color: "#fff" }} 
-              className="hover:underline hover:text-gray-300">
-              PRODUCT
+            <Link to="/" className="flex items-center gap-2 block p-2 hover:bg-gray-700">
+              <FaTachometerAlt /> Dashboard
             </Link>
           </li>
           <li>
-            <Link 
-              to="/admin/orders" 
-              style={{ color: "#fff" }} 
-              className="hover:underline hover:text-gray-300"
-              >
-              ORDER
+            <Link to="/products" className="flex items-center gap-2 block p-2 hover:bg-gray-700">
+              <FaBoxOpen /> Products
             </Link>
           </li>
           <li>
-            <Link 
-                to="/admin/users" 
-                style={{ color: "#fff" }} 
-                className="hover:underline hover:text-gray-300"
-                >
-              USER
+            <Link to="/categories" className="flex items-center gap-2 block p-2 hover:bg-gray-700">
+              <FaList /> Categories
             </Link>
           </li>
           <li>
-          <Link
-            to="/admin/categories"
-            style={{ color: "#fff" }} 
-            className="hover:underline hover:text-gray-300"
-          >
-          CATEGORY
-          </Link>
-
+            <Link to="/orders" className="flex items-center gap-2 block p-2 hover:bg-gray-700">
+              <FaShoppingCart /> Orders
+            </Link>
           </li>
           <li>
-            <Link to="/admin/promotions" 
-            style={{ color: "#fff" }} 
-            className="hover:underline hover:text-gray-300">
-              PROMOTION
+            <Link to="/promotions" className="flex items-center gap-2 block p-2 hover:bg-gray-700">
+              <FaTags /> Promotions
             </Link>
           </li>
         </ul>
       </nav>
     </div>
   );
-}
+};
+
+export default Sidebar;
