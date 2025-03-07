@@ -1,3 +1,150 @@
+.swimwear-header {
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.swimwear-header .back-home {
+  color: white;
+  font-size: 24px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.swimwear-header .back-home:hover {
+  color: gray;
+}
+
+.swimwear-header h1 {
+  font-size: 32px;
+  margin: 0;
+}
+
+
+/* Bố cục chính */
+.shop-container {
+  display: flex;
+  max-width: 1400px;
+  margin: auto;
+  padding: 40px;
+}
+
+/* Sidebar nằm bên trái */
+.sidebar {
+  width: 280px;
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: fit-content;
+}
+
+.sidebar h2 {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #333;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  padding: 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+  text-align: center;
+}
+
+.sidebar ul li:hover {
+  background: #ddd;
+  border-radius: 5px;
+}
+
+/* Hiển thị sản phẩm lớn hơn */
+.product-list {
+  flex-grow: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-left: 20px;
+}
+
+/* Thẻ sản phẩm */
+.product-card {
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.product-card:hover {
+  transform: scale(1.05);
+}
+
+/* Hình ảnh sản phẩm - Kích thước lớn hơn */
+.product-image {
+  width: 100%;
+  height: 400px; /* Tăng chiều cao */
+  object-fit: cover;
+}
+
+/* Thông tin sản phẩm */
+.product-info {
+  padding: 20px;
+  text-align: center;
+}
+
+.product-name {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 15px 0;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .shop-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .sidebar {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .product-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .product-list {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .product-image {
+    height: 350px;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-image {
+    height: 300px;
+  }
+}
+
 .home-container {
   width: 100%;
   padding: 20px;
@@ -45,7 +192,7 @@
 }
 
 .product:hover {
-  transform: scale(1.05);  /* Slight zoom effect on hover */
+  transform: scale(1.05);
 }
 
 .product img {
@@ -90,7 +237,6 @@
   color: #333;
 }
 
-/* Instagram Section */
 .instagram-container {
   text-align: center;
   padding: 50px 20px;
@@ -103,31 +249,28 @@
   color: #333;
 }
 
-/* Instagram Photos */
 .instagram-photos {
   display: flex;
-  justify-content: space-between;  /* Sử dụng space-between để căn chỉnh ảnh cách đều */
-  flex-wrap: nowrap;  /* Không cho ảnh cuộn xuống hàng mới */
-  gap: 15px;  /* Tạo khoảng cách giữa các ảnh */
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  gap: 15px;
 }
 
 .instagram-link {
-  text-decoration: none;/* Bỏ gạch dưới */
-  color: #fffcfc;  
+  text-decoration: none;
+  color: #fffcfc;
 }
-/* Điều chỉnh kích thước ảnh */
 
 .instagram-photos img {
-  width: 100%;  /* Điều chỉnh kích thước để 5 ảnh lấp đầy 1 hàng */
+  width: 100%;
   height: inherit;
   border-radius: 10px;
   object-fit: cover;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   vertical-align: middle;
-  aspect-ratio: 1 / 1; /* Tạo hình vuông và không làm méo ảnh + cắt từ giữa ra ngoài*/
+  aspect-ratio: 1 / 1;
 }
 
-/* Footer Section */
 .footer-container {
   background-color: #000000;
   color: white;
@@ -136,10 +279,9 @@
 }
 
 .footer-container img {
-  max-width: 75%; /* Giảm kích thước logo */
+  max-width: 75%;
   height: auto;
 }
-
 
 .footer-links {
   display: flex;
@@ -198,16 +340,15 @@
   text-decoration: underline;
 }
 
-/* Responsive Design for Instagram and Footer */
 @media (max-width: 1024px) {
   .instagram-photos img {
-    width: 23%;  /* Điều chỉnh ảnh để chiếm 4 ảnh mỗi hàng trên màn hình nhỏ */
+    width: 23%;
   }
 }
 
 @media (max-width: 768px) {
   .instagram-photos img {
-    width: 30%;  /* Điều chỉnh ảnh để chiếm 3 ảnh mỗi hàng trên màn hình nhỏ */
+    width: 30%;
   }
 
   .footer-links {
@@ -223,7 +364,7 @@
 
 @media (max-width: 480px) {
   .instagram-photos img {
-    width: 48%;  /* Điều chỉnh ảnh để chiếm 2 ảnh mỗi hàng trên màn hình di động */
+    width: 48%;
   }
 
   .footer-links {
