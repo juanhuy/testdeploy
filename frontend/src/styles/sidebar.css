@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Sidebar tổng thể */
 .sidebar {
   width: 250px;
@@ -238,3 +239,39 @@
   align-items: center;
   text-align: center;
 }
+=======
+.sidebar {
+    /*height: 50px;*/
+    /*border-right: 1px black solid;*/
+    /*top: 0;*/
+    /*bottom: 0;*/
+}
+
+.link a{
+    color:#000000;
+    text-decoration:none;
+    display: block;
+    vertical-align:middle;
+    flex-direction: column;
+    margin-bottom: 5px;
+    padding: 15px 20px;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar h3{
+    text-decoration: underline;
+    text-underline-offset: 10px;
+    text-decoration-thickness: 0.5px;
+    padding: 0 10px 10px 10px;
+    margin: 0 0 15px;
+}
+
+.sidebar .link{
+    padding: 10px 15px;
+}
+
+.link a:hover{
+    background-color: #F8F8F8;
+    width: 100%;
+}
+>>>>>>> origin/vy

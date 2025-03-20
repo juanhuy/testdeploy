@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
@@ -20,6 +21,23 @@ const App = () => {
         </Routes>
       </div>
     </Router>
+=======
+
+import Order from "./pages/Order";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min";
+// import Sale from "./pages/Sale";
+
+
+function App() {
+
+  return (
+    <div>
+      {/*<Home/>*/}
+      {/*  <Sale/>*/}
+        <Order />
+    </div>
+>>>>>>> origin/vy
   );
 };
 
@@ -31,4 +49,8 @@ const BreadcrumbWrapper = () => {
   return location.pathname === "/accessories" ? <Breadcrumb /> : null;
 };
 
+<<<<<<< HEAD
 export default App;
+=======
+
+>>>>>>> origin/vy

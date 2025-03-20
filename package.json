@@ -19,6 +19,7 @@
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
     "reflect-metadata": "^0.2.2",
-    "typeorm": "^0.3.20"
+    "typeorm": "^0.3.20",
+    "vscode-html-languageservice": "^5.3.1"
   }
 }
