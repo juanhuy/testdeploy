@@ -10,11 +10,5 @@ export default defineConfig({
 
   preview: {
     port: 5000,
-<<<<<<< HEAD
-  },
-  css: {
-    modules: true
-=======
->>>>>>> origin/Cuong2
   },
 });
