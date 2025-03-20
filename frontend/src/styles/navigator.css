@@ -1,3 +1,5 @@
+
+
 header{
     display: flex;
     justify-content: space-between;
@@ -50,18 +52,4 @@ header{
 
 .nav_link.left .drop-down-menu {
     position: relative;
-}
-
-.nav_link.left .drop-down-menu .a:after {
-    content: "";
-    position: absolute;
-    background-color: black;
-    height: 3px;
-    width: 60%;
-    left: 40px;
-    bottom: -10px;
-}
-
-.nav_link.left .drop-down-menu .a:hover:after {
-    width: 0;
 }

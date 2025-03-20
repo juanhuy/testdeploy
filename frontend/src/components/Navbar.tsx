@@ -69,7 +69,6 @@ const CustomNavbar: React.FC = () => {
   return (
     <div className="home-container">
       <h1 className="section-title">ON SALE</h1>
-
       <div className="categories">
         <button onClick={() => handleCategoryChange('clothing')}>Clothing</button>
         <button onClick={() => handleCategoryChange('swimwear')}>Swimwear</button>

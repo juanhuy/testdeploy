@@ -1,4 +1,4 @@
-import "../styles/global.css";
+
 import "../styles/navigator.css";
 
 function Navigator() {
