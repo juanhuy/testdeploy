@@ -1,33 +1,31 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Sidebar from "./components/Sidebar";
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Dashboard from "./pages/Dashboard";
-import Products from "./pages/Products";  
-import Categories from "./pages/Categories";
-import Orders from "./pages/Orders";
-import Promotions from "./pages/Promotions";
-
-import "./styles/app.css"; // Chứa .main-content và .content-wrapper
+import Breadcrumb from "./components/Breadcrumb"; 
+import AccessoriesPage from "./pages/AccessoriesPage";
+import "./styles/App.css"; 
 
 const App = () => {
   return (
     <Router>
-      <Sidebar />
-      <div className="main-content">
-        <Navbar />
-        <div className="content-wrapper">
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/products" element={<Products />} />
-            <Route path="/categories" element={<Categories />} />
-            <Route path="/orders" element={<Orders />} />
-            <Route path="/promotions" element={<Promotions />} />
-          </Routes>
-        </div>
+      <Navbar />
+      <BreadcrumbWrapper /> {/* Thêm breadcrumb ở đây */}
+      <div className="content">
+        <Routes>
+          <Route path="/" element={<Navigate to="/accessories" />} />
+          <Route path="/accessories" element={<AccessoriesPage />} />
+        </Routes>
       </div>
     </Router>
   );
+};
+
+// Hàm kiểm tra route để hiển thị breadcrumb
+const BreadcrumbWrapper = () => {
+  const location = useLocation();
+  
+  // Chỉ hiển thị breadcrumb khi đang ở trang Accessories
+  return location.pathname === "/accessories" ? <Breadcrumb /> : null;
 };
 
 export default App;

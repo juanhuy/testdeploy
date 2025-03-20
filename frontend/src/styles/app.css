@@ -1,13 +1,45 @@
+.app-container {
+  display: flex;
+  justify-content: center; /* Căn giữa toàn bộ nội dung */
+  align-items: flex-start;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* Wrapper chứa cả sidebar và content */
 .main-content {
-    margin-left: 250px; /* Phải trùng với width của sidebar */
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .content-wrapper {
-    flex: 1;
-    padding: 10px;
-    background-color: #f9f9f9;
-  }
-  
+  display: flex;
+  width: 90%;
+  max-width: 1400px; /* Điều chỉnh để căn giữa */
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  min-height: 100vh;
+  background-color: #fff;
+  padding: 20px;
+  border-right: 1px solid #ddd;
+  flex-shrink: 0; /* Đảm bảo không bị co lại */
+}
+
+/* Phần nội dung chính */
+.content {
+  flex: 1;
+  padding: 20px;
+  min-height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center; /* Căn giữa nội dung */
+  width: 100%;
+}
+
+/* Product Container */
+.product-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  width: 100%;
+  max-width: 1200px; /* Giới hạn chiều rộng */
+  margin: 0 auto; /* Căn giữa product list */
+}

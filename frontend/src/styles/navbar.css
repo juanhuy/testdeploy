@@ -1,20 +1,67 @@
 .navbar {
-  display: flex;
-  align-items: center;
-  justify-content: center; /* Căn giữa logo */
-  padding: 10px 20px;
-  background-color: #fff;
-  height: 80px !important; /* Điều chỉnh chiều cao navbar */
-}
-
-.navbar-logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%; /* Đảm bảo logo nằm chính giữa */
-}
-
-.logo-img {
-  height: 80px !important; 
-  width: 150px !important; 
-}
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .navbar-menu {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .nav-item:hover {
+    color: gray;
+  }
+  
+  .navbar-logo {
+    height: 30px; 
+  }
+  
+  
+  .navbar-icons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .icon {
+    cursor: pointer;
+  }
+  
+  .icon-badge {
+    position: relative;
+  }
+  
+  .badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: black;
+    color: white;
+    font-size: 10px;
+    padding: 2px 5px;
+    border-radius: 50%;
+  }
+  
+  .currency-selector {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .cart-total {
+    font-weight: bold;
+    font-size: 14px;
+  }
+  
