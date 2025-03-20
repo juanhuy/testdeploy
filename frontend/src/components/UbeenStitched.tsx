@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/Navbar.css';
+import '../styles/UbeenStitched.css';
 
 const YouBeenStitched: React.FC = () => {
   return (

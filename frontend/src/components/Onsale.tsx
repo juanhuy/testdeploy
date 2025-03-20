@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/Navbar.css';
+import '../styles/Onsale.css';
 
 const OnSale: React.FC = () => {
   type Category = {
