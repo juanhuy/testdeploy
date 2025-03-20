@@ -1,6 +1,6 @@
 
 import "../styles/navigator.css";
-
+import React from 'react';
 function Navigator() {
   return (
     <header>

@@ -1,4 +1,5 @@
-import "../styles/salepagetitle.css"
+import "../styles/salepagetitle.css";
+import React from 'react';
 function SalePageTitle() {
     return (<div className="banner">
         <h2 className="title">SALE</h2>

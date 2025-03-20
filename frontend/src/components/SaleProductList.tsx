@@ -1,5 +1,6 @@
 import "../styles/global.css"
 import "../styles/saleproductlist.css"
+import React from 'react';
 import ProductCards from "./ProductCards";
 import Pagination from "./Pagination";
 function SaleProductList() {

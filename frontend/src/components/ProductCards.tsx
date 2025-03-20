@@ -1,6 +1,6 @@
 import "../styles/productcard.css";
 import "../styles/global.css";
-
+import React from 'react';
 // export type Product ={
 //     product_name: string;
 //     product_image1: string;

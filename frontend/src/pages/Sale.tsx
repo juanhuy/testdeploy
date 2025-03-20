@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/global.css"
+import "../styles/global.css";
 import Navigator from "../components/Navigator";
 import SalePageTitle from "../components/SalePageTitle";
 import SaleProductList from "../components/SaleProductList";

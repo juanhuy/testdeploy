@@ -1,7 +1,7 @@
 import '../styles/bestseller.css'
 import  "../components/ProductCards"
 import ProductCards from "./ProductCards";
-
+import React from 'react';
 
 function BestSeller() {
     return (<div className="bestseller">
