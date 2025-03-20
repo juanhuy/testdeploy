@@ -2,7 +2,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import "./styles/Navbar.css";
+import "./styles/Bikinis.css";
+import "./styles/Footer.css";
+import "./styles/Onsale.css";
+import "./styles/UbeenStitched.css";
+
 
 const rootElement = document.getElementById("container");
 
