@@ -1,12 +1,20 @@
-import { AppDataSource } from "./config/datasource";
+import express from "express";
+import dotenv from "dotenv";
+import {AppDataSource} from "./config/datasource";
+import productRoutes from "./routes/productRoutes";
+dotenv.config();
 
-(async () => {
-  try {
-    await AppDataSource.initialize();
-    console.log("Database connected successfully!");
+const app = express();
+const PORT = process.env.PORT || 3001;
 
-    // Chay ung dung tai day  (vd: khoi dong server, xu ly API, v.v.)
-  } catch (error) {
-    console.error("Error during database initialization", error);
-  }
-})();
+app.use(express.json());
+app.use("/api/products", productRoutes);
+
+AppDataSource.initialize()
+    .then(() => {
+      console.log("Database connected successfully");
+      app.listen(PORT, () => {
+        console.log(`Server running at http://localhost:${PORT}`);
+      });
+    })
+    .catch((error) => console.log("Database connection error:", error));
