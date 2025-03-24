@@ -1,7 +1,6 @@
 
 import React, { useState } from "react";
-import "../styles/Sidebar.css";
-
+import "../styles/sidebar.css";
 const Sidebar = () => {
   const [openCategories, setOpenCategories] = useState<{ [key: string]: boolean }>({});
   const [price, setPrice] = useState<number>(150); // Chỉ dùng 1 giá trị
@@ -101,19 +100,4 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
-
-
-// function Sidebar() {
-//     return (<div className="sidebar">
-//         <h3>MY ACCOUNT</h3>
-//         <div className="link">
-//             <a href="#">Orders</a>
-//             <a href="#">Addresses</a>
-//             <a href="#">Account detail</a>
-//             <a href="#">Logout</a>
-//         </div>
-//     </div>)
-// }
-
-// export default Sidebar
 

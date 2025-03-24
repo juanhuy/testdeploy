@@ -1,21 +1,21 @@
 import React from "react";
 import Sidebar from "../components/Sidebar";
-import ProductList from "../components/ProductList";
+import Clothing from "../components/Clothing";
 import Breadcrumb from "../components/Breadcrumb";
 import "../styles/AccessoriesPage.css"; 
 
-const AccessoriesPage = () => {
+const ClothingPage = () => {
   return (
     <main className="accessories-page">
-      <Breadcrumb title="Accessories" />
+      <Breadcrumb title="Clothing" />
       <div className="content-container">
         <Sidebar /> {/* Sidebar bên trái */}
         <div className="product-container">
-          <ProductList />
+          <Clothing/>
         </div>
       </div>
     </main>
   );
 };
 
-export default AccessoriesPage;
+export default ClothingPage;

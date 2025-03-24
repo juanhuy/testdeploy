@@ -1,25 +1,15 @@
 
 import React from 'react';
-import OnSale from '../components/Onsale';
+import OnSale from '../components/OnSale';
 import UbeenStitched from '../components/UbeenStitched';
-import Footer from '../components/Footer';
-import Bikinis from '../components/Bikinis';
-import "../styles/global.css"
-import Navigator from "../components/Navigator";
 import Slide from "../components/Slide";
-import BestSeller from "../components/BestSeller";
-
+import "../styles/global.css";
 const Home: React.FC = () => {
   return (
     <div>
+      <Slide/>
       <OnSale/>
       <UbeenStitched/> 
-      <Footer/> 
-      <Bikinis/>
-
-      <Navigator/>
-        <Slide/>
-        <BestSeller/>
     </div>
   );
 };

@@ -1,12 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import "./styles/Bikinis.css";
-import "./styles/Footer.css";
-import "./styles/Onsale.css";
-import "./styles/UbeenStitched.css";
-import "./styles/Navbar.css";
-
+import './styles/global.css';
 const rootElement = document.getElementById("container");
 if (rootElement) {
   ReactDOM.createRoot(rootElement).render(

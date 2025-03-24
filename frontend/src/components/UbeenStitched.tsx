@@ -30,5 +30,4 @@ const YouBeenStitched: React.FC = () => {
           </div></>
   );
 };
-
 export default YouBeenStitched;

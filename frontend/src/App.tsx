@@ -2,49 +2,31 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Breadcrumb from "./components/Breadcrumb"; 
 import AccessoriesPage from "./pages/AccessoriesPage";
 import "./styles/App.css"; 
 import Home from './pages/Home';
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min";
-import Order from "./pages/Order";
-// import Sale from "./pages/Sale";
-// Hàm kiểm tra route để hiển thị breadcrumb
-const BreadcrumbWrapper = () => {
-  const location = useLocation();
-  
-  // Chỉ hiển thị breadcrumb khi đang ở trang Accessories
-  return location.pathname === "/accessories" ? <Breadcrumb /> : null;
-};
+import Sale from './pages/Sale';
+import Footer from "./components/Footer";
+import Swimwear from "./pages/Swimwear";
+import ClothingPage from "./pages/ClothingPage";
+import MyAccount from "./pages/MyAccount";
 const App = () => {
   return (
     <Router>
       <Navbar />
-      <BreadcrumbWrapper /> {/* Thêm breadcrumb ở đây */}
-      <div className="content">
-        <Routes>
-          <Route path="/" element={<Navigate to="/accessories" />} />
-          <Route path="/accessories" element={<AccessoriesPage />} />
-          <Route path="/order" element={<Order />} />
-          {/* <Route path="/sale" element={<Sale />} /> */}
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/" element = {<Home />} />
+        <Route path="/clothing" element = {<ClothingPage />} />
+        <Route path="/swimwear" element = {<Swimwear />} />
+        <Route path="/accessories" element = {<AccessoriesPage />} />
+        <Route path="/sale" element = {<Sale />} />
+        <Route path="/myaccount/*" element = {<MyAccount />} />
+      </Routes>
+      <Footer />
     </Router>
   );
 };
 
-// function App() {
-
-//   return (
-//     <div>
-//       {/*<Home/>*/}
-//       {/*  <Sale/>*/}
-//       <Order />
-//       </div>
-//     );
-//   };
-  
 
 
 export default App;
