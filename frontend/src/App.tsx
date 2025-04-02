@@ -10,6 +10,8 @@ import Footer from "./components/Footer";
 import Swimwear from "./pages/Swimwear";
 import ClothingPage from "./pages/ClothingPage";
 import MyAccount from "./pages/MyAccount";
+import ItemPage from "./pages/ItemPage";
+
 const App = () => {
   return (
     <Router>
@@ -20,7 +22,8 @@ const App = () => {
         <Route path="/swimwear" element = {<Swimwear />} />
         <Route path="/accessories" element = {<AccessoriesPage />} />
         <Route path="/sale" element = {<Sale />} />
-        <Route path="/myaccount/*" element = {<MyAccount />} />
+        <Route path="/myaccount/" element = {<MyAccount />} />
+        <Route path="/item/*" element = {<ItemPage />} />
       </Routes>
       <Footer />
     </Router>
