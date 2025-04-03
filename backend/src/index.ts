@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import {AppDataSource} from "./config/datasource";
 import productRoutes from "./routes/productRoutes";
+import userRoutes from "./routes/userRoutes";
 dotenv.config();
 
 const app = express();
@@ -9,6 +10,7 @@ const PORT = process.env.PORT || 3001;
 
 app.use(express.json());
 app.use("/api/products", productRoutes);
+app.use("/api/users", userRoutes);
 
 AppDataSource.initialize()
     .then(() => {

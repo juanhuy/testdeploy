@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
-import { Product_item } from "./Product_item";
+import { ProductItem } from "./ProductItem";
 
 @Entity()
 export class Size {
@@ -9,6 +9,6 @@ export class Size {
   @Column()
   name!: string;
 
-  @OneToMany(() => Product_item, (productItem) => productItem.size)
-  productItems!: Product_item[]; // Mối quan hệ một-nhiều với ProductItem.
+  @OneToMany(() => ProductItem, (productItem) => productItem.size)
+  productItems!: ProductItem[]; // Mối quan hệ một-nhiều với ProductItem.
 }
