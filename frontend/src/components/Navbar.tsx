@@ -51,7 +51,7 @@ function Navbar() {
         <li><Link to="/myaccount">My account</Link></li>
           <li><a href="#">Search</a></li>
           <li><a href="#">My Wishlist</a></li>
-          <li><a href="#">Shipping cart</a></li>
+          <li><Link to="/shoppingcart">Shopping Cart</Link></li>
         </ul>
       </nav>
     </header>
