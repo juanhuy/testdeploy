@@ -10,12 +10,13 @@ import Footer from "./components/Footer";
 import Swimwear from "./pages/Swimwear";
 import ClothingPage from "./pages/ClothingPage";
 import MyAccount from "./pages/MyAccount";
-<<<<<<< HEAD
+
+
 import ItemPage from "./pages/ItemPage";
 
-=======
+
 import Shopping_Cart from "./pages/Shopping_Cart";
->>>>>>> origin/tran_accessories
+
 const App = () => {
   return (
     <Router>
@@ -26,13 +27,13 @@ const App = () => {
         <Route path="/swimwear" element = {<Swimwear />} />
         <Route path="/accessories" element = {<AccessoriesPage />} />
         <Route path="/sale" element = {<Sale />} />
-<<<<<<< HEAD
+
         <Route path="/myaccount/" element = {<MyAccount />} />
         <Route path="/item/*" element = {<ItemPage />} />
-=======
+
         <Route path="/myaccount/*" element = {<MyAccount />} />
         <Route path="/shoppingcart/*" element = {<Shopping_Cart />} />
->>>>>>> origin/tran_accessories
+
       </Routes>
       <Footer />
     </Router>
