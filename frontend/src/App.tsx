@@ -10,6 +10,7 @@ import Footer from "./components/Footer";
 import Swimwear from "./pages/Swimwear";
 import ClothingPage from "./pages/ClothingPage";
 import MyAccount from "./pages/MyAccount";
+import Shopping_Cart from "./pages/Shopping_Cart";
 const App = () => {
   return (
     <Router>
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/accessories" element = {<AccessoriesPage />} />
         <Route path="/sale" element = {<Sale />} />
         <Route path="/myaccount/*" element = {<MyAccount />} />
+        <Route path="/shoppingcart/*" element = {<Shopping_Cart />} />
       </Routes>
       <Footer />
     </Router>
