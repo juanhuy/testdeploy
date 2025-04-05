@@ -4,7 +4,7 @@ header{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 30px 10%;
+    padding: 10px 2%;
 }
 
 .nav_link{
@@ -13,7 +13,7 @@ header{
 
 .nav_link li{
     display: inline-block;
-    padding: 0 40px;
+    padding: 0 20px;
     text-decoration: none;
 }
 
@@ -25,6 +25,9 @@ header{
     text-decoration: none;
     color: black;
     font-weight: bold;
+}
+.navbar-logo {
+    height: 60px; /* Giảm chiều cao logo */
 }
 
 .nav_link.left .drop-down > li {

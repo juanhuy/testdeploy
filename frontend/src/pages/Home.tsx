@@ -1,23 +1,20 @@
-import "../styles/global.css"
-import Navigator from "../components/Navigator";
-import Slide from "../components/Slide";
-import BestSeller from "../components/BestSeller";
-
 
 import React from 'react';
-// import CustomNavbar from '../components/Navbar';
-
-
+import OnSale from '../components/OnSale';
+import UbeenStitched from '../components/UbeenStitched';
+import Slide from "../components/Slide";
+import "../styles/global.css";
+import ProductItem from '../components/ProductItem';
 const Home: React.FC = () => {
   return (
     <div>
-      <Navigator/>
-        <Slide/>
-        <BestSeller/>
+      <Slide/>
+      <OnSale/>
+      <UbeenStitched/>
+      <ProductItem/> 
     </div>
   );
 };
-
 
 export default Home;
 

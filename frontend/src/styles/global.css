@@ -5,8 +5,8 @@
     box-sizing: border-box;
 }
 
-li, a, p{
+  /* li, a, p { */
     /*font-family: "Cabin", Arial, Helvetica, sans-serif;*/
     /*font-size: 14px;*/
     /*color: black;*/
-}
+  /*}*/
