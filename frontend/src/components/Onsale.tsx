@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/Onsale.css';
+import { link } from 'fs';
 
 const OnSale: React.FC = () => {
   type Category = {
@@ -55,12 +57,20 @@ const OnSale: React.FC = () => {
   const renderProducts = (category: keyof Categories) => {
     return categories[category].map((product, index) => (
       <div key={index} className="product">
-        <img src={product.img} alt={product.name} />
+        <Link
+          to={`/product/${product.name.toLowerCase().replace(/\s+/g, '-')}`}
+          className="product-image-link"
+        >
+          <img src={product.img} alt={product.name} />
+        </Link>
         <p className="product-name">{product.name}</p>
-        <p className="product-price">{product.price} <span className="old-price">{product.oldPrice}</span></p>
+        <p className="product-price">
+          {product.price} <span className="old-price">{product.oldPrice}</span>
+        </p>
       </div>
     ));
   };
+
 
   return (
     <div className="home-container">

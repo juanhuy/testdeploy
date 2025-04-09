@@ -16,6 +16,7 @@ import ItemPage from "./pages/ItemPage";
 
 
 import Shopping_Cart from "./pages/Shopping_Cart";
+import OnSale from "./components/OnSale";
 
 const App = () => {
   return (
@@ -34,6 +35,8 @@ const App = () => {
         <Route path="/myaccount/*" element = {<MyAccount />} />
         <Route path="/shoppingcart/*" element = {<Shopping_Cart />} />
 
+        <Route path="/" element={<OnSale />} />
+        <Route path="/product/:productName" element={<ItemPage />} />
       </Routes>
       <Footer />
     </Router>

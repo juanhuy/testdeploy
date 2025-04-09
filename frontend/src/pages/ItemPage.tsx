@@ -5,7 +5,7 @@ import '../styles/ProductItem.css';
 
 const ItemPage: React.FC = () => {
   return (
-    <div >
+    <div>
       <ProductItem />
       <Footer />
     </div>
