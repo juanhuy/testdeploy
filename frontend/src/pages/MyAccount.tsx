@@ -7,7 +7,7 @@ import AccountDetails from "../components/AccountDetail";
 import "../styles/MyAccount.css"; // Import CSS để tạo bố cục
 import Breadcrumb from "../components/Breadcrumb";
 import LoginSection from "./LoginSection";
-
+import RegisterForm from "./RegisterForm";
 const MyAccount = () => {
   return (
     <div className="my-account">
@@ -22,6 +22,7 @@ const MyAccount = () => {
             <Route path="address" element={<Address />} />
             <Route path="details" element={<AccountDetails />} />
             <Route path="logout" element={<LoginSection />} />
+            <Route path="register" element={<RegisterForm />} />
           </Routes>
         </div>
       </div>

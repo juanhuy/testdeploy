@@ -16,6 +16,7 @@ import ItemPage from "./pages/ItemPage";
 
 
 import Shopping_Cart from "./pages/Shopping_Cart";
+import React from "react";
 
 const App = () => {
   return (

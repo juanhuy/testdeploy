@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../styles/RegisterForm.css';  // Ensure the correct path to your CSS file
 import { Link } from 'react-router-dom';
-const RegisterSection: React.FC = () => {
+const RegisterForm: React.FC = () => {
   // Local state for handling form inputs
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -78,7 +78,7 @@ const RegisterSection: React.FC = () => {
             required 
             placeholder="Confirm your password" 
           />
-           <p>If you have an account, <Link to="/login">login here</Link></p>
+           <p>If you have an account, <Link to="/myaccount/logout">login here</Link></p>
         </div>
 
         {/* Register Button */}
@@ -88,4 +88,4 @@ const RegisterSection: React.FC = () => {
   );
 };
 
-export default RegisterSection;
+export default RegisterForm;
