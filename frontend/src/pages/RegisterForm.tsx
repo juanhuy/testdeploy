@@ -78,7 +78,7 @@ const RegisterForm: React.FC = () => {
             required 
             placeholder="Confirm your password" 
           />
-           <p>If you have an account, <Link to="/myaccount/logout">login here</Link></p>
+           <p>If you have an account, <Link to="/login">login here</Link></p>
         </div>
 
         {/* Register Button */}

@@ -64,7 +64,7 @@ const LoginSection: React.FC = () => {
         <button type="submit" className="login-btn">LOGIN</button>
         
         {/* Link đến trang đăng ký */}
-        <p style={{ color: 'black' }}>If you don't have an account, <Link to="/myaccount/register">register here</Link></p>
+        <p style={{ color: 'black' }}>If you don't have an account, <Link to="/logout">register here</Link></p>
       </form>
     </div>
   );

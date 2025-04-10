@@ -1,0 +1,114 @@
+/* Định dạng tổng thể của Dashboard */
+.dashboard-container {
+    padding: 40px;
+    background-color: #fff;
+    color: #000;
+    min-height: 100vh;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .dashboard-container h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 40px;
+  }
+  
+  /* Bộ lọc ngày tháng */
+  .filters {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .filters label {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  
+  /* Phần thống kê */
+  .dashboard-stats {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+  }
+  
+  .stat-box {
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    padding: 15px;
+    text-align: center;
+    border-radius: 8px;
+    color: #000;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  .stat-box h3 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+  }
+  
+  .stat-box p {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  /* Phần biểu đồ */
+  .dashboard-charts {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    min-height: 100px; 
+  }
+  
+  /* Phần To Do */
+  .todo-section {
+    margin-top: 40px;
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 300px; /* Giảm chiều rộng */
+  }
+  
+  .todo-section h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .todo-section h4 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+  }
+  
+  .todo-section ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .todo-section li {
+    background-color: #fff;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+  
+  .todo-section li a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .todo-section li span {
+    font-weight: bold;
+    color: #000;
+  }

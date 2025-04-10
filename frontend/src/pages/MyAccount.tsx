@@ -21,8 +21,6 @@ const MyAccount = () => {
             <Route path="orders" element={<OrderList />} />
             <Route path="address" element={<Address />} />
             <Route path="details" element={<AccountDetails />} />
-            <Route path="logout" element={<LoginSection />} />
-            <Route path="register" element={<RegisterForm />} />
           </Routes>
         </div>
       </div>

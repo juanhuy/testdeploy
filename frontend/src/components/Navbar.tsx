@@ -49,9 +49,9 @@ function Navbar() {
       <nav>
         <ul className="nav_link right">
         <li><Link to="/myaccount">My account</Link></li>
-          <li><a href="#">Search</a></li>
-          <li><a href="#">My Wishlist</a></li>
-          <li><Link to="/shoppingcart">Shopping Cart</Link></li>
+        <li><Link to="/shoppingcart">Shopping Cart</Link></li>
+        <li><Link to="/admin">Admin Page</Link></li>
+        <li><Link to="/login">Log In/Log Out</Link></li>
         </ul>
       </nav>
     </header>
