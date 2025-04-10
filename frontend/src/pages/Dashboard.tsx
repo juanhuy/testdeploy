@@ -71,17 +71,6 @@ const Dashboard = () => {
         </AreaChart>
       </div>
 
-      <div className="todo-section">
-        <h3>To Do</h3>
-        <h4>Orders To Approve</h4>
-        <ul>
-          {orders.map((order) => (
-            <li key={order.id}>
-              <a href="#">#{order.id}</a> placed at {order.date}, with total price of <span>{order.price}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
     </div>
   );
 };

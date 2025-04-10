@@ -12,20 +12,23 @@ import "../styles/adminpage.css";
 
 const AdminPage = () => {
   return (
-    <>
-      <Sidebar3 />
-        <div className="content-wrapper">
+    <div className="admin-container">
+      <div className="sidebar3">
+        <Sidebar3 />
+      </div>
+      <div className="content-wrapper">
         <Routes>
+          <Route index element={<Dashboard />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="products" element={<Products />} />
           <Route path="categories" element={<Categories />} />
           <Route path="orders" element={<Orders />} />
           <Route path="promotions" element={<Promotions />} />
         </Routes>
-
-        </div>
-    </>
+      </div>
+    </div>
   );
 };
+
 
 export default AdminPage;
