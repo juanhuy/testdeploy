@@ -7,7 +7,6 @@ const ItemPage: React.FC = () => {
   return (
     <div>
       <ProductItem />
-      <Footer />
     </div>
   );
 };
