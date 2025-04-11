@@ -4,9 +4,7 @@ import "../styles/Sidebar2.css";
 
 const Sidebar2 = () => {
   return (
-    <div className="sidebar">
-      <h3>MY ACCOUNT</h3>
-      <hr />
+    <div className="sidebar2">
       <ul>
         <li>
           <Link to="/myaccount/orders">Orders</Link>

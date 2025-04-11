@@ -5,7 +5,7 @@ import "../styles/Sidebar3.css"; // Đảm bảo import CSS đúng
 
 const Sidebar = () => {
   return (
-    <div className="sidebar"> {/* Đảm bảo có class này */}
+    <div className="sidebar3"> {/* Đảm bảo có class này */}
       <h2 className="text-xl font-bold mb-4">Admin Panel</h2>
       <nav>
         <ul>

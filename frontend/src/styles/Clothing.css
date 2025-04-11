@@ -1,4 +1,4 @@
-/* src/styles/Clothing.css */
+src/styles/Clothing.css
 .clothing-container {
     padding: 20px;
   }
@@ -22,3 +22,10 @@
     border-radius: 8px;
   }
   
+  .clothing-page {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    align-items: center; /* Căn giữa toàn bộ nội dung theo chiều ngang */
+  }
+

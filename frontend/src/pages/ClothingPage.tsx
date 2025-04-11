@@ -6,7 +6,7 @@ import "../styles/AccessoriesPage.css";
 
 const ClothingPage = () => {
   return (
-    <main className="accessories-page">
+    <main className="clothing-page">
       <Breadcrumb title="Clothing" />
       <div className="content-container">
         <Sidebar /> {/* Sidebar bên trái */}

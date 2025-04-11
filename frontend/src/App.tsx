@@ -3,7 +3,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import AccessoriesPage from "./pages/AccessoriesPage";
-import "./styles/App.css"; 
+import "./styles/app.css"; 
 import Home from './pages/Home';
 import Sale from './pages/Sale';
 import Footer from "./components/Footer";
@@ -24,6 +24,7 @@ import AdminPage from "./pages/AdminPage";
 const App = () => {
   return (
     <Router>
+      <div className="app-container">
       <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -41,6 +42,7 @@ const App = () => {
           <Route path="/admin/*" element={<AdminPage />} />
         </Routes>
       <Footer />
+      </div>
     </Router>
 
   );
