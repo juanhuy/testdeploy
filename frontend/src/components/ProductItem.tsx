@@ -426,29 +426,7 @@ const ProductItem: React.FC = () => {
       </div>
 
       {renderTabContent()}
-
-      {/* <div className="related-products">
-        <h2>Related products</h2>
-        <div className="related-products-grid">
-          {currentRelatedProducts.map((item, index) => (
-            <div key={index} className="related-product-item">
-              <img src={item.img} alt={item.name} />
-              <p>{item.name}</p>
-              <p className="price">{typeof item.price === 'number' ? item.price.toFixed(2) : parseFloat(item.price).toFixed(2)}$</p>
-            </div>
-          ))}
-        </div>
-        <div className="pagination-dots">
-          {Array.from({ length: totalPages }).map((_, index) => (
-            <span
-              key={index}
-              className={`dot ${relatedPage === index ? 'active' : ''}`}
-              onClick={() => setRelatedPage(index)}
-            ></span>
-          ))}
-        </div>
-      </div> */}
-      
+     
     </div>
   );
 };

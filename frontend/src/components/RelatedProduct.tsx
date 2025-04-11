@@ -122,6 +122,40 @@ const relatedProductsData: Product[] = [
         size: 'S, M',
       },
     },
+    {
+        name: 'Rouge Love Kobe Tee - Blue Tie Dye',
+        img: 'https://stitched-lb.com/wp-content/uploads/2025/03/26771_BLUETIEDYE_16.webp',
+        price: 150.00,
+        description: 'A stylish tee with a blue tie-dye pattern, perfect for casual wear.',
+        color: 'Blue',
+        sizes: ['S', 'M'],
+        images: [
+          'https://stitched-lb.com/wp-content/uploads/2025/03/26771_BLUETIEDYE_16.webp',
+        ],
+        categories: ['Clothing', 'Tops'],
+        additionalInfo: {
+          weight: '0.3 kg',
+          color: 'Blue',
+          size: 'S, M',
+        },
+      },
+      {
+        name: 'Denim Star Tie Dye Oversized Tank Top',
+        img: 'https://stitched-lb.com/wp-content/uploads/2025/03/star-1.webp',
+        price: 175.00,
+        description: 'An oversized tank top with a denim star design, perfect for summer.',
+        color: 'Blue',
+        sizes: ['M', 'L'],
+        images: [
+          'https://stitched-lb.com/wp-content/uploads/2025/03/star-1.webp',
+        ],
+        categories: ['Clothing', 'Tops'],
+        additionalInfo: {
+          weight: '0.3 kg',
+          color: 'Blue',
+          size: 'M, L',
+        },
+      },
 
     // Add more related products as needed
   ];
