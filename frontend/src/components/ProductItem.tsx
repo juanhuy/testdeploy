@@ -265,18 +265,8 @@ const ProductItem: React.FC = () => {
   const [currentImage, setCurrentImage] = useState(0);
   const [relatedPage, setRelatedPage] = useState(0);
   const [activeTab, setActiveTab] = useState('description');
-
-  const relatedProducts: { name: string; img: string; price: string | number }[] = [
-    { name: 'Gem Pants', img: 'https://stitched-lb.com/wp-content/uploads/2025/03/GEM-PANT.webp', price: '190.00 $' },
-    { name: 'Riri Maxi Dress', img: 'https://stitched-lb.com/wp-content/uploads/2025/03/GREEN-DRESS.webp', price: '315.00 $' },
-    { name: 'Denim Star Tie Dye Boyfriend Longsleeve Tee - Cream', img: 'https://stitched-lb.com/wp-content/uploads/2025/03/26795C_CREAM_15.webp', price: '195.00 $' },
-    { name: 'Rouge Love Kobe Tee - Blue Tie Dye', img: 'https://stitched-lb.com/wp-content/uploads/2025/03/26771_BLUETIEDYE_16.webp', price: '150.00 $' },
-    { name: 'Denim Star Tie Dye Oversized Tank Top', img: 'https://stitched-lb.com/wp-content/uploads/2025/03/star-1.webp', price: '175.00 $' },
-    { name: 'HANNAH CARDIGAN', img: 'https://stitched-lb.com/wp-content/uploads/2024/10/0-1.jpg', price: '50.00 $' },
-    { name: 'Elixir Maxi Skirt', img: 'https://stitched-lb.com/wp-content/uploads/2024/09/elixir-maxi-skirt-816890.webp', price: '245.00 $' },
-    { name: 'FRINGE HALTER NECK TOP – SKIRT', img: 'https://stitched-lb.com/wp-content/uploads/2024/08/ezgif-2-89d1729a61.jpg', price: '1,350.00 $' },
-  ];
-
+  const relatedProducts: Product[] = [];
+  
   const itemsPerPage = 4;
   const totalPages = Math.ceil(relatedProducts.length / itemsPerPage);
   const currentRelatedProducts = relatedProducts.slice(
@@ -437,7 +427,7 @@ const ProductItem: React.FC = () => {
 
       {renderTabContent()}
 
-      <div className="related-products">
+      {/* <div className="related-products">
         <h2>Related products</h2>
         <div className="related-products-grid">
           {currentRelatedProducts.map((item, index) => (
@@ -457,7 +447,8 @@ const ProductItem: React.FC = () => {
             ></span>
           ))}
         </div>
-      </div>
+      </div> */}
+      
     </div>
   );
 };
