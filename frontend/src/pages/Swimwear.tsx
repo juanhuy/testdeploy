@@ -3,6 +3,7 @@ import Bikinis from '../components/Bikinis';
 import Breadcrumb from '../components/Breadcrumb';
 import Sidebar from '../components/Sidebar';
 import '../styles/Swimwear.css';
+import Pagination from '../components/Pagination';
 const Swimwear = () => {
     return (
         <main className="swimear-page">
@@ -12,6 +13,7 @@ const Swimwear = () => {
             <div className="product-container">
                 <Bikinis/>
             </div>
+                <Pagination />
         </div>
         </main>
 

@@ -35,9 +35,6 @@ function SaleProductList() {
                 ))}
             </div>
         </div>
-        <div className="pagination">
-            <Pagination/>
-        </div>
     </div>
     );
 }
