@@ -1,5 +1,5 @@
 import "../styles/Navbar.css";
-import React from 'react';
+// import React from 'react';
 import { Link } from "react-router-dom";
 
 function Navbar() {
@@ -12,32 +12,35 @@ function Navbar() {
             <li className="drop-down-menu">
               <Link to="/clothing">CLOTHING</Link>
               <ul className="drop-down">
-                <li>Blazers</li>
-                <li>Bodysuits</li>
-                <li>Bottoms</li>
-                <li>Coats & Jackets</li>
-                <li>Denim</li>
-                <li>Dresses</li>
-                <li>Jumpsuits</li>
-                <li>Knitwear</li>
-                <li>Loungewear</li>
-                <li>Shorts</li>
-                <li>Skirts</li>
-                <li>Tops</li>
+                <li><a href="#">Blazers</a></li>
+                <li><a href="#">Bodysuits</a></li>
+                <li><a href="#">Bottoms</a></li>
+                <li><a href="#">Coats & Jackets</a></li>
+                <li><a href="#">Denim</a></li>
+                <li><a href="#">Dresses</a></li>
+                <li><a href="#">Jumpsuits</a></li>
+                <li><a href="#">Knitwear</a></li>
+                <li><a href="#">Loungewear</a></li>
+                <li><a href="#">Shorts</a></li>
+                <li><a href="#">Skirts</a></li>
+                <li><a href="#">Tops</a></li>
+
               </ul>
             </li>
             <li className="drop-down-menu">
               <Link to="/swimwear">SWIMWEAR</Link>
               <ul className="drop-down">
-                <li>Bikinis</li>
-                <li>One piece</li>
+                <li><a href="#">Bikinis</a></li>
+                <li><a href="#">One piece</a></li>
+
               </ul>
             </li>
             <li className="drop-down-menu">
               <Link to="/accessories">ACCESSORIES</Link>
               <ul className="drop-down">
-                <li>Jewelry</li>
-                <li>Shoes and Beach Bags</li>
+                <li><a href="#">Jewelry</a></li>
+                <li><a href="#">Shoes and Beach Bags</a></li>
+
               </ul>
             </li>
             <li><Link to="/sale">SALE</Link></li>

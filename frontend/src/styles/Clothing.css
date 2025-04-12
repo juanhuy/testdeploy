@@ -85,6 +85,4 @@
 .pagination-container {
   display: flex;
   justify-content: center;
-  /* margin-top: auto;
-  padding-bottom: 40px; To add spacing above footer */
 }

@@ -1,5 +1,5 @@
 import "../styles/pagination.css"
-import React from 'react';
+// import React from 'react';
 function Pagination(){
     return (
         <div className="pagination">
