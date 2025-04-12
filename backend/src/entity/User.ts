@@ -8,6 +8,9 @@ export class User {
   id!: number;
 
   @Column()
+  keycloakId!: string;
+
+  @Column()
   username!: string;
 
   @Column()

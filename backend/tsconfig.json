@@ -7,9 +7,10 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
+    "rootDir": "./src",
     "outDir": "./dist"
   },
-  "include": ["./**/*.ts"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules"],
   "@config/*": ["src/config/*"],
   "@controllers/*": ["src/controllers/*"],
