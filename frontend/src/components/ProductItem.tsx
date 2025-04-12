@@ -252,6 +252,9 @@ const ProductItem: React.FC = () => {
   const { productName } = useParams<{ productName: string }>();
   console.log('Product Name from URL:', productName);
 
+  // Combine products from both arrays to ensure all products are searchable
+  const allProducts = [...products];
+
   const product = products.find(
     (p) => p.name.toLowerCase().replace(/\s+/g, '-') === productName
   );
@@ -266,6 +269,8 @@ const ProductItem: React.FC = () => {
   const [relatedPage, setRelatedPage] = useState(0);
   const [activeTab, setActiveTab] = useState('description');
   const relatedProducts: Product[] = [];
+
+  
   
   const itemsPerPage = 4;
   const totalPages = Math.ceil(relatedProducts.length / itemsPerPage);
