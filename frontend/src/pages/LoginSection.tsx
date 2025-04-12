@@ -1,17 +1,27 @@
 // src/components/LoginSection.tsx
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';  // Import Link từ React Router
+import { Link, useNavigate } from 'react-router-dom';  // Import Link từ React Router
 import '../styles/LoginSection.css';
+import RegisterForm from './RegisterForm';
 
 const LoginSection: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-
+  const navigate = useNavigate();
+  
   const handleLogin = () => {
-    // Xử lý đăng nhập tại đây
-    console.log('Username:', username);
-    console.log('Password:', password);
+    // Giả lập logic đăng nhập
+    if (username === 'admin' && password === 'admin123') {
+      console.log('Đăng nhập với quyền admin');
+      navigate('/admin/dashboard');
+    } else if (username === 'user' && password === 'user123') {
+      console.log('Đăng nhập với quyền user');
+      navigate('/');
+    } else {
+      alert('Sai tên đăng nhập hoặc mật khẩu');
+    }
   };
+
 
   return (
     <div className="login-section">
@@ -54,7 +64,7 @@ const LoginSection: React.FC = () => {
         <button type="submit" className="login-btn">LOGIN</button>
         
         {/* Link đến trang đăng ký */}
-        <p style={{ color: 'black' }}>If you don't have an account, <Link to="/register">register here</Link></p>
+        <p style={{ color: 'black' }}>If you don't have an account, <Link to="/logout">register here</Link></p>
       </form>
     </div>
   );

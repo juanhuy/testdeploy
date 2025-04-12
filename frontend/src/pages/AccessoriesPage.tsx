@@ -3,6 +3,7 @@ import Sidebar from "../components/Sidebar";
 import ProductList from "../components/ProductList";
 import Breadcrumb from "../components/Breadcrumb";
 import "../styles/AccessoriesPage.css"; 
+import Pagination from "../components/Pagination";
 
 const AccessoriesPage = () => {
   return (
@@ -13,6 +14,7 @@ const AccessoriesPage = () => {
         <div className="product-container">
           <ProductList />
         </div>
+          <Pagination/>
       </div>
     </main>
   );

@@ -2,7 +2,6 @@
 import React from "react";
 import "../styles/Clothing.css"; // Import CSS
 import ProductCard from "./ProductCard";
-import Pagination from "./Pagination";
 
 // Định nghĩa kiểu dữ liệu cho sản phẩm
 type Product = { name: string; img: string; price: number;};
@@ -18,6 +17,8 @@ const products: Product[] = [
   
 ];
 
+//Số sản phẩm mỗi trang
+const PRODUCTS_PER_PAGE = 4;
 const Clothing: React.FC = () => {
   return (
     <div>
@@ -34,9 +35,6 @@ const Clothing: React.FC = () => {
             <ProductCard key={index} product={product} />
           ))}
         </div>
-      </div>
-      <div className="pagination">
-        <Pagination />
       </div>
     </div>
   );

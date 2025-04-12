@@ -39,9 +39,6 @@ type Product = { name: string; img: string; price: number;};
                       ))}
                   </div>
               </div>
-              <div className="pagination">
-                  <Pagination/>
-              </div>
           </div>
       );
   }

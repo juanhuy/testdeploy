@@ -2,7 +2,7 @@
 import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import Navbar from "./components/Navbar";
 import AccessoriesPage from "./pages/AccessoriesPage";
-import "./styles/App.css"; 
+import "./styles/app.css"; 
 import Home from './pages/Home';
 import Sale from './pages/Sale';
 import Footer from "./components/Footer";
@@ -15,29 +15,27 @@ import LoginSection from "./pages/LoginSection";
 import RegisterForm from "./pages/RegisterForm";
 
 const App = () => {
-  return (
-      <Router>
-          <Navbar/>
-          <Routes>
-              <Route path="/" element={<Home/>}/>
-              <Route path="/clothing" element={<ClothingPage/>}/>
-              <Route path="/swimwear" element={<Swimwear/>}/>
-              <Route path="/accessories" element={<AccessoriesPage/>}/>
-              <Route path="/sale" element={<Sale/>}/>
+    return (
+        <Router>
+            <Navbar/>
+            <Routes>
+                <Route path="/" element={<Home/>}/>
+                <Route path="/clothing" element={<ClothingPage/>}/>
+                <Route path="/swimwear" element={<Swimwear/>}/>
+                <Route path="/accessories" element={<AccessoriesPage/>}/>
+                <Route path="/sale" element={<Sale/>}/>
 
-              <Route path="/myaccount/" element={<MyAccount/>}/>
-              <Route path="/item/*" element={<ItemPage/>}/>
+                <Route path="/myaccount/" element={<MyAccount/>}/>
+                <Route path="/item/*" element={<ItemPage/>}/>
 
-              <Route path="/myaccount/*" element={<MyAccount/>}/>
-              <Route path="/shoppingcart/*" element={<Shopping_Cart/>}/>
-              <Route path="/login" element={<LoginSection/>}/>
-              <Route path="/signup" element={<RegisterForm/>}/>
-          </Routes>
-          <Footer/>
-      </Router>
-  );
+                <Route path="/myaccount/*" element={<MyAccount/>}/>
+                <Route path="/shoppingcart/*" element={<Shopping_Cart/>}/>
+                <Route path="/login" element={<LoginSection/>}/>
+                <Route path="/signup" element={<RegisterForm/>}/>
+            </Routes>
+            <Footer/>
+        </Router>)
 };
-
 
 
 export default App;
