@@ -47,13 +47,13 @@
   font-weight: bold;
 }
 
-.pagination-container {
+/* .pagination-container {
   display: flex;
   justify-content: center;
   margin-top: 20px;
-}
+} */
 
-.pagination button {
+/* .pagination button {
   background-color: #007bff;
   color: white;
   border: none;
@@ -71,4 +71,4 @@
 
 .pagination button:hover:not(:disabled) {
   background-color: #0056b3;
-}
+} */

@@ -65,6 +65,26 @@
   padding: 0;
 }
 
-.pagination-container {
+/* Hiển thị sidebar và nội dung bên phải theo hàng ngang */
+.content-container {
+  display: flex;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  gap: 24px;
+}
 
+/* Bên phải gồm clothing + pagination */
+.right-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Pagination canh giữa */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  /* margin-top: auto;
+  padding-bottom: 40px; To add spacing above footer */
 }

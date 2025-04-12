@@ -17,6 +17,8 @@ const products: Product[] = [
   
 ];
 
+//Số sản phẩm mỗi trang
+const PRODUCTS_PER_PAGE = 4;
 const Clothing: React.FC = () => {
   return (
     <div>
