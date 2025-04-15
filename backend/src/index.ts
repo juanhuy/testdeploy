@@ -1,9 +1,13 @@
+
 import express from "express";
 import dotenv from "dotenv";
 import {AppDataSource} from "./config/datasource";
 import productRoutes from "./routes/productRoutes";
 import userRoutes from "./routes/userRoutes";
 dotenv.config();
+
+import './server';
+
 
 const app = express();
 const PORT = process.env.PORT || 3001;

@@ -1,4 +1,4 @@
-// src/services/ProductPromotionService.ts
+
 import { Repository } from "typeorm";
 import { Product_promotion } from "../entity/Product_promotion";
 import { AppDataSource } from "../config/datasource";

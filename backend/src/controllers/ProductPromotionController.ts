@@ -1,4 +1,4 @@
-// src/controllers/ProductPromotionController.ts
+
 import { Request, Response } from "express";
 import { ProductPromotionService } from "../services/ProductPromotionService";
 

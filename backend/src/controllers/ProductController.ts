@@ -51,4 +51,6 @@ export class ProductController {
             res.status(500).json({ message: "Error deleting product", error });
         }
     }
+
 }
+

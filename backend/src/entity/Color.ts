@@ -14,4 +14,6 @@ export class Color {
 
   @OneToMany(() => ProductItem, (productItem) => productItem.color)
   productItems!: ProductItem[]; // Mối quan hệ một-nhiều với ProductItem.
+
 }
+

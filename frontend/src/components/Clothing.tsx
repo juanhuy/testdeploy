@@ -2,6 +2,7 @@
 import React from "react";
 import "../styles/Clothing.css"; // Import CSS
 import ProductCard from "./ProductCard";
+import Pagination from "./Pagination";
 
 // Định nghĩa kiểu dữ liệu cho sản phẩm
 type Product = { name: string; img: string; price: number;};
@@ -36,6 +37,15 @@ const Clothing: React.FC = () => {
           ))}
         </div>
       </div>
+
+      <div className="pagination">
+        <Pagination 
+          currentPage={1} 
+          totalPages={10} 
+          onPageChange={(page) => console.log(`Page changed to: ${page}`)} 
+        />
+      </div>
+
     </div>
   );
 };

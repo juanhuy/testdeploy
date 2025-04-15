@@ -1,4 +1,4 @@
-// src/services/PaymentService.ts
+
 import { Repository } from "typeorm";
 import { Payment } from "../entity/Payment";
 import { AppDataSource } from "../config/datasource";

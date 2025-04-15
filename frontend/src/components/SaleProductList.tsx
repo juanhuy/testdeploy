@@ -35,6 +35,15 @@ function SaleProductList() {
                 ))}
             </div>
         </div>
+
+        <div className="pagination">
+            <Pagination 
+                currentPage={1} 
+                totalPages={10} 
+                onPageChange={(page) => console.log(`Page changed to: ${page}`)} 
+            />
+        </div>
+
     </div>
     );
 }

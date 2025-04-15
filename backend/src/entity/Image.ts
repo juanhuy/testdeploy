@@ -11,4 +11,6 @@ export class Image {
 
   @OneToMany(() => ProductItem, (productItem) => productItem.image)
   productItems!: ProductItem[];
+
 }
+

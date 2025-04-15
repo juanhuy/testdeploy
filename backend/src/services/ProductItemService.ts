@@ -1,6 +1,8 @@
 import { Repository } from "typeorm";
 import { ProductItem } from "../entity/ProductItem";
+
 import { Product } from "../entity/Product";
+
 import { Size } from "../entity/Size";
 import { Color } from "../entity/Color";
 import { Image } from "../entity/Image";
@@ -38,4 +40,6 @@ export class ProductItemService {
         const result = await this.productItemRepository.delete(id);
         return result.affected !== 0;
     }
+
 }
+

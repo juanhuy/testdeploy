@@ -1,4 +1,4 @@
-// src/controllers/PaymentController.ts
+
 import { Request, Response } from "express";
 import { PaymentService } from "../services/PaymentService";
 
