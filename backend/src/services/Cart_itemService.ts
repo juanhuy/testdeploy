@@ -1,18 +1,18 @@
 import { Repository } from "typeorm";
 import { Cart_item } from "../entity/Cart_item";
 import { Cart } from "../entity/Cart";
-import { Product_item } from "../entity/ProductItem";
+import { ProductItem } from "../entity/ProductItem";
 import { AppDataSource } from "../config/datasource";
 
 export class CartItemService {
     private cartItemRepository: Repository<Cart_item>;
     private cartRepository: Repository<Cart>;
-    private productItemRepository: Repository<Product_item>;
+    private productItemRepository: Repository<ProductItem>;
 
     constructor() {
         this.cartItemRepository = AppDataSource.getRepository(Cart_item);
         this.cartRepository = AppDataSource.getRepository(Cart);
-        this.productItemRepository = AppDataSource.getRepository(Product_item);
+        this.productItemRepository = AppDataSource.getRepository(ProductItem);
     }
 
     async getAllCartItems(): Promise<Cart_item[]> {

@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
-import { Product_item as ProductItem } from "./ProductItem";
+import { ProductItem } from "./ProductItem";
 
 @Entity()
 export class Image {

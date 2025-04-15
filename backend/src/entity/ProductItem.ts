@@ -6,7 +6,7 @@ import { Color } from "./Color";
 import { Cart_item } from "./Cart_item"; 
 
 @Entity()
-export class Product_item {
+export class ProductItem {
   @PrimaryGeneratedColumn()
   id!: number;
 

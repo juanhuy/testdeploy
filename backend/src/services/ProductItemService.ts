@@ -1,5 +1,5 @@
 import { Repository } from "typeorm";
-import { Product_item } from "../entity/ProductItem";
+import { ProductItem } from "../entity/ProductItem";
 import { Product} from "../entity/Product";
 import { Size } from "../entity/Size";
 import { Color } from "../entity/Color";
@@ -7,18 +7,18 @@ import { Image } from "../entity/Image";
 import { AppDataSource } from "../config/datasource";
 
 export class ProductItemService {
-    private productItemRepository: Repository<Product_item>;
+    private productItemRepository: Repository<ProductItem>;
     private productRepository: Repository<Product>;
     constructor() {
-        this.productItemRepository = AppDataSource.getRepository(Product_item);
+        this.productItemRepository = AppDataSource.getRepository(ProductItem);
         this.productRepository = AppDataSource.getRepository(Product);
     }
 
-    async getAllProductItems(): Promise<Product_item[]> {
+    async getAllProductItems(): Promise<ProductItem[]> {
         return this.productItemRepository.find({ relations: ["product", "size", "color", "image"] });
     }
 
-    async createProductItem(data: Partial<Product_item>): Promise<Product_item> {
+    async createProductItem(data: Partial<ProductItem>): Promise<ProductItem> {
         const product = await this.productRepository.findOne({ where: { id: data.product?.id } });
         if (!product) throw new Error("Product not found");
 
