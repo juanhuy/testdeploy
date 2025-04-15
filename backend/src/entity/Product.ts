@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne, JoinColumn } from "typeorm";
-import { Product_item } from "./ProductItem";
+import { ProductItem } from "./ProductItem";
 import { Category } from "./Category";
 @Entity()
 export class Product {
@@ -15,8 +15,8 @@ export class Product {
   @Column({ type: "decimal", precision: 3, scale: 2 })
   all_rate!: number;
 
-  @OneToMany(() => Product_item, (productItem) => productItem.product)
-  productItems!: Product_item[]; 
+  @OneToMany(() => ProductItem, (productItem) => productItem.product)
+  productItems!: ProductItem[];
 
   @ManyToOne(() => Category, (category) => category.products, {
     onDelete: "CASCADE", // Nếu danh mục bị xóa, sản phẩm liên quan cũng bị xóa.
