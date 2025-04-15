@@ -16,7 +16,7 @@ export class Product {
   all_rate!: number;
 
   @OneToMany(() => ProductItem, (productItem) => productItem.product)
-  productItems!: ProductItem[];
+  productItems!: ProductItem[]; 
 
   @ManyToOne(() => Category, (category) => category.products, {
     onDelete: "CASCADE", // Nếu danh mục bị xóa, sản phẩm liên quan cũng bị xóa.
