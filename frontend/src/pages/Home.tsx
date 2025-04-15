@@ -1,6 +1,6 @@
 
 import React from 'react';
-import OnSale from '../components/OnSale';
+import OnSale from '../components/Onsale';
 import UbeenStitched from '../components/UbeenStitched';
 import Slide from "../components/Slide";
 import "../styles/global.css";

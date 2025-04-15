@@ -1,4 +1,5 @@
 import { AppDataSource } from "./config/datasource";
+import './server';
 
 (async () => {
   try {

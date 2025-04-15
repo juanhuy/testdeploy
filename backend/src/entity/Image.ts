@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
-import { Product_item } from "./Product_item";
+import { Product_item as ProductItem } from "./ProductItem";
 
 @Entity()
 export class Image {
@@ -9,6 +9,6 @@ export class Image {
   @Column()
   image_url!: string;
 
-  @OneToMany(() => Product_item, (productItem) => productItem.image)
-  productItems!: Product_item[]; 
+  @OneToMany(() => ProductItem, (productItem) => productItem.image)
+  productItems!: ProductItem[];
 }

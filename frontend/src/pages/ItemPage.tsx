@@ -8,7 +8,7 @@ const ItemPage: React.FC = () => {
   return (
     <div>
       <ProductItem />
-      <RelatedProduct />
+      <RelatedProduct excludeName="exampleName" />
     </div>
   );
 };

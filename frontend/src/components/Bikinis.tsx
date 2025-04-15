@@ -1,41 +1,74 @@
+import React, { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import "../styles/Bikinis.css";
+import "../styles/global.css";
+import ProductCard from "./ProductCard";
+import Pagination from "./Pagination";
 
-import React from 'react';
-import '../styles/Bikinis.css';
-import ProductCard from './ProductCard';
-import Pagination from './Pagination';
-type Product = { name: string; img: string; price: number;};
+type Product = {
+  name: string;
+  img: string;
+  price: number;
+};
 
-const bikinis: Product[] = [
-    { name: 'ALTIA BIKINI', img: 'https://stitched-lb.com/wp-content/uploads/2023/07/641dd35dbafb9-533x800.jpg', price: 245.00},
-    { name: 'CARO BIKINI', img: 'https://stitched-lb.com/wp-content/uploads/2023/07/641dd486d70f5-533x800.jpg', price: 245.00},
-    { name: 'Corriente Maxi Skirt', img: 'https://stitched-lb.com/wp-content/uploads/2023/07/641dd35dbafb9-533x800.jpg', price: 250.00},
-    { name: 'ETIA BIKINI', img: 'https://stitched-lb.com/wp-content/uploads/2023/07/641dd35dbafb9-533x800.jpg', price: 210.00},
-    { name: 'INANI BIKINI', img: 'https://stitched-lb.com/wp-content/uploads/2023/07/641dd486d70f5-533x800.jpg', price: 210.00},
-    { name: 'Isla One Piece', img: 'https://stitched-lb.com/wp-content/uploads/2023/07/641dd486d70f5-533x800.jpg', price: 215.00 },
-  ]
+type SortOption = "popularity" | "price-low" | "price-high";
 
-  const Bikinis: React.FC = () => {
-    return (
-      <div className="shop-container">
-        <div className="order-by">
-          <select id="sort">
-            <option value="popularity">Sort by Popularity</option>
-            <option value="price-low">Price: Low to High</option>
-            <option value="price-high">Price: High to Low</option>
-          </select>
-        </div>
-        <div className="product-list">
+const fetchBikinis = async (sort: SortOption, page: number, limit: number): Promise<{ products: Product[]; total: number }> => {
+  const sortParam = sort === "price-low" ? "price-asc" : sort === "price-high" ? "price-desc" : "popularity";
+  const response = await fetch(`/api/products?category=swimwear&sort=${sortParam}&page=${page}&limit=${limit}`);
+  if (!response.ok) throw new Error("Failed to fetch bikinis");
+  return response.json();
+};
+
+const Bikinis: React.FC = () => {
+  const [sort, setSort] = useState<SortOption>("popularity");
+  const [page, setPage] = useState(1);
+  const limit = 6; // Matches original number of items displayed
+
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["bikinis", sort, page],
+    queryFn: () => fetchBikinis(sort, page, limit),
+  });
+
+  const products = data?.products || [];
+  const totalPages = Math.ceil((data?.total || 0) / limit);
+
+  const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSort(e.target.value as SortOption);
+    setPage(1); // Reset to first page on sort change
+  };
+
+  return (
+    <div className="shop-container">
+      <div className="order-by">
+        <select id="sort" value={sort} onChange={handleSortChange}>
+          <option value="popularity">Sort by Popularity</option>
+          <option value="price-low">Price: Low to High</option>
+          <option value="price-high">Price: High to Low</option>
+        </select>
+      </div>
+      <div className="product-list">
+        {isLoading ? (
+          <div>Loading bikinis...</div>
+        ) : error ? (
+          <div>Error loading bikinis</div>
+        ) : (
           <div className="product-grid">
-            {bikinis.map((product) => (
-              <ProductCard key={product.name} product={product} />
+            {products.map((product: Product, index: number) => (
+              <ProductCard key={index} product={product} />
             ))}
           </div>
-        </div>
-        <div className="pagination">
-          <Pagination />
-        </div>
+        )}
       </div>
-    );
-  };
+      <div className="pagination">
+        <Pagination
+          currentPage={page}
+          totalPages={totalPages}
+          onPageChange={setPage}
+        />
+      </div>
+    </div>
+  );
+};
 
 export default Bikinis;

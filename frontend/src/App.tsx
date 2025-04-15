@@ -16,30 +16,35 @@ import ItemPage from "./pages/ItemPage";
 
 
 import Shopping_Cart from "./pages/Shopping_Cart";
-import OnSale from "./components/OnSale";
+import OnSale from "./components/Onsale";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 const App = () => {
   return (
-    <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/" element = {<Home />} />
-        <Route path="/clothing" element = {<ClothingPage />} />
-        <Route path="/swimwear" element = {<Swimwear />} />
-        <Route path="/accessories" element = {<AccessoriesPage />} />
-        <Route path="/sale" element = {<Sale />} />
+    <QueryClientProvider client={queryClient}>
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/" element = {<Home />} />
+          <Route path="/clothing" element = {<ClothingPage />} />
+          <Route path="/swimwear" element = {<Swimwear />} />
+          <Route path="/accessories" element = {<AccessoriesPage />} />
+          <Route path="/sale" element = {<Sale />} />
 
-        <Route path="/myaccount/" element = {<MyAccount />} />
-        <Route path="/item/*" element = {<ItemPage />} />
+          <Route path="/myaccount/" element = {<MyAccount />} />
+          <Route path="/item/*" element = {<ItemPage />} />
 
-        <Route path="/myaccount/*" element = {<MyAccount />} />
-        <Route path="/shoppingcart/*" element = {<Shopping_Cart />} />
+          <Route path="/myaccount/*" element = {<MyAccount />} />
+          <Route path="/shoppingcart/*" element = {<Shopping_Cart />} />
 
-        <Route path="/" element={<OnSale />} />
-        <Route path="/product/:productName" element={<ItemPage />} />
-      </Routes>
-      <Footer />
-    </Router>
+          <Route path="/" element={<OnSale />} />
+          <Route path="/product/:productName" element={<ItemPage />} />
+        </Routes>
+        <Footer />
+      </Router>
+    </QueryClientProvider>
   );
 };
 

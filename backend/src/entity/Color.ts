@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
-import { Product_item } from "./Product_item";
+import { Product_item } from "../entity/ProductItem"; // Adjusted the path to match the correct location.
 
 @Entity()
 export class Color {
@@ -13,5 +13,5 @@ export class Color {
   color_code!: string; // Mã màu (ví dụ: #FFFFFF).
 
   @OneToMany(() => Product_item, (productItem) => productItem.color)
-  productItems!: Product_item[]; // Mối quan hệ một-nhiều với ProductItem.
+  productItems!: Product_item[]; // Mối quan hệ một-nhiều với Product_item.
 }
