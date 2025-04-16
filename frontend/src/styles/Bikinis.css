@@ -1,0 +1,70 @@
+/* Bikinis.css */
+
+
+.product{
+  transition: transform 0.3s ease-in-out;
+}
+.order-by {
+  display: flex;
+  justify-content: flex-end;
+  margin: 20px;
+}
+
+.order-by select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.product-card {
+
+  padding: 15px;
+ 
+  text-align: center;
+}
+
+.product-card img {
+  width: 100%;
+  height: auto;
+ 
+}
+
+.product-card h3 {
+  margin: 10px 0;
+  font-size: 16px;
+  min-height: 24px; /* Đảm bảo tên sản phẩm cùng chiều cao */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-card p {
+  font-size: 14px;
+  color: #555;
+  font-weight: bold;
+  min-height: 20px; /* Đảm bảo giá hiển thị đều nhau */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product:hover {
+  transform: scale(1.05);
+ 
+}
