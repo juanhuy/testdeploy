@@ -24,7 +24,7 @@ export interface RelatedProductsResponse {
   total: number;
 }
 
-const API_BASE_URL = "http://localhost:3000/api/products"; // Thay đổi URL nếu cần
+const API_BASE_URL = "http://localhost:5000/api/products"; // Thay đổi URL nếu cần
 
 // Lấy danh sách tất cả sản phẩm
 export const fetchAllProducts = async (): Promise<Product[]> => {

@@ -261,15 +261,7 @@ const ProductItem: React.FC = () => {
   }
 
   if (error || !product) {
-    return (
-      <div className="product-not-found">
-        <h2>Product not found</h2>
-        <p>We couldn't find the product you're looking for.</p>
-        <Link to="/" className="back-to-home">
-          Go back to Home
-        </Link>
-      </div>
-    );
+    return null;
   }
 
   const renderTabContent = useMemo(() => {

@@ -1,46 +1,87 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
 import "../styles/Onsale.css";
 import ProductCard from "./ProductCard";
-import { fetchProductsByCategory, Product } from "../../api/products";
+import { fetchProducts, fetchProductsByCategory, Product } from "../api/products";
 
 type Categories = "clothing" | "swimwear" | "accessories";
 
 const OnSale: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<Categories>("clothing");
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const { data: products = [], isLoading, error } = useQuery({
-    queryKey: ["onSaleProducts", selectedCategory],
-    queryFn: () => fetchProductsByCategory(selectedCategory, true),
-  });
+  useEffect(() => {
+    const loadProducts = async () => {
+      try {
+        setLoading(true);
+        const data = await fetchProducts();
+        setProducts(data);
+        setError(null);
+      } catch (err) {
+        setError('Error loading products');
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const handleCategoryChange = (category: Categories) => {
+    loadProducts();
+  }, []);
+
+  const handleCategoryChange = async (category: Categories) => {
     setSelectedCategory(category);
+    try {
+      setLoading(true);
+      // Chuyển đổi category string thành category ID tương ứng
+      const categoryId = getCategoryId(category);
+      const data = await fetchProductsByCategory(categoryId);
+      setProducts(data);
+      setError(null);
+    } catch (err) {
+      setError('Error loading products by category');
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Hàm helper để chuyển đổi category string thành ID
+  const getCategoryId = (category: Categories): number => {
+    switch (category) {
+      case "clothing":
+        return 1;
+      case "swimwear":
+        return 2;
+      case "accessories":
+        return 3;
+      default:
+        return 1;
+    }
   };
 
   const renderProducts = () => {
-    if (isLoading) return <div>Loading products...</div>;
-    if (error) return <div>Error loading products: {(error as Error).message}</div>;
+    if (loading) return <div>Loading products...</div>;
+    if (error) return <div>Error loading products: {error}</div>;
     if (!Array.isArray(products) || products.length === 0) return <div>No products available.</div>;
 
     return products.map((product) => (
       <Link
-        key={product.Id}
-        to={`/product/${product.Id}`}
+        key={product.id}
+        to={`/product/${product.id}`}
         className="product-card-link"
       >
         <div className="product">
-          <ProductCard product={{
-            name: product.Name,
-            img: product.Img,
-            price: product.Price
-          }} />
+          <ProductCard 
+            product={{
+              name: product.name,
+              img: product.productItems[0]?.image?.image_url || '/placeholder.jpg',
+              price: parseFloat(product.productItems[0]?.price || '0')
+            }} 
+          />
           <p className="product-price">
-            {product.Price.toFixed(2)} $
-            {product.AdditionalInfo?.oldPrice && (
-              <span className="old-price">{product.AdditionalInfo.oldPrice.toFixed(2)} $</span>
-            )}
+            {parseFloat(product.productItems[0]?.price || '0').toFixed(2)} $
           </p>
         </div>
       </Link>

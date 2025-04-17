@@ -1,5 +1,6 @@
 import { DataSource } from "typeorm";
 import dotenv from "dotenv";
+import express from "express";
 
 dotenv.config();
 
@@ -19,5 +20,13 @@ export const AppDataSource = new DataSource({
 });
 
 AppDataSource.initialize()
-  .then(() => console.log("Database Connected!"))
+  .then(() => {
+    console.log("Database Connected!");
+    const app = express();
+    const port = Number(process.env.PORT) || 5000; // Default to 5000 if undefined
+    app.listen(port, () => {
+      console.log(`Server is running on port ${port}`);
+    });
+  })
   .catch((err) => console.error("Database Connection Error:", err));
+
