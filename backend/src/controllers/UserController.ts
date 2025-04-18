@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { AppDataSource } from "../config/datasource";
+// import { AppDataSource } from "../config/datasource";
 import {UserService} from "../services/UserService";
-import { User } from "../entity/User";
-import bcrypt from "bcrypt";
-const userRepository = AppDataSource.getRepository(User);
+// import { User } from "../entity/User";
+import qs from 'qs';
+// const userRepository = AppDataSource.getRepository(User);
 const userService = new UserService();
 
 export class UserController {
@@ -56,13 +56,208 @@ export class UserController {
         }
     }
 
-
     static async createUser(req: Request, res: Response) {
         try {
-            const user = await userService.createUser(req.body);
-            res.status(201).json(user);
+            const user = req.body;
+            const {username, password, email, phone} = req.body;
+            const tokenResponse = await fetch(
+                'http://localhost:8080/realms/ecommserse/protocol/openid-connect/token',
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: qs.stringify({
+                        grant_type: 'password',
+                        client_id: "express-api",
+                        username: 'realmadmin',
+                        password: 'admin'
+                    }),
+                }
+            );
+            const accessToken = await tokenResponse.json();
+            const adminToken = accessToken['access_token'];
+            const userInfoResponse = await fetch(
+                'http://localhost:8080/admin/realms/ecommserse/users',
+                {
+                    method: 'POST',
+                    headers: {
+                        Authorization: `Bearer ${adminToken}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(
+                        {
+                            "username": username,
+                            "email": email,
+                            "enabled": true,
+                            "credentials": [
+                                {
+                                    "type": "password",
+                                    "value": password,
+                                    "temporary": false
+                                }
+                            ]
+                        }
+                    ),
+                }
+            );
+            const locationHeader = userInfoResponse.headers.get('Location');
+            const keycloakId = locationHeader?.split('/').pop();
+
+            // fetch client id here
+            const clientResponse = await fetch(
+                `http://localhost:8080/admin/realms/ecommserse/clients?clientId=express-api`,
+                {
+                    method: 'GET',
+                    headers: {
+                        Authorization: `Bearer ${adminToken}`,
+                        'Content-Type': 'application/json',
+                    },
+                }
+            );
+
+            const clients = await clientResponse.json();
+            const client = clients.find((c: any) => c.clientId === 'express-api');
+            if (!client) {
+                throw new Error('Client not found');
+            }
+            const clientId = client.id;
+
+            // fetch for user role
+            const rolesResponse = await fetch(
+                `http://localhost:8080/admin/realms/ecommserse/clients/${clientId}/roles`,
+                {
+                    method: 'GET',
+                    headers: {
+                        Authorization: `Bearer ${adminToken}`,
+                        'Content-Type': 'application/json',
+                    },
+                }
+            );
+            const roles = await rolesResponse.json();
+            const roleToAssign = roles.find((role: any) => role.name === 'user');
+            if (!roleToAssign) {
+                throw new Error('Role "user" not found for client express-api');
+            }
+            // assign role 'user' for new user
+            await fetch(
+                `http://localhost:8080/admin/realms/ecommserse/users/${keycloakId}/role-mappings/clients/${clientId}`,
+                {
+                    method: 'POST',
+                    headers: {
+                        Authorization: `Bearer ${adminToken}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify([
+                        {
+                            id: roleToAssign.id,
+                            name: roleToAssign.name,
+                        },
+                    ]),
+                }
+            );
+            user.keycloakId = keycloakId;
+            const saveUser = await userService.createUser(user);
+            res.status(201).json(saveUser);
         } catch (error) {
             res.status(500).json({ message: "Error creating user", error });
         }
     }
+
+    static async getCurrentUser(req: Request, res: Response) {
+        try {
+            if (!req.body) {
+                return res.status(400).json({ message: 'Request body is missing' });
+            }
+
+            const { username, password } = req.body;
+            if (!username || !password) {
+                res.status(400).json({ message: 'Missing username or password' });
+            }
+            else{
+                const user = await userService.getUserByCredentials(username, password);
+                if (!user) {
+                    res.status(401).json({ message: 'Invalid credentials' });
+                }
+                else{
+                    const keycloakId = user.keycloakId;
+                    if (!keycloakId) {
+                        res.status(404).json({ message: 'Keycloak ID not found for user' });
+                    }
+                    else{
+                        try {
+                            const tokenResponse = await fetch(
+                                'http://localhost:8080/realms/ecommserse/protocol/openid-connect/token',
+                                {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/x-www-form-urlencoded',
+                                    },
+                                    body: qs.stringify({
+                                        grant_type: 'password',
+                                        client_id: "express-api", // Assume client ID is set in env
+                                        // client_secret: process.env.KEYCLOAK_CLIENT_SECRET, // Assume client secret is set
+                                        username,
+                                        password,
+                                        scope: 'openid',
+                                    }),
+                                }
+                            );
+                            if (!tokenResponse.ok) {
+
+                                throw new Error(`Token endpoint responded with status: ${tokenResponse.status}`);
+                            }
+                            else{
+                                console.log(tokenResponse);
+                                const { access_token } = await tokenResponse.json();
+                                if (!access_token) {
+                                    res.status(401).json({ message: 'Failed to obtain access token' });
+                                }
+                                else{
+                                    const userInfoResponse = await fetch(
+                                        'http://localhost:8080/realms/ecommserse/protocol/openid-connect/userinfo',
+                                        {
+                                            method: 'GET',
+                                            headers: {
+                                                Authorization: `Bearer ${access_token}`,
+                                                'Content-Type': 'application/json',
+                                            },
+                                        }
+                                    );
+
+                                    if (!userInfoResponse.ok) {
+                                        return res.status(userInfoResponse.status).json({
+                                            message: `Failed to fetch userinfo: ${userInfoResponse.statusText}`,
+                                        });
+                                    }
+                                    else{
+                                        const userInfo = await userInfoResponse.json();
+                                        // res.status(200).json(userInfo);
+
+                                        const clientRoles = userInfo['client_role'] || [];
+                                        if (!clientRoles.length) {
+                                            res.status(403).json({ message: 'User does not have required roles' });
+                                        }
+                                        else{
+                                            res.json({
+                                                ...userInfo
+                                            });
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        catch (error) {
+                        console.log(error);
+                        }
+
+                    }
+                }
+            }
+        } catch (error) {
+            console.error('Error fetching user:', error);
+            return res.status(500).json({ message: 'Error fetching user', error });
+        }
+    }
+
 }

@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import {Request, Response} from 'express';
 import { ImageService } from "../services/ImageService";
 
 const imageService = new ImageService();
