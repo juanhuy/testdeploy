@@ -31,6 +31,10 @@
 .nav_link li {
   padding: 0 12px;
   margin: 15px;
+<<<<<<< HEAD
+=======
+  list-style-type: none;
+>>>>>>> master
 }
 
 .nav_link li > a {
@@ -38,6 +42,10 @@
   color: #333;
   font-weight: bold;
   display: block;
+<<<<<<< HEAD
+=======
+  list-style-type: none;
+>>>>>>> master
 }
 
 .nav_link li a:hover {

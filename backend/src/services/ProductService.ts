@@ -11,11 +11,41 @@ export class ProductService{
         this.categoryRepository = AppDataSource.getRepository(Category);
     }
     async getAllProducts(): Promise<Product[]> {
-        return await this.productRepository.find({relations:['category', 'productItems']})
+        return await this.productRepository.find({
+            relations: [
+                'category', 
+                'productItems',
+                'productItems.size',
+                'productItems.color',
+                'productItems.image'
+            ]
+        });
     }
 
     async getProductById(id: number): Promise<Product | null> {
-        return await this.productRepository.findOne({ where: { id } });
+        return await this.productRepository.findOne({ 
+            where: { id },
+            relations: [
+                'category', 
+                'productItems',
+                'productItems.size',
+                'productItems.color',
+                'productItems.image'
+            ]
+        });
+    }
+
+    async getProductsByCategory(categoryId: number): Promise<Product[]> {
+        return await this.productRepository.find({
+            where: { category: { id: categoryId } },
+            relations: [
+                'category', 
+                'productItems',
+                'productItems.size',
+                'productItems.color',
+                'productItems.image'
+            ]
+        });
     }
 
     async createProduct(productData: Partial<Product>): Promise<Product> {

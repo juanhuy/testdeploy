@@ -26,4 +26,5 @@ export class ImageService {
         const result = await this.imageRepository.delete(id);
         return result.affected !== 0;
     }
+
 }

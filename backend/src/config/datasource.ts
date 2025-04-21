@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export const AppDataSource = new DataSource({
-  type: process.env.DB_TYPE as any,
+  type: "mssql", 
   host: process.env.DB_HOST,
   port: Number(process.env.DB_PORT) || 1433,
   username: process.env.DB_USERNAME,
@@ -13,11 +13,11 @@ export const AppDataSource = new DataSource({
   synchronize: process.env.DB_SYNCHRONIZE === "true",
   logging: process.env.DB_LOGGING === "true",
   entities: ["src/entity/*.ts"],
-  options: {
-    encrypt: process.env.DB_ENCRYPT === "true",
+  extra: {
+    encrypt: process.env.DB_ENCRYPT === "true", 
   },
 });
 
 AppDataSource.initialize()
-  .then(() => console.log("Database Connected!"))
-  .catch((err) => console.error("Database Connection Error:", err));
+  .then(() => console.log("✅ Database Connected!"))
+  .catch((err) => console.error("❌ Database Connection Error:", err));

@@ -39,10 +39,15 @@
   }
   
   button {
+<<<<<<< HEAD
     width: 100%;
     padding: 12px;
     background-color: #000000;
     color: white;
+=======
+    margin-top:  10px; ;
+    padding: 12px;
+>>>>>>> master
     border: none;
     border-radius: 4px;
     font-size: 16px;

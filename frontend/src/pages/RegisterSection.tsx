@@ -1,35 +1,72 @@
 // src/components/RegisterSection.tsx
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import '../styles/RegisterSection.css'; 
+
+
+import '../styles/RegisterSection.css';
+
 
 const RegisterSection: React.FC = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
+
+  const [phone, setPhone] = useState('');
+
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleRegister = () => {
+
+  const handleRegister = async () => {
+
     if (password !== confirmPassword) {
       alert('Mật khẩu không khớp');
       return;
     }
 
-    // Giả lập đăng ký thành công
-    console.log('Đăng ký thành công:', { username, email });
-    alert('Đăng ký thành công!');
-    navigate('/login'); // Điều hướng sau đăng ký
+    try {
+      const res = await fetch('http://localhost:3001/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username,
+          password,
+          email,
+          phone,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        alert('Đăng ký thành công!');
+        navigate('/login');
+      } else {
+        alert(data.message || 'Đăng ký thất bại');
+      }
+    } catch (error) {
+      alert('Lỗi kết nối đến server');
+      console.error(error);
+    }
+
   };
 
   return (
     <div className="login-section">
       <h2>REGISTER</h2>
-      <p>
-        Create an account to track orders, save favorites, and more!
-      </p>
 
-      <form className="login-form" onSubmit={(e) => { e.preventDefault(); handleRegister(); }}>
+      <p>Create an account to track orders, save favorites, and more!</p>
+
+      <form
+        className="login-form"
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleRegister();
+        }}
+      >
+
         {/* Username */}
         <div className="input-group">
           <label htmlFor="reg-username">Username</label>
@@ -55,6 +92,21 @@ const RegisterSection: React.FC = () => {
             placeholder="Enter your email"
           />
         </div>
+
+
+        {/* Phone */}
+        <div className="input-group">
+          <label htmlFor="phone">Phone</label>
+          <input
+            type="text"
+            id="phone"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            required
+            placeholder="Enter your phone number"
+          />
+        </div>
+
 
         {/* Password */}
         <div className="input-group">
@@ -83,7 +135,11 @@ const RegisterSection: React.FC = () => {
         </div>
 
         {/* Submit */}
-        <button type="submit" className="login-btn">REGISTER</button>
+
+        <button type="submit" className="login-btn">
+          REGISTER
+        </button>
+
 
         {/* Link về login */}
         <p style={{ color: 'black' }}>

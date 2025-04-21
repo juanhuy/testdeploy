@@ -7,13 +7,13 @@ export class Order_item {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @ManyToOne(() => Order, order => order.id) 
-  @JoinColumn({ name: 'order_id' }) 
-  order_id!: number;
+  @ManyToOne(() => Order, order => order.id)
+  @JoinColumn({ name: 'order_id' })
+  order!: Order; // sửa lại nếu muốn truy cập order, không dùng order_id
 
-  @ManyToOne(() => ProductItem, product_item => product_item.id)
-  @JoinColumn({ name: 'product_item_id' }) 
-  product_item_id!: number;
+  @ManyToOne(() => ProductItem, productItem => productItem.orderItems)
+  @JoinColumn({ name: 'product_item_id' })
+  productItem!: ProductItem; // ✅ sửa từ product_item_id thành productItem
 
   @Column()
   quantity!: string;

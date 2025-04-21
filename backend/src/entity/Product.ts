@@ -1,6 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne, JoinColumn } from "typeorm";
 import { ProductItem } from "./ProductItem";
 import { Category } from "./Category";
+
 @Entity()
 export class Product {
   @PrimaryGeneratedColumn()
@@ -19,8 +20,11 @@ export class Product {
   productItems!: ProductItem[];
 
   @ManyToOne(() => Category, (category) => category.products, {
-    onDelete: "CASCADE", // Nếu danh mục bị xóa, sản phẩm liên quan cũng bị xóa.
+    onDelete: "CASCADE",
   })
   @JoinColumn({ name: "category_id" }) 
   category!: Category;
+
+  @Column() // ✅ Phần bị thiếu gây lỗi khi gọi relations
+  category_id!: number;
 }

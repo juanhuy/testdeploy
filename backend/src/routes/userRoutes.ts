@@ -2,6 +2,7 @@ import Router from "express";
 import {UserController} from "../controllers/UserController";
 
 
+/*<<<<<<< HEAD
 export default function UserRouter(keycloak: any) {
     const router = Router();
     router.get("/:id", keycloak.protect(), UserController.getUserById)
@@ -13,7 +14,7 @@ export default function UserRouter(keycloak: any) {
     router.post("/:id/address", keycloak.protect(), UserController.addUserAddress);
     return router;
 };
-
+*/
 // const router = Router();
 // router.get("/", UserController.getAllUsers);
 // router.get("/:id", UserController.getUserById);
@@ -22,3 +23,14 @@ export default function UserRouter(keycloak: any) {
 // router.delete("/:id/delete", UserController.deleteUser);
 // router.post("/:id/address", UserController.addUserAddress);
 // export default router;
+
+const router = Router();
+router.get("/", UserController.getAllUsers);
+router.get("/:id", UserController.getUserById);
+router.post("/create", UserController.createUser);
+router.put("/:id/update", UserController.updateUser);
+router.delete("/:id/delete", UserController.deleteUser);
+router.post("/:id/address", UserController.addUserAddress);
+
+export default router;
+
