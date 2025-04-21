@@ -1,0 +1,15 @@
+import React from "react";
+import "../styles/pagination.css"
+// import React from 'react';
+function Pagination(){
+    return (
+        <div className="pagination">
+                <a href="#">&laquo;</a>
+                <a href="#" className="active">1</a>
+                <a href="#">2</a>
+                <a href="#">&raquo;</a>
+        </div>
+    );
+}
+
+export default Pagination;

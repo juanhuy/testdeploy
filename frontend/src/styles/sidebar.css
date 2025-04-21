@@ -1,0 +1,219 @@
+/* Tổng thể sidebar */
+.sidebar {
+  width: 300px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-right: 1px solid #ffffff;
+  font-family: 14px Cabin, Arial, Helvetica, sans-serif;
+}
+
+.sidebar h3 {
+  font-size: 16px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #333;
+}
+
+.no-bullets {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+/* Danh mục chính */
+.category-header {
+  color: #333;
+  font: bold 14px Cabin, Arial, Helvetica, sans-serif;
+  padding: 8px 5px 8px 0;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.category-header:hover {
+  color: #000000;
+  font: bold 14px Cabin, Arial, Helvetica, sans-serif;
+}
+
+.subcategory-list {
+  padding-left: 15px;
+  margin-top: 5px;
+}
+
+.subcategory-list li {
+  padding: 4px 0;
+  padding-left: 10px; /* Thụt vào trong */
+  cursor: pointer;
+  color: #555;
+  font-size: 14px;
+}
+.subcategory-list li:hover {
+  text-decoration: underline;
+  font: bold 14px Cabin, Arial, Helvetica, sans-serif;
+}
+
+/* Price range */
+.price-range-container {
+  margin-top: 10px;
+}
+
+.price-slider {
+  width: 100%;
+}
+
+.price-label {
+  margin-top: 5px;
+  font-size: 14px;
+}
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 2px; /* thanh mỏng hơn */
+  background: #ffffff;
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+  border: none;
+}
+
+/* Track màu đã trượt */
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 2px;
+  background: #000; /* màu đen */
+  border-radius: 2px;
+}
+
+input[type="range"]::-moz-range-track {
+  height: 4px;
+  background: #000;
+  border-radius: 2px;
+}
+
+/* Thumb (nút kéo hình chữ nhật) */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 12px;
+  width: 6px;
+  background: #000;
+  border-radius: 2px; /* Bo nhẹ, đổi thành 0 nếu muốn vuông */
+  margin-top: -4px; /* Căn giữa với track */
+  cursor: pointer;
+  border: none;
+}
+
+input[type="range"]::-moz-range-thumb {
+  height: 12px;
+  width: 6px;
+  background: #000;
+  border-radius: 2px;
+  cursor: pointer;
+  border: none;
+}
+
+
+/* Nút lọc */
+.filter-btn {
+  margin-top: 15px;
+  width: 100%;
+  padding: 10px;
+  background-color: #000;
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.filter-btn:hover {
+  background-color: #444;
+}
+
+/* Color filter */
+.color-filter-container {
+  margin-top: 10px;
+}
+
+.color-filter li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px;
+  cursor: pointer;
+}
+
+
+
+/* Màu cụ thể */
+.color-box.blue { background-color: #94c8ff; }
+.color-box.dark-blue { background-color: #004080; }
+.color-box.fuschia { background-color: #18ff70; }
+.color-box.gold { background-color: #ffd700; }
+.color-box.green { background-color: #28a745; }
+.color-box.light-pink { background-color: #ffb6c1; }
+.color-box.red { background-color: #dc3545; }
+.color-box.brown { background-color: #8b4513; }
+.color-box.yellow { background-color: #ffc107; }
+.color-box.purple { background-color: #6f42c1; }
+
+/* Size filter */
+.size-filter {
+  margin-top: 10px;
+}
+
+.size-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.size-item:hover {
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font: bold 14px Cabin, Arial, Helvetica, sans-serif;
+}
+.sidebar ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+.ti-wrapper {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+ 
+  font-size: 12px;
+  color: #555;
+  
+}
+.section-divider {
+  border: none;
+  border-top: 1px solid #e0e0e0;
+  margin: 20px 0;
+}
+.color-box {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  margin-right: 10px;
+  border-radius: 50%; /* 👉 Hình tròn */
+  border: 1px solid #ccc;
+}
+.subcategory-wrapper {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.subcategory-list {
+  padding-left: 15px;
+  margin: 5px 0;
+}

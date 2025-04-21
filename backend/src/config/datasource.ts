@@ -1,0 +1,24 @@
+import { DataSource } from "typeorm";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+export const AppDataSource = new DataSource({
+  type: "mssql", // Hoặc: process.env.DB_TYPE as "mssql"
+  host: process.env.DB_HOST,
+  port: Number(process.env.DB_PORT) || 1433,
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  synchronize: process.env.DB_SYNCHRONIZE === "true",
+  logging: process.env.DB_LOGGING === "true",
+  entities: ["src/entity/*.ts"],
+  extra: {
+    encrypt: process.env.DB_ENCRYPT === "true", // 👈 fix tại đây
+  },
+});
+
+AppDataSource.initialize()
+  .then(() => console.log("✅ Database Connected!"))
+  .catch((err) => console.error("❌ Database Connection Error:", err));
+  synchronize: true

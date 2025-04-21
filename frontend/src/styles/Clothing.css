@@ -1,0 +1,103 @@
+/* Container tổng của trang quần áo */
+.clothing-container {
+  padding: 20px;
+}
+
+/* Dropdown sắp xếp */
+.order-by {
+  display: flex;
+  justify-content: flex-end;
+  margin: 20px;
+}
+
+.order-by select {
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+/* Vùng chứa danh sách sản phẩm */
+.product-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 100px;
+}
+
+/* Grid hiển thị sản phẩm */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+
+  max-width: 1200px;
+  width: 100%;
+}
+
+/* Card sản phẩm (áp dụng nếu ProductCard không có CSS riêng) */
+.product {
+  
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
+}
+
+.product:hover {
+  transform: translateY(-5px);
+}
+
+.product img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* Layout toàn trang nếu cần dùng */
+.clothing-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+}
+
+/* Hiển thị sidebar và nội dung bên phải theo hàng ngang */
+.content-container {
+  display: flex;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  gap: 24px;
+}
+
+/* Bên phải gồm clothing + pagination */
+.right-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Pagination canh giữa */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+}
+.product-card h3 {
+  margin: 10px 0;
+  font-size: 16px;
+  min-height: 24px; /* Đảm bảo tên sản phẩm cùng chiều cao */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-card p {
+  font-size: 14px;
+  color: #555;
+  font-weight: bold;
+  min-height: 20px; /* Đảm bảo giá hiển thị đều nhau */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
