@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../styles/Navbar.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   FaUser,
   FaShoppingCart,
@@ -16,11 +16,14 @@ type NavbarProps = {
 const Navbar: React.FC<NavbarProps> = ({ onCartClick }) => {
   const [showSearch, setShowSearch] = useState(false);
   const [searchText, setSearchText] = useState("");
+  const navigate = useNavigate(); // ✅ Điều hướng
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Tìm kiếm:", searchText);
-    // TODO: có thể dùng useNavigate để chuyển đến /search?q=...
+    if (searchText.trim()) {
+      navigate(`/search?q=${encodeURIComponent(searchText.trim())}`);
+      setShowSearch(false);
+    }
   };
 
   return (
@@ -73,7 +76,6 @@ const Navbar: React.FC<NavbarProps> = ({ onCartClick }) => {
         <nav className="nav-section right">
           <ul className="nav_link icon-links">
             <li><Link to="/myaccount" title="My Account"><FaUser /></Link></li>
-
             <li>
               <button
                 onClick={() => setShowSearch(prev => !prev)}
@@ -83,20 +85,18 @@ const Navbar: React.FC<NavbarProps> = ({ onCartClick }) => {
                 <FaSearch />
               </button>
             </li>
-
             <li>
               <button onClick={onCartClick} title="Shopping Cart" className="cart-button">
                 <FaShoppingCart />
               </button>
             </li>
-
             <li><Link to="/admin" title="Admin Page"><FaUserShield /></Link></li>
             <li><Link to="/login" title="Login"><FaSignInAlt /></Link></li>
           </ul>
         </nav>
       </div>
 
-      {/* 🔲 Overlay nền mờ */}
+      {/* Overlay nền mờ */}
       {showSearch && (
         <div
           className="search-overlay"
@@ -104,7 +104,7 @@ const Navbar: React.FC<NavbarProps> = ({ onCartClick }) => {
         ></div>
       )}
 
-      {/* 🔍 Popup tìm kiếm full màn hình, trượt từ dưới lên */}
+      {/* Popup tìm kiếm full màn hình */}
       <div className={`search-popup-container ${showSearch ? "show" : ""}`}>
         <button
           type="button"

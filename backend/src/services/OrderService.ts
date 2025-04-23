@@ -1,63 +1,75 @@
-
 import { Repository } from "typeorm";
 import { Order } from "../entity/Order";
-import { AppDataSource } from "../config/datasource";
-// Ensure the correct path to the OrderItem entity file
 import { Order_item } from "../entity/Order_item";
+import { AppDataSource } from "../config/datasource";
 
 export class OrderService {
-    private orderRepository: Repository<Order>;
-    private orderItemRepository: Repository<Order_item>;
+  private orderRepository: Repository<Order>;
+  private orderItemRepository: Repository<Order_item>;
 
-    constructor() {
-        this.orderRepository = AppDataSource.getRepository(Order);
-        this.orderItemRepository = AppDataSource.getRepository(Order_item);
-    }
+  constructor() {
+    this.orderRepository = AppDataSource.getRepository(Order);
+    this.orderItemRepository = AppDataSource.getRepository(Order_item);
+  }
 
-    // Lấy tất cả đơn hàng
-    async getAllOrders(): Promise<Order[]> {
-        return this.orderRepository.find({ relations: ["user", "shippingAddress", "shippingMethod", "orderStatus", "orderItems"] });
-    }
+  // Lấy tất cả đơn hàng
+  async getAllOrders(): Promise<Order[]> {
+    return this.orderRepository.find({
+      relations: [
+        "user",
+        "shippingAddress",
+        "shippingMethod",
+        "orderStatus",
+        "orderItems",
+      ],
+    });
+  }
 
-    // Lấy đơn hàng theo ID
-    async getOrderById(id: number): Promise<Order | null> {
-        return this.orderRepository.findOne({
-            where: { id },
-            relations: ["user", "shippingAddress", "shippingMethod", "orderStatus", "orderItems"],
-        });
-    }
+  // Lấy đơn hàng theo ID
+  async getOrderById(id: number): Promise<Order | null> {
+    return this.orderRepository.findOne({
+      where: { id },
+      relations: [
+        "user",
+        "shippingAddress",
+        "shippingMethod",
+        "orderStatus",
+        "orderItems",
+      ],
+    });
+  }
 
-    // Tạo đơn hàng mới
-    async createOrder(data: Partial<Order>): Promise<Order> {
-        const order = this.orderRepository.create(data);
-        return this.orderRepository.save(order);
-    }
+  // Tạo đơn hàng mới
+  async createOrder(data: Partial<Order>): Promise<Order> {
+    const order = this.orderRepository.create(data);
+    return this.orderRepository.save(order);
+  }
 
-    // Cập nhật thông tin đơn hàng
-    async updateOrder(id: number, data: Partial<Order>): Promise<Order | null> {
-        const order = await this.getOrderById(id);
-        if (!order) return null;
+  // Cập nhật thông tin đơn hàng
+  async updateOrder(id: number, data: Partial<Order>): Promise<Order | null> {
+    const order = await this.getOrderById(id);
+    if (!order) return null;
 
-        Object.assign(order, data);
-        return this.orderRepository.save(order);
-    }
+    Object.assign(order, data);
+    return this.orderRepository.save(order);
+  }
 
-    // Xóa đơn hàng
-    async deleteOrder(id: number): Promise<boolean> {
-        const result = await this.orderRepository.delete(id);
-        return result.affected !== 0;
-    }
+  // Xóa đơn hàng
+  async deleteOrder(id: number): Promise<boolean> {
+    const result = await this.orderRepository.delete(id);
+    return result.affected !== 0;
+  }
 
-    // Thêm chi tiết đơn hàng
-    /*async addOrderItem(orderId: number, orderItemData: Partial<Order_item>): Promise<Order_item> {
-        const order = await this.getOrderById(orderId);
-        if (!order) throw new Error("Order not found");
+  // Thêm chi tiết đơn hàng
+  async addOrderItem(orderId: number, orderItemData: Partial<Order_item>): Promise<Order_item> {
+    const order = await this.getOrderById(orderId);
+    if (!order) throw new Error("Order not found");
 
-        const orderItem = this.orderItemRepository.create({
-            ...orderItemData,
-            order,  // Gắn đơn hàng vào chi tiết
-        });
-        
-        return this.orderItemRepository.save(orderItem);
-    }*/
+    const orderItem = this.orderItemRepository.create({
+      ...orderItemData,
+      order, // Liên kết đơn hàng
+    });
+
+    return this.orderItemRepository.save(orderItem);
+  }
 }

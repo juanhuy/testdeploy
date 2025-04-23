@@ -46,10 +46,9 @@
   
   .footer-links ul li a:hover {
     text-decoration: underline;
-<<<<<<< HEAD
-=======
+
     color: #379E9E;
->>>>>>> master
+
   }
   
   .footer-bottom {
@@ -96,12 +95,11 @@
       width: 100%;
       text-align: center;
     }
-<<<<<<< HEAD
-=======
+
   }
   button{
     background-color: white;
     color: black;
     size: 18px;
->>>>>>> master
+
   }

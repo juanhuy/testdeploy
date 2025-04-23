@@ -14,7 +14,7 @@ interface LoginRequestBody {
   password: string;
 }
 
-// ✅ Đăng ký
+
 export const register = async (
   req: Request<{}, {}, RegisterRequestBody>,
   res: Response

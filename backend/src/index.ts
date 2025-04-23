@@ -19,14 +19,15 @@ import authRoutes from "./routes/authRoutes";
 
 import path from "path";
 
-// ✅ Thêm cors
+
 import cors from "cors";
+import orderRoutes from "./routes/orderRoutes";
 
 dotenv.config();
 const app = express();
 const PORT = 3001;
 
-// ✅ Cho phép tất cả domain gọi API (có thể chỉnh thành http://localhost:3000 nếu muốn giới hạn)
+
 app.use(cors({
     origin: "http://localhost:3000", // hoặc "*" nếu muốn cho tất cả
     credentials: true
@@ -77,6 +78,7 @@ app.use("/api/product-items", product_itemRoutes);
 app.use("/api/images", imageRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/orders", orderRoutes);
 app.use("/api/auth", authRoutes);
 
 // Serve static files from the uploads directory

@@ -3,7 +3,7 @@ import { User } from "../entity/User";
 import bcrypt from "bcrypt";
 
 export const AuthService = {
-  // ✅ Hàm đăng ký
+ 
   async register(username: string, password: string, email: string, phone: string) {
     const userRepo = AppDataSource.getRepository(User);
 

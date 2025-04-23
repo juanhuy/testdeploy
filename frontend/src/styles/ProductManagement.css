@@ -182,7 +182,7 @@
     background-color: #fff;
   }
   
-  /* ========== Popup chỉnh sửa ========== */
+  
   .form-popup {
     background: #ffffff;
     padding: 20px;
@@ -230,4 +230,6 @@
   .btn-add:hover {
     background-color: #388e3c;
   }
-  
+  .product-table-container .product-table td{
+    color:black
+  }

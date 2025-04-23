@@ -1,0 +1,57 @@
+/* src/pages/OrderManagement.css */
+.order-container {    
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    box-shadow: none;
+    min-height: 800px;
+  }
+  
+  .order-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 16px;
+  }
+  
+  .order-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+    table-layout: auto;
+    margin: 0;
+  }
+  
+  .order-table thead {
+    background-color: #ffffff;
+  }
+  
+  .order-table th {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 2px solid #ddd;
+  }
+  
+  .order-table td {
+    padding: 10px;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .order-button {
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    margin-right: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .btn-detail {
+    background-color: #2196f3;
+  }
+  
+  .btn-delete {
+    background-color: #f44336;
+  }
+  

@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/ProductManagement.css';
 
+type ProductItem = {
+  id: number;
+  price: number;
+  image: {
+    image_url: string;
+  };
+};
+
 type Product = {
   id: number;
   name: string;
-  price: number;
-  image: string;
-  category_id: number;
   description: string;
+  category_id: number;
+  productItems: ProductItem[];
 };
 
 type Category = {
@@ -21,7 +28,7 @@ const ProductManagement = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [showForm, setShowForm] = useState(false);
-  const [formData, setFormData] = useState<Omit<Product, 'id'>>({
+  const [formData, setFormData] = useState({
     name: '',
     price: 0,
     image: '',
@@ -80,8 +87,8 @@ const ProductManagement = () => {
     setEditingProduct(product);
     setFormData({
       name: product.name,
-      price: product.price,
-      image: product.image,
+      price: product.productItems?.[0]?.price || 0,
+      image: product.productItems?.[0]?.image?.image_url || '',
       category_id: product.category_id,
       description: product.description || '',
     });
@@ -213,8 +220,8 @@ const ProductManagement = () => {
                   <td style={{ textAlign: 'center' }}>{index + 1}</td>
                   <td>{p.name || 'Không có tên'}</td>
                   <td>
-                    {typeof p.price === 'number'
-                      ? `${p.price.toLocaleString()}₫`
+                    {p.productItems?.[0]?.price
+                      ? `${p.productItems[0].price.toLocaleString()}₫`
                       : 'Không rõ'}
                   </td>
                   <td>{getCategoryName(p.category_id)}</td>
@@ -234,8 +241,8 @@ const ProductManagement = () => {
                     </select>
                   </td>
                   <td>
-                    {p.image ? (
-                      <img src={p.image} alt={p.name} width={60} height={60} />
+                    {p.productItems?.[0]?.image?.image_url ? (
+                      <img src={p.productItems[0].image.image_url} alt={p.name} width={60} height={60} />
                     ) : (
                       <span>Không có ảnh</span>
                     )}

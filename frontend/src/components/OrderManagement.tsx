@@ -1,12 +1,12 @@
-// src/pages/OrderManagement.tsx
 import React, { useEffect, useState } from 'react';
+import '../styles/OrderManagement.css';
 
 type Order = {
   id: number;
   customer_name: string;
   total_price: number;
   status: string;
-  created_at: string; 
+  created_at: string;
 };
 
 const OrderManagement = () => {
@@ -30,9 +30,10 @@ const OrderManagement = () => {
   };
 
   return (
-    <div>
-      <h2>Quản lý đơn hàng</h2>
-      <table>
+    <div className="order-container">
+     
+
+      <table className="order-table">
         <thead>
           <tr>
             <th>ID</th>
@@ -52,13 +53,8 @@ const OrderManagement = () => {
               <td>{order.status}</td>
               <td>{new Date(order.created_at).toLocaleString('vi-VN')}</td>
               <td>
-                <button style={{ backgroundColor: '#2196f3', color: '#fff', marginRight: '8px' }}>
-                  Chi tiết
-                </button>
-                <button
-                  style={{ backgroundColor: '#f44336', color: '#fff' }}
-                  onClick={() => handleDelete(order.id)}
-                >
+                <button className="order-button btn-detail">Chi tiết</button>
+                <button className="order-button btn-delete" onClick={() => handleDelete(order.id)}>
                   Xoá
                 </button>
               </td>

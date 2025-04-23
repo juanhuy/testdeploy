@@ -3,6 +3,7 @@
     width: 100%;
     border-collapse: collapse;
     background-color: #fff;
+    
   }
   
   .user-table th,
@@ -36,4 +37,6 @@
     background-color: #ff4d4f;
     color: #fff;
   }
-  
+  .user-table td{
+    color:  black;
+  }

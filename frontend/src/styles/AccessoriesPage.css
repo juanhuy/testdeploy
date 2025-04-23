@@ -9,9 +9,9 @@
   display: flex;
   flex-direction: row;
   margin-top: 20px;
-  justify-content: center; /* Đưa sidebar và product list vào giữa */
-  width: 100%; /* Giới hạn chiều rộng tổng thể để tránh kéo dài toàn màn hình */
-  max-width: 1200px; /* Giới hạn tối đa để không quá rộng */
+  justify-content: center; 
+  width: 100%; 
+  max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
 }

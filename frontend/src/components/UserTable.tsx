@@ -15,7 +15,7 @@ const UserTable: React.FC<Props> = ({ users, onEdit, onDelete }) => {
       <thead>
         <tr>
           <th>ID</th>
-          <th>Tên</th>
+          <th>Username</th>
           <th>Email</th>
           <th>Hành động</th>
         </tr>
@@ -24,7 +24,7 @@ const UserTable: React.FC<Props> = ({ users, onEdit, onDelete }) => {
         {users.map(user => (
           <tr key={user.id}>
             <td>{user.id}</td>
-            <td>{user.name}</td>
+            <td>{user.username}</td>
             <td>{user.email}</td>
             <td>
               <button onClick={() => onEdit(user)} className="btn-edit">Sửa</button>
