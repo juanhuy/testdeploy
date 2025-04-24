@@ -2,7 +2,7 @@ import express, {Request, Response} from "express";
 import dotenv from "dotenv";
 import { AppDataSource } from "./config/datasource";
 import UserRouter from "./routes/userRoutes";
-import ProductRoutes from "./routes/productRoutes";
+
 import promotionRoutes from "./routes/promotionRoutes"; 
 import sizeRoutes from "./routes/SizeRoutes";
 import User_addressRoute from "./routes/User_addressRoute";
@@ -67,7 +67,6 @@ app.use(session({
 app.use(keycloak.middleware());
 
 app.use("/api/users", UserRouter);
-app.use("/api/products", ProductRoutes);
 app.use("/api/promotions", promotionRoutes); 
 app.use("/api/sizes", sizeRoutes); 
 app.use("/api/user-addresses", User_addressRoute);
