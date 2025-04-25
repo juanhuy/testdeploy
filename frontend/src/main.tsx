@@ -14,13 +14,3 @@ if (rootElement) {
 } else {
   console.error("No root element found!");
 }
-// keycloak.init({ onLoad: 'check-sso', pkceMethod: 'S256' }).then((authenticated) => {
-//     console.log(`Keycloak initialized. Authenticated: ${authenticated}`);
-//     ReactDOM.createRoot(document.getElementById('root')!).render(
-//         <React.StrictMode>
-//             <App />
-//         </React.StrictMode>
-//     );
-// }).catch((error) => {
-//     console.error('Keycloak initialization failed:', error);
-// });

@@ -33,38 +33,7 @@ app.use(cors({
     credentials: true
 }));
 
-// Keycloak setup
-const Keycloak = require("keycloak-connect");
-const session = require("express-session");
-export const memoryStore = new session.MemoryStore();
 
-const kcConfig = {
-    clientId: 'express-api',
-    bearerOnly: true,
-    serverUrl: process.env.AUTH_SERVER || 'http://localhost:8080',
-    realm: process.env.AUTH_REALM || 'ecommserse'
-};
-
-Keycloak.prototype.accessDenied = function (request: Request, response: Response) {
-    response.status(401).json({
-        status: 401,
-        message: 'Unauthorized/Forbidden',
-        result: { errorCode: 'ERR-401', errorMessage: 'Unauthorized/Forbidden' }
-    });
-};
-
-const keycloak = new Keycloak({ store: memoryStore }, kcConfig);
-
-// Middleware
-
-app.use(express.json());
-app.use(session({
-    secret: 'I17g6De2mxstjNCF4bbST0Yh52MeVStT',
-    resave: false,
-    saveUninitialized: true,
-    store: memoryStore
-}));
-app.use(keycloak.middleware());
 
 app.use("/api/users", UserRouter);
 app.use("/api/products", ProductRoutes);

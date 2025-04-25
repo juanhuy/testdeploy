@@ -11,6 +11,12 @@ router.put("/:id", ProductController.updateProduct);               // ✅ /api/p
 router.delete("/:id", ProductController.deleteProduct);            // ✅ /api/products/:id (DELETE)
 
 
+// router.get("/", ProductController.getAllProducts);
+// router.get("/:id", ProductController.getProductById);
+// router.post("/create", ProductController.createProduct);
+// router.put("/:id/update", ProductController.updateProduct);
+// router.delete("/:id/delete", ProductController.deleteProduct);
+
 
 export default router;
 

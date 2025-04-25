@@ -4,7 +4,7 @@ import { Size } from "./Size";
 import { Image } from "./Image";
 import { Color } from "./Color";
 import { Cart_item } from "./Cart_item";
-import { Order_item } from "./Order_item";
+import { OrderItem } from "./OrderItem"; // Import thêm
 
 @Entity()
 export class ProductItem {
@@ -31,8 +31,8 @@ export class ProductItem {
   cartItems!: Cart_item[];
 
   // Quan hệ với OrderItem
-  @OneToMany(() => Order_item, (orderItem) => orderItem.productItem, { cascade: true })
-  orderItems!: Order_item[];
+  @OneToMany(() => OrderItem, (orderItem) => orderItem.productItem, { cascade: true })
+  orderItems!: OrderItem[];
 
   @Column()
   quantity!: number;

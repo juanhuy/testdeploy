@@ -32,7 +32,9 @@ const Clothing: React.FC = () => {
       <div className="product-list">
         <div className="product-grid">
           {products.map((product, index) => (
-            <ProductCard key={index} product={product} />
+            <ProductCard key={index} product={product} onBuy={function (): void {
+              throw new Error("Function not implemented.");
+            } } />
           ))}
         </div>
       </div>

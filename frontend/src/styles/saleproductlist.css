@@ -9,10 +9,10 @@
     gap: 10px;
 }
 
-/*.pagination {*/
-/*    position: absolute;*/
-/*    justify-content: center;*/
-/*    margin-left: auto;*/
-/*    margin-right: auto;*/
-/*    padding: 20px;*/
-/*}*/
+.pagination {
+    position: absolute;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+}

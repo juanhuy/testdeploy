@@ -17,7 +17,7 @@ const ClothingPage = () => {
               <Clothing />
             </div>
           <div className="pagination-container"> 
-            <Pagination/>
+            <Pagination />
           </div>
         </div>
       </div>

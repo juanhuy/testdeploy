@@ -27,7 +27,9 @@ const bikinis: Product[] = [
         <div className="product-list">
           <div className="product-grid">
             {bikinis.map((product) => (
-              <ProductCard key={product.name} product={product} />
+              <ProductCard key={product.name} product={product} onBuy={function (): void {
+                throw new Error('Function not implemented.');
+              } } />
             ))}
           </div>
         </div>

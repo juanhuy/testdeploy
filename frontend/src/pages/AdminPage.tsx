@@ -13,7 +13,9 @@ import "../styles/adminpage.css";
 const AdminPage = () => {
   return (
     <div className="admin-container">
-      
+      <div className="sidebar3">
+        <Sidebar3 />
+      </div>
       <div className="content-wrapper">
         <Routes>
           <Route index element={<Dashboard />} />

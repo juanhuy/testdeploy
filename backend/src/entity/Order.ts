@@ -11,7 +11,7 @@ import { User } from "./User";
 import { Address } from "./Address";
 import { Shipping_method } from "./Shipping_method";
 import { Order_status } from "./Order_status";
-import { Order_item } from "./Order_item";
+import { OrderItem } from "./OrderItem"; //  Import thêm
 
 @Entity()
 export class Order {
@@ -40,8 +40,7 @@ export class Order {
   @Column({ type: "decimal", precision: 10, scale: 2 })
   order_total!: string;
 
-  @OneToMany(() => Order_item, (orderItem) => orderItem.order, {
-    cascade: true,
-  })
-  orderItems!: Order_item[];
+  //  Quan hệ với OrderItem
+  @OneToMany(() => OrderItem, (orderItem) => orderItem.order, { cascade: true })
+  orderItems!: OrderItem[];
 }

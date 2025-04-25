@@ -3,7 +3,7 @@ import "../styles/global.css";
 import React from "react";
 
 type Product = {
-  id: number;
+  // id: number;
   name: string;
   img: string;
   price: number;

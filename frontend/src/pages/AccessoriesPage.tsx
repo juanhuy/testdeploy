@@ -1,11 +1,9 @@
-// import React from "react";
+import React from "react";
 import Sidebar from "../components/Sidebar";
 import ProductList from "../components/ProductList";
 import Breadcrumb from "../components/Breadcrumb";
 import "../styles/AccessoriesPage.css"; 
 import Pagination from "../components/Pagination";
-import React from "react";
-// import Clothing from "../components/Clothing";
 
 const AccessoriesPage = () => {
   return (

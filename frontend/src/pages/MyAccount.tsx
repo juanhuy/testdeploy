@@ -14,7 +14,8 @@ const MyAccount = () => {
     <div className="my-account">
       <Breadcrumb title="My Account" />
       <div className="account-content">
-        
+        {/* Sidebar nằm dưới navbar */}
+        <Sidebar />
         <div className="account-details">
           <Routes>
             <Route index element={<Navigate to="orders" />} />
