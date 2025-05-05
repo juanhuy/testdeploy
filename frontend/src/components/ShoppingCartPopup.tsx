@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/ShoppingCartPopup.css";
-
+import { CartItem, useCart } from "../contexts/CartContext";
 type ProductItem = {
   id: number;
   name: string;
@@ -9,14 +9,15 @@ type ProductItem = {
   quantity: number;
   image: string;
 };
-
 type Props = {
   isOpen: boolean;
   onClose: () => void;
-  cartItems: ProductItem[];
+  cartItems: CartItem[];
   updateQuantity: (id: number, newQuantity: number) => void;
   removeItem: (id: number) => void;
 };
+
+
 
 const ShoppingCartPopup: React.FC<Props> = ({
   isOpen,

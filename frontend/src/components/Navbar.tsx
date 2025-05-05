@@ -16,7 +16,7 @@ type NavbarProps = {
 const Navbar: React.FC<NavbarProps> = ({ onCartClick }) => {
   const [showSearch, setShowSearch] = useState(false);
   const [searchText, setSearchText] = useState("");
-  const navigate = useNavigate(); // ✅ Điều hướng
+  const navigate = useNavigate(); 
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,7 +29,7 @@ const Navbar: React.FC<NavbarProps> = ({ onCartClick }) => {
   return (
     <header>
       <div className="navbar-container">
-        {/* Left - Menu */}
+       
         <nav className="nav-section left">
           <ul className="nav_link">
             <li className="drop-down-menu">
@@ -62,8 +62,9 @@ const Navbar: React.FC<NavbarProps> = ({ onCartClick }) => {
             <li className="drop-down-menu">
               <Link to="/accessories">ACCESSORIES</Link>
               <ul className="drop-down">
-                <li><a href="#">Jewelry</a></li>
-                <li><a href="#">Shoes and Beach Bags</a></li>
+                <li><Link to="/category/jewelry">Jewelry</Link></li>
+                
+                <li><Link to="category/shoesandbags">Shoes and Beach Bags</Link></li>
               </ul>
             </li>
             <li><Link to="/sale">SALE</Link></li>

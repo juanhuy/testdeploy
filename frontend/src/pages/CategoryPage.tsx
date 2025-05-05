@@ -1,7 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import React from "react";
-import "../styles/CategoryPage.css"; // 👈 CSS riêng cho trang này
+import "../styles/CategoryPage.css";
+import { useCart } from "../contexts/CartContext"; 
 
 type Product = {
   id: number;
@@ -18,6 +19,8 @@ export default function CategoryPage() {
   const { categoryName } = useParams<{ categoryName: string }>();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+
+  const { addToCart } = useCart();
 
   useEffect(() => {
     if (categoryName) {
@@ -46,20 +49,37 @@ export default function CategoryPage() {
           🛒 Danh mục hiện tại chưa có sản phẩm.
         </p>
       ) : (
-        <div className="category-product-container" style={{ display: "flex", flexWrap: "wrap", gap: 20 }}>
-          {products.map((product) => (
-            <div className="category-product-card" key={product.id}>
-              <img
-                src={product.productItems?.[0]?.image?.image_url}
-                alt={product.name}
-              />
-              <h3>{product.name}</h3>
-              <p>{product.productItems?.[0]?.price}₫</p>
-              <div className="category-buy-btn">
-                <button>BUY NOW</button>
+        <div
+          className="category-product-container"
+          style={{ display: "flex", flexWrap: "wrap", gap: 20 }}
+        >
+          {products.map((product) => {
+            const item = product.productItems?.[0]; 
+            return (
+              <div className="category-product-card" key={product.id}>
+                <img src={item?.image?.image_url} alt={product.name} />
+                <h3>{product.name}</h3>
+                <p>{item?.price}₫</p>
+                <div className="category-buy-btn">
+                  <button
+                    onClick={() => {
+                      if (item) {
+                        addToCart({
+                          id: product.id,
+                          name: product.name,
+                          price: item.price,
+                          image: item.image.image_url,
+                        });
+                        alert("Đã thêm vào giỏ hàng!");
+                      }
+                    }}
+                  >
+                    BUY NOW
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
     </div>

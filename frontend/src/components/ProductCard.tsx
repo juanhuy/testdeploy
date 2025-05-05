@@ -23,8 +23,7 @@ const ProductCard: React.FC<Props> = ({ product, onBuy }) => {
         <p className="product-name">{product.name}</p>
         <p className="product-price">{product.price}₫</p>
       </div>
-
-      {}
+   
       <button className="buy-btn" onClick={onBuy}>
         BUY NOW
       </button>

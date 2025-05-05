@@ -17,7 +17,7 @@ export class CategoryService {
                 relations: ['parent', 'children', 'products']
             });
         } catch (error: any) {
-            console.error("❌ getAllCategories Error:", util.inspect(error, { depth: null }));
+            console.error("getAllCategories Error:", util.inspect(error, { depth: null }));
             throw new Error(error?.message || 'Failed to fetch categories');
         }
     }

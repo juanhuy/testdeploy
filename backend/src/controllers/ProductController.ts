@@ -14,7 +14,7 @@ export class ProductController {
       if (categoryName) {
         const allCategories = await categoryRepo.find({ relations: ["parent"] });
 
-        console.log("📦 All categories:", allCategories.map(c => ({
+        console.log(" All categories:", allCategories.map(c => ({
           id: c.id,
           name: c.name,
           parentId: c.parent?.id ?? null
@@ -24,7 +24,7 @@ export class ProductController {
           (c) => c.name.toLowerCase() === categoryName
         );
 
-        console.log("🔎 Matched parentCategory:", parentCategory);
+        console.log("Matched parentCategory:", parentCategory);
 
         if (!parentCategory) {
           res.json([]);
@@ -35,19 +35,19 @@ export class ProductController {
           .filter((c) => c.id === parentCategory.id || c.parent?.id === parentCategory.id)
           .map((c) => c.id);
 
-        console.log("✅ Matched category IDs:", matchedCategoryIds);
+        console.log(" Matched category IDs:", matchedCategoryIds);
 
         const products = await productService.getProductsByCategoryIds(matchedCategoryIds);
-        console.log("📦 Found products:", products.length);
+        console.log("Found products:", products.length);
         res.json(products);
         return;
       }
 
       const products = await productService.getAllProducts();
-      console.log("📦 All products:", products.length);
+      console.log("All products:", products.length);
       res.json(products);
     } catch (error) {
-      console.error("💥 Error in getAllProducts:", error); // 🔥 in log khi có lỗi
+      console.error("Error in getAllProducts:", error); 
       res.status(500).json({ message: "Error fetching products", error });
     }
   };
