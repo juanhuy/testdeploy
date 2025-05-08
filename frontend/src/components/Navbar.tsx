@@ -16,7 +16,7 @@ type NavbarProps = {
 const Navbar: React.FC<NavbarProps> = ({ onCartClick }) => {
   const [showSearch, setShowSearch] = useState(false);
   const [searchText, setSearchText] = useState("");
-  const navigate = useNavigate(); // ✅ Điều hướng
+  const navigate = useNavigate(); 
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,24 +29,27 @@ const Navbar: React.FC<NavbarProps> = ({ onCartClick }) => {
   return (
     <header>
       <div className="navbar-container">
-        {/* Left - Menu */}
+       
         <nav className="nav-section left">
           <ul className="nav_link">
             <li className="drop-down-menu">
               <Link to="/clothing">CLOTHING</Link>
               <ul className="drop-down">
-                <li><a href="#">Blazers</a></li>
-                <li><a href="#">Bodysuits</a></li>
-                <li><a href="#">Bottoms</a></li>
-                <li><a href="#">Coats & Jackets</a></li>
-                <li><a href="#">Denim</a></li>
-                <li><a href="#">Dresses</a></li>
-                <li><a href="#">Jumpsuits</a></li>
-                <li><a href="#">Knitwear</a></li>
-                <li><a href="#">Loungewear</a></li>
-                <li><a href="#">Shorts</a></li>
-                <li><a href="#">Skirts</a></li>
-                <li><a href="#">Tops</a></li>
+              <ul className="drop-down">
+                <li><Link to="/category/blazer">Blazers</Link></li>
+                <li><Link to="/category/bodysuit">Bodysuits</Link></li>
+                <li><Link to="/category/bottom">Bottoms</Link></li>
+                <li><Link to="/category/jacket">Coats & Jackets</Link></li>
+                <li><Link to="/category/denim">Denim</Link></li>
+                <li><Link to="/category/dress">Dresses</Link></li>
+                <li><Link to="/category/jumpsuit">Jumpsuits</Link></li>
+                <li><Link to="/category/knitwear">Knitwear</Link></li>
+                <li><Link to="/category/loungewear">Loungewear</Link></li>
+                <li><Link to="/category/shorts">Shorts</Link></li>
+                <li><Link to="/category/skirt">Skirts</Link></li>
+                <li><Link to="/category/top">Tops</Link></li>
+                </ul>
+
               </ul>
             </li>
             <li className="drop-down-menu">
@@ -59,8 +62,9 @@ const Navbar: React.FC<NavbarProps> = ({ onCartClick }) => {
             <li className="drop-down-menu">
               <Link to="/accessories">ACCESSORIES</Link>
               <ul className="drop-down">
-                <li><a href="#">Jewelry</a></li>
-                <li><a href="#">Shoes and Beach Bags</a></li>
+                <li><Link to="/category/jewelry">Jewelry</Link></li>
+                
+                <li><Link to="category/shoesandbags">Shoes and Beach Bags</Link></li>
               </ul>
             </li>
             <li><Link to="/sale">SALE</Link></li>

@@ -23,7 +23,7 @@ import { CartProvider, useCart } from "./contexts/CartContext"; // ✅ import
 import CartPopupWrapper from "./components/CartPopupWrapper"; 
 import "./assets/themify-icons/themify-icons.css";
 import CheckoutPage from "./pages/CheckoutPage";
-
+import CategoryPage from "./pages/CategoryPage";
 const App = () => {
   const [cartOpen, setCartOpen] = useState(false);
 
@@ -45,6 +45,7 @@ const App = () => {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/search" element={<SearchResult />} />
           <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/category/:categoryName" element={<CategoryPage />} />
 
           {/* Admin routes */}
           <Route path="/admin" element={<AdminLayout />}>

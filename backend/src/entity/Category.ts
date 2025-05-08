@@ -20,7 +20,7 @@ export class Category {
   products!: Product[];
 
   @ManyToOne(() => Category, (category) => category.children, { nullable: true })
-  @JoinColumn({ name: 'parentId' }) // ✅ BẮT BUỘC: Tránh tạo trùng cột
+  @JoinColumn({ name: 'parentId' }) 
   parent?: Category;
 
   @OneToMany(() => Category, (category) => category.parent)

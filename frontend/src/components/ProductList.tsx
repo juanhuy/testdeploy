@@ -8,14 +8,19 @@ type ProductItem = {
   id: number;
   price: number;
   image: { image_url: string };
-  product: { name: string };
+  product: {
+    name: string;
+    category_id: number;
+  };
 };
 
-function ProductList() {
+type Props = {
+  categoryIds: number[];
+};
+
+const ProductList: React.FC<Props> = ({ categoryIds }) => {
   const [productItems, setProductItems] = useState<ProductItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
-
-  // ✅ Lấy thêm updateQuantity và removeItem từ CartContext
   const { cart, addToCart, updateQuantity, removeItem } = useCart();
 
   useEffect(() => {
@@ -24,14 +29,16 @@ function ProductList() {
         if (!res.ok) throw new Error("Failed to fetch");
         return res.json();
       })
-      .then((data) => {
-        console.log("Fetched ProductItems:", data);
-        setProductItems(data);
+      .then((data: ProductItem[]) => {
+        const filtered = data.filter((item) =>
+          categoryIds.includes(item.product.category_id)
+        );
+        setProductItems(filtered);
       })
       .catch((err) => {
         console.error("Error loading product items:", err);
       });
-  }, []);
+  }, [categoryIds]);
 
   const handleBuyNow = (item: ProductItem) => {
     addToCart({
@@ -54,7 +61,8 @@ function ProductList() {
       </div>
 
       <div className="product-container">
-        {productItems.map((item) => (
+
+         {/* {productItems.map((item) => (
           <ProductCard
             key={item.id}
             product={{
@@ -65,7 +73,25 @@ function ProductList() {
             }}
             onBuy={() => handleBuyNow(item)}
           />
-        ))}
+        ))} */}
+
+        {productItems.length === 0 ? (
+          <p className="no-product">Không có sản phẩm nào phù hợp.</p>
+        ) : (
+          productItems.map((item) => (
+            <ProductCard
+              key={item.id}
+              product={{
+                // id: item.id,
+                name: item.product.name,
+                img: item.image.image_url,
+                price: item.price,
+              }}
+              onBuy={() => handleBuyNow(item)}
+            />
+          ))
+        )}
+
       </div>
 
       <ShoppingCartPopup
@@ -77,6 +103,6 @@ function ProductList() {
       />
     </div>
   );
-}
+};
 
 export default ProductList;

@@ -24,6 +24,6 @@ export class Product {
   @JoinColumn({ name: "category_id" }) 
   category!: Category;
 
-  @Column() // ✅ Phần bị thiếu gây lỗi khi gọi relations
+  @Column() 
   category_id!: number;
 }
