@@ -14,7 +14,7 @@ const AdminPage = () => {
   return (
     <div className="admin-container">
       <div className="sidebar3">
-        <Sidebar3 />
+        <Sidebar3 onFilterChange={(filter) => console.log("Filter changed:", filter)} />
       </div>
       <div className="content-wrapper">
         <Routes>
