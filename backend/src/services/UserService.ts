@@ -25,8 +25,8 @@ export class UserService {
         return await this.userRepository.findOne({where: {id}, relations: ['carts', 'orders']});
     }
 
-    async createUser(userData: Partial<User>): Promise<User> {
-        const hashedPassword = await bcrypt.hash(userData.hash_password!, 10);
+    async createUser(userData: any): Promise<User> {
+        const hashedPassword = await bcrypt.hash(userData.password!, 10);
         const user= this.userRepository.create({
             keycloakId: userData.keycloakId,
             username: userData.username,

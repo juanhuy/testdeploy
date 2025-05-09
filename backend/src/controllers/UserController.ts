@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-// import { AppDataSource } from "../config/datasource";
+
 import {UserService} from "../services/UserService";
-// import { User } from "../entity/User";
+
 import qs from 'qs';
-// const userRepository = AppDataSource.getRepository(User);
+
 const userService = new UserService();
 
 export class UserController {
@@ -58,6 +58,7 @@ export class UserController {
 
     static async createUser(req: Request, res: Response) {
         try {
+
             const user = req.body;
             const {username, password, email, phone} = req.body;
             const tokenResponse = await fetch(
@@ -71,12 +72,14 @@ export class UserController {
                         grant_type: 'password',
                         client_id: "express-api",
                         username: 'realmadmin',
-                        password: 'admin'
+                        password:'admin',
                     }),
                 }
             );
+            console.log('tokenresponse:',tokenResponse.status);
             const accessToken = await tokenResponse.json();
             const adminToken = accessToken['access_token'];
+
             const userInfoResponse = await fetch(
                 'http://localhost:8080/admin/realms/ecommserse/users',
                 {
@@ -103,7 +106,10 @@ export class UserController {
             );
             const locationHeader = userInfoResponse.headers.get('Location');
             const keycloakId = locationHeader?.split('/').pop();
-
+            if (!keycloakId) {
+                throw new Error('Failed to retrieve Keycloak ID');
+            }
+            console.log('userinforesponse:', userInfoResponse.status);
             // fetch client id here
             const clientResponse = await fetch(
                 `http://localhost:8080/admin/realms/ecommserse/clients?clientId=express-api`,
@@ -115,14 +121,17 @@ export class UserController {
                     },
                 }
             );
-
+            console.log('Client Response Status:', clientResponse.status);
+            if (!clientResponse.ok) {
+                console.log('Client Response Error:', await clientResponse.text());
+            }
             const clients = await clientResponse.json();
             const client = clients.find((c: any) => c.clientId === 'express-api');
             if (!client) {
                 throw new Error('Client not found');
             }
             const clientId = client.id;
-
+            console.log(`Client ID: ${clientId}`);
             // fetch for user role
             const rolesResponse = await fetch(
                 `http://localhost:8080/admin/realms/ecommserse/clients/${clientId}/roles`,
@@ -164,10 +173,10 @@ export class UserController {
         }
     }
 
-    static async getCurrentUser(req: Request, res: Response) {
+    static async getCurrentUser(req: Request, res: Response){
         try {
             if (!req.body) {
-                return res.status(400).json({ message: 'Request body is missing' });
+                res.status(400).json({ message: 'Request body is missing' });
             }
 
             const { username, password } = req.body;
@@ -226,7 +235,7 @@ export class UserController {
                                     );
 
                                     if (!userInfoResponse.ok) {
-                                        return res.status(userInfoResponse.status).json({
+                                            res.status(userInfoResponse.status).json({
                                             message: `Failed to fetch userinfo: ${userInfoResponse.statusText}`,
                                         });
                                     }
@@ -256,7 +265,7 @@ export class UserController {
             }
         } catch (error) {
             console.error('Error fetching user:', error);
-            return res.status(500).json({ message: 'Error fetching user', error });
+            res.status(500).json({ message: 'Error fetching user', error });
         }
     }
 
