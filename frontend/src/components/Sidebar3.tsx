@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FaTachometerAlt, FaBoxOpen, FaList, FaShoppingCart, FaUsers, FaTags, FaCog } from "react-icons/fa";
+import { FaBoxOpen, FaList, FaShoppingCart, FaTags} from "react-icons/fa";
 import "../styles/Sidebar3.css"; // Đảm bảo import CSS đúng
 
 const Sidebar = () => {
@@ -10,11 +10,6 @@ const Sidebar = () => {
       <nav>
         <ul>
           <li>
-            <Link to="/admin/dashboard" className="flex items-center gap-2 block p-2 hover:bg-gray-700">
-              <FaTachometerAlt /> Dashboard
-            </Link>
-          </li>
-          <li>
             <Link to="/admin/products" className="flex items-center gap-2 block p-2 hover:bg-gray-700">
               <FaBoxOpen /> Products
             </Link>
@@ -22,16 +17,6 @@ const Sidebar = () => {
           <li>
             <Link to="/admin/categories" className="flex items-center gap-2 block p-2 hover:bg-gray-700">
               <FaList /> Categories
-            </Link>
-          </li>
-          <li>
-            <Link to="/admin/orders" className="flex items-center gap-2 block p-2 hover:bg-gray-700">
-              <FaShoppingCart /> Orders
-            </Link>
-          </li>
-          <li>
-            <Link to="/admin/promotions" className="flex items-center gap-2 block p-2 hover:bg-gray-700">
-              <FaTags /> Promotions
             </Link>
           </li>
         </ul>

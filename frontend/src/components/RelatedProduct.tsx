@@ -119,10 +119,12 @@ const RelatedProducts: React.FC<RelatedProductsProps> = ({
               >
                 <ProductCard
                   product={{
+                    id: item.Id,
                     name: item.Name,
                     img: item.Img,
                     price: item.Price,
                   }}
+                  onBuy={() => console.log(`Buying product: ${item.Name}`)}
                 />
               </Link>
             ))}

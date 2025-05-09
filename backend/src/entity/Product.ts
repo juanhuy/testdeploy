@@ -20,10 +20,11 @@ export class Product {
 
   @ManyToOne(() => Category, (category) => category.products, {
     onDelete: "CASCADE",
+    nullable: true, // cho phép null
   })
   @JoinColumn({ name: "category_id" }) 
-  category!: Category;
+  category!: Category | null;
 
-  @Column() 
-  category_id!: number;
+  @Column({nullable: true}) 
+  category_id!: number | null;
 }

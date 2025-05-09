@@ -17,6 +17,18 @@ type ProductItem = {
   };
 };
 
+type Product = {
+  id: number; // Added 'id' property
+  name: string;
+  img: string;
+  price: number;
+};
+
+type Props = {
+  product: Product;
+  onBuy: () => void; 
+};
+
 type FilteredProductListProps = {
   filters: FilterOptions;
   parentCategoryId: number;

@@ -66,7 +66,7 @@ const ProductList: React.FC<Props> = ({ categoryIds }) => {
           <ProductCard
             key={item.id}
             product={{
-              // id: item.id,
+              id: item.id,
               name: item.product.name,
               img: item.image.image_url,
               price: item.price,
@@ -82,7 +82,7 @@ const ProductList: React.FC<Props> = ({ categoryIds }) => {
             <ProductCard
               key={item.id}
               product={{
-                // id: item.id,
+                id: item.id,
                 name: item.product.name,
                 img: item.image.image_url,
                 price: item.price,
