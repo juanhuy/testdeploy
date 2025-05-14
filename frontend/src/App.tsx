@@ -23,7 +23,7 @@ import CartPopupWrapper from "./components/CartPopupWrapper";
 import "./assets/themify-icons/themify-icons.css";
 import CheckoutPage from "./pages/CheckoutPage";
 import CategoryPage from "./pages/CategoryPage";
-import AdminPage from "./pages/AdminPage";
+import AdminLayout from "./components/AdminLayout";
 const App = () => {
   const [cartOpen, setCartOpen] = useState(false);
 
@@ -48,7 +48,7 @@ const App = () => {
           <Route path="/category/:categoryName" element={<CategoryPage />} />
 
           {/* Admin routes */}
-          <Route path="/admin" element={<AdminPage />}>
+          <Route path="/admin" element={<AdminLayout />}>
             <Route path="products" element={<ProductManagement />} />
             <Route path="users" element={<UserManagement />} />
             <Route path="orders" element={<OrderManagement />} />
