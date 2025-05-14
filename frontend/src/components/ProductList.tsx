@@ -8,9 +8,7 @@ type ProductItem = {
   id: number;
   price: number;
   image: { image_url: string };
-  product: {
-    name: string;
-    category_id: number;
+  product: { name: string; category_id: number;
   };
 };
 
@@ -30,9 +28,11 @@ const ProductList: React.FC<Props> = ({ categoryIds }) => {
         return res.json();
       })
       .then((data: ProductItem[]) => {
+        console.log("API response:", data);
         const filtered = data.filter((item) =>
           categoryIds.includes(item.product.category_id)
         );
+        console.log("Filtered products:", filtered);
         setProductItems(filtered);
       })
       .catch((err) => {

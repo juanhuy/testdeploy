@@ -2,24 +2,6 @@ import React, { useState } from 'react';
 import Breadcrumb from '../components/Breadcrumb';
 import Sidebar, { FilterOptions } from '../components/Sidebar';
 import Pagination from '../components/Pagination';
-
-// const Swimwear = () => {
-//     return (
-//         <main className="swimear-page">
-//         <Breadcrumb title="Swimwear" />
-//             <div className="content-container">
-//                 <Sidebar /> {/* Sidebar bên trái */}
-//                 <div className="right-content">
-//                     <div className="clothing-wrapper">
-//                         <Bikinis />
-//                     </div>
-//                     <div className="pagination-container">
-//                         <Pagination />
-//                     </div>
-//                 </div>
-//             </div>
-//         </main>
-
 import ProductList from '../components/ProductList';
 import FilteredProductList from '../components/FilteredProductList';
 import '../styles/Swimwear.css';
@@ -57,11 +39,11 @@ const Swimwear = () => {
             {isFiltering ? (
               <FilteredProductList
                 filters={filters}
-                parentCategoryId={2}
-                allowedSubcategoryIds={[20, 21, 22, 23]}
+                parentCategoryId={3}
+                allowedSubcategoryIds={[20, 21]}
               />
             ) : (
-              <ProductList categoryIds={[2]} />
+              <ProductList categoryIds={[3, 20, 21]} />
             )}
           </div>
 

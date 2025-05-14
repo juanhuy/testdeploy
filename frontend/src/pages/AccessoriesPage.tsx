@@ -33,11 +33,11 @@ const AccessoriesPage = () => {
             {isFiltering ? (
               <FilteredProductList
                 filters={filters}
-                parentCategoryId={3}
-                allowedSubcategoryIds={[9, 10]} // Jewelry và ShoesAndBags
+                parentCategoryId={1}
+                allowedSubcategoryIds={[4, 5]} // Jewelry và ShoesAndBags
               />
             ) : (
-              <ProductList categoryIds={[3]} />
+              <ProductList categoryIds={[1, 4, 5]} />
             )}
           </div>
           <div className="pagination-container">
