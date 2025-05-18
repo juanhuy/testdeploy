@@ -1,78 +1,68 @@
-import React from "react";
-import {
-  AreaChart,
-  Area,
-  XAxis,
-  YAxis,
-  Tooltip,
-  CartesianGrid,
-} from "recharts";
+import React, { useEffect, useState } from "react";
 import "../styles/dashboard.css";
 
-const data = [
-  { name: "Jan", orders: 50, users: 30, promotions: 20, products: 40 },
-  { name: "Feb", orders: 70, users: 50, promotions: 40, products: 60 },
-  { name: "Mar", orders: 90, users: 60, promotions: 50, products: 80 },
-  { name: "Apr", orders: 60, users: 40, promotions: 30, products: 50 },
-  { name: "May", orders: 100, users: 80, promotions: 60, products: 90 },
-];
+const AdminDashboard: React.FC = () => {
+  const [stats, setStats] = useState({
+    categories: 0,
+    products: 0,
+    orders: 0,
+    users: 0,
+  });
 
-const orders = [
-  { id: "325092", date: "16 Jul 2022", price: "$1297" },
-  { id: "927383", date: "16 Jul 2022", price: "$2255" },
-  { id: "368585", date: "27 Jun 2022", price: "$666" },
-  { id: "585410", date: "24 Jun 2022", price: "$1381" },
-];
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const [catRes, prodRes, orderRes, userRes] = await Promise.all([
+          fetch("http://localhost:3001/api/categories"),
+          fetch("http://localhost:3001/api/products"),
+          fetch("http://localhost:3001/api/orders"),
+          fetch("http://localhost:3001/api/users"),
+        ]);
 
-const Dashboard = () => {
+        const [catData, prodData, orderData, userData] = await Promise.all([
+          catRes.json(),
+          prodRes.json(),
+          orderRes.json(),
+          userRes.json(),
+        ]);
+
+        setStats({
+          categories: catData.length,
+          products: prodData.length,
+          orders: orderData.length,
+          users: userData.length,
+        });
+      } catch (err) {
+        console.error("Lỗi tải thống kê:", err);
+      }
+    };
+
+    fetchStats();
+  }, []);
+
   return (
     <div className="dashboard-container">
-      <h2>Dashboard</h2>
-
-      <div className="filters">
-        <label>
-          From: <input type="date" />
-        </label>
-        <label>
-          To: <input type="date" />
-        </label>
-      </div>
-
-      <div className="dashboard-stats">
+      <h1>👋 Chào mừng đến trang quản trị</h1>
+      <div className="stats-boxes">
         <div className="stat-box">
-          <h3>Orders</h3>
-          <p>200</p>
+          <h2>📁 Danh mục</h2>
+          <p>{stats.categories}</p>
         </div>
         <div className="stat-box">
-          <h3>Users</h3>
-          <p>150</p>
+          <h2>📦 Sản phẩm</h2>
+          <p>{stats.products}</p>
         </div>
         <div className="stat-box">
-          <h3>Promotions</h3>
-          <p>50</p>
+          <h2>🛒 Đơn hàng</h2>
+          <p>{stats.orders}</p>
         </div>
         <div className="stat-box">
-          <h3>Products</h3>
-          <p>300</p>
+          <h2>👤 Người dùng</h2>
+          <p>{stats.users}</p>
         </div>
       </div>
-
-      <div className="dashboard-charts">
-        <h3>Analytics</h3>
-        <AreaChart width={800} height={300} data={data}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Area type="monotone" dataKey="orders" stroke="#27A4F2" fill="#27A4F2" />
-          <Area type="monotone" dataKey="users" stroke="#3EAEF4" fill="#3EAEF4" />
-          <Area type="monotone" dataKey="promotions" stroke="#6586E6" fill="#6586E6" />
-          <Area type="monotone" dataKey="products" stroke="#9FD7F9" fill="#9FD7F9" />
-        </AreaChart>
-      </div>
-
     </div>
   );
 };
 
-export default Dashboard;
+export default AdminDashboard;

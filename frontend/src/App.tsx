@@ -19,11 +19,14 @@ import UserManagement from "./pages/Usermanangement";
 import ProductManagement from "./components/ProductManagement";
 import OrderManagement from "./components/OrderManagement";
 import SearchResult from "./pages/SearchResult";
-import { CartProvider, useCart } from "./contexts/CartContext"; // ✅ import
+import { CartProvider, useCart } from "./contexts/CartContext"; 
 import CartPopupWrapper from "./components/CartPopupWrapper"; 
 import "./assets/themify-icons/themify-icons.css";
 import CheckoutPage from "./pages/CheckoutPage";
 import CategoryPage from "./pages/CategoryPage";
+import ProductDetailPage from "./pages/ProductDetailPage";
+import CategoryAdminPage from "./components/CategoryAdminPage";
+import AdminDashboard from "./pages/Dashboard";
 const App = () => {
   const [cartOpen, setCartOpen] = useState(false);
 
@@ -45,13 +48,17 @@ const App = () => {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/search" element={<SearchResult />} />
           <Route path="/checkout" element={<CheckoutPage />} />
-          <Route path="/category/:categoryName" element={<CategoryPage />} />
+          <Route path="/product/:id" element={<ProductDetailPage />} />
+         
+           <Route path="/clothing/:category" element={<ClothingPage />} />
 
           {/* Admin routes */}
           <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<AdminDashboard />} />
             <Route path="products" element={<ProductManagement />} />
             <Route path="users" element={<UserManagement />} />
             <Route path="orders" element={<OrderManagement />} />
+            <Route path="categories" element={<CategoryAdminPage />} />
           </Route>
         </Routes>
 

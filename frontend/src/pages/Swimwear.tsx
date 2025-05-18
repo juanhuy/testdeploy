@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
-import Breadcrumb from '../components/Breadcrumb';
-import Sidebar, { FilterOptions } from '../components/Sidebar';
-import Pagination from '../components/Pagination';
-import ProductList from '../components/ProductList';
-import FilteredProductList from '../components/FilteredProductList';
-import '../styles/Swimwear.css';
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import Breadcrumb from "../components/Breadcrumb";
+import Sidebar, { FilterOptions } from "../components/Sidebar";
+import Pagination from "../components/Pagination";
+import ProductList from "../components/ProductList";
+import FilteredProductList from "../components/FilteredProductList";
+import "../styles/Swimwear.css";
 
-const Swimwear = () => {
+const SwimwearPage = () => {
+  const { category } = useParams(); // nếu bạn dùng /swimwear/:category sau này
+  const categoryIdsToUse = [2]; // Swimwear ID từ database của bạn
+
   const [filters, setFilters] = useState<FilterOptions>({});
   const [isFiltering, setIsFiltering] = useState(false);
 
@@ -20,11 +24,20 @@ const Swimwear = () => {
     setIsFiltering(false);
   };
 
+  // Reset filter khi category trên URL thay đổi
+  useEffect(() => {
+    setFilters({});
+    setIsFiltering(false);
+  }, [category]);
+
   return (
-    <main className="swimear-page">
+    <main className="swimwear-page">
       <Breadcrumb title="Swimwear" />
       <div className="content-container">
-        <Sidebar onFilterChange={handleFilterChange} allowedCategories={["Swimwear"]} />
+        <Sidebar
+          onFilterChange={handleFilterChange}
+          allowedCategories={["Swimwear"]}
+        />
         <div className="right-content">
           {isFiltering && (
             <div style={{ marginBottom: "16px", textAlign: "right" }}>
@@ -38,11 +51,10 @@ const Swimwear = () => {
             {isFiltering ? (
               <FilteredProductList
                 filters={filters}
-                parentCategoryId={2}
-                allowedSubcategoryIds={[20, 21, 22, 23]}
+                parentCategoryId={2} // Swimwear
               />
             ) : (
-              <ProductList categoryIds={[2]} />
+              <ProductList categoryIds={categoryIdsToUse} />
             )}
           </div>
 
@@ -55,4 +67,4 @@ const Swimwear = () => {
   );
 };
 
-export default Swimwear;
+export default SwimwearPage;
