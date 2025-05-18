@@ -72,6 +72,7 @@ export class ProductController {
 
   static getAllProducts = async (req: Request, res: Response): Promise<void> => {
     try {
+      
       const categoryName = req.query.category?.toString().toLowerCase();
       const categoryRepo = AppDataSource.getRepository(Category);
 

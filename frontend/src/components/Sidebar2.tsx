@@ -19,9 +19,6 @@ const Sidebar2 = () => {
         <li>
           <Link to="/myaccount/details">Account details</Link>
         </li>
-        <li onClick={handleLogout} style={{ cursor: "pointer", color: "red" }}>
-          Logout
-        </li>
       </ul>
     </div>
   );

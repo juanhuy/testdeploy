@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/ProductManagement.css';
+import Pagination from '../components/Pagination';
 
 type ProductItem = {
   id: number;
@@ -24,6 +25,9 @@ type Category = {
 };
 
 const ProductManagement = () => {
+  const [page, setPage] = useState(1);
+  const limit = 10;
+
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
@@ -125,7 +129,10 @@ const ProductManagement = () => {
         .catch(err => console.error('Lỗi khi thêm sản phẩm:', err));
     }
   };
-
+  const totalCount = products.length;
+  const totalPages = Math.ceil(totalCount / limit);
+  const start = (page - 1) * limit;
+  const currentProducts = products.slice(start, start + limit);
   return (
     <div className="product-table-container">
       {showForm && (
@@ -215,9 +222,9 @@ const ProductManagement = () => {
               </tr>
             </thead>
             <tbody>
-              {products.map((p, index) => (
+              {currentProducts.map((p, index) => (
                 <tr key={p.id}>
-                  <td style={{ textAlign: 'center' }}>{index + 1}</td>
+                  <td style={{ textAlign: 'center' }}>{start + index + 1}</td>
                   <td>{p.name || 'Không có tên'}</td>
                   <td>
                     {p.productItems?.[0]?.price
@@ -264,6 +271,13 @@ const ProductManagement = () => {
           </table>
 
           <div style={{ textAlign: 'center', marginTop: '24px' }}>
+            {totalPages > 1 && (
+              <Pagination
+                page={page}
+                totalPages={totalPages}
+                onChange={setPage}
+              />
+            )}
             <button
               className="btn-add"
               onClick={() => {

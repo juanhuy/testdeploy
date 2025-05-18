@@ -4,41 +4,49 @@ import ProductCard from "./ProductCard";
 import ShoppingCartPopup from "./ShoppingCartPopup";
 import { useCart } from "../contexts/CartContext";
 
-type ProductItem = {
+export type ProductItem = {
   id: number;
   price: number;
   image: { image_url: string };
-  product: { name: string; category_id: number;
-  };
+  product: { name: string; category_id: number };
 };
 
-type Props = {
+interface ProductListProps {
   categoryIds: number[];
-};
+  page: number;
+  limit: number;
+  onTotalCountChange?: (n: number) => void;
+}
 
-const ProductList: React.FC<Props> = ({ categoryIds }) => {
+const ProductList: React.FC<ProductListProps> = ({
+  categoryIds,
+  page,
+  limit,
+  onTotalCountChange,
+}) => {
   const [productItems, setProductItems] = useState<ProductItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const { cart, addToCart, updateQuantity, removeItem } = useCart();
 
   useEffect(() => {
     fetch("http://localhost:3001/api/product-items")
-      .then((res) => {
+      .then(res => {
         if (!res.ok) throw new Error("Failed to fetch");
         return res.json();
       })
       .then((data: ProductItem[]) => {
-        console.log("API response:", data);
-        const filtered = data.filter((item) =>
+        const filtered = data.filter(item =>
           categoryIds.includes(item.product.category_id)
         );
-        console.log("Filtered products:", filtered);
         setProductItems(filtered);
+        onTotalCountChange?.(filtered.length);
       })
-      .catch((err) => {
-        console.error("Error loading product items:", err);
-      });
-  }, [categoryIds]);
+      .catch(err => console.error("Error loading product items:", err));
+  }, [categoryIds, onTotalCountChange]);
+
+  // slicing client-side
+  const start = (page - 1) * limit;
+  const currentItems = productItems.slice(start, start + limit);
 
   const handleBuyNow = (item: ProductItem) => {
     addToCart({
@@ -52,33 +60,11 @@ const ProductList: React.FC<Props> = ({ categoryIds }) => {
 
   return (
     <div className="product-list-container">
-      <div className="order-by">
-        <select id="sort">
-          <option value="popularity">Sort by Popularity</option>
-          <option value="price-low">Price: Low to High</option>
-          <option value="price-high">Price: High to Low</option>
-        </select>
-      </div>
-
       <div className="product-container">
-
-         {/* {productItems.map((item) => (
-          <ProductCard
-            key={item.id}
-            product={{
-              id: item.id,
-              name: item.product.name,
-              img: item.image.image_url,
-              price: item.price,
-            }}
-            onBuy={() => handleBuyNow(item)}
-          />
-        ))} */}
-
-        {productItems.length === 0 ? (
+        {currentItems.length === 0 ? (
           <p className="no-product">Không có sản phẩm nào phù hợp.</p>
         ) : (
-          productItems.map((item) => (
+          currentItems.map(item => (
             <ProductCard
               key={item.id}
               product={{
@@ -91,7 +77,6 @@ const ProductList: React.FC<Props> = ({ categoryIds }) => {
             />
           ))
         )}
-
       </div>
 
       <ShoppingCartPopup
