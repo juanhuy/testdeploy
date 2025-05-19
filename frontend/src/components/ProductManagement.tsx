@@ -139,7 +139,7 @@ const ProductManagement = () => {
         <div className="form-popup">
           <h3>{editingProduct ? 'Chỉnh sửa sản phẩm' : 'Thêm sản phẩm mới'}</h3>
           <label>
-            Tên sản phẩm:
+            Product Name:
             <input
               type="text"
               value={formData.name}
@@ -147,7 +147,7 @@ const ProductManagement = () => {
             />
           </label>
           <label>
-            Giá:
+            Price:
             <input
               type="number"
               value={formData.price}
@@ -157,7 +157,7 @@ const ProductManagement = () => {
             />
           </label>
           <label>
-            Ảnh (URL):
+            Image (URL):
             <input
               type="text"
               value={formData.image}
@@ -167,7 +167,7 @@ const ProductManagement = () => {
             />
           </label>
           <label>
-            Mô tả:
+            Description:
             <textarea
               rows={3}
               value={formData.description}
@@ -178,7 +178,7 @@ const ProductManagement = () => {
             />
           </label>
           <label>
-            Danh mục:
+            Category:
             <select
               value={formData.category_id}
               onChange={e =>
@@ -188,7 +188,7 @@ const ProductManagement = () => {
                 })
               }
             >
-              <option value="">-- Chọn danh mục --</option>
+              <option value="">-- Select Category --</option>
               {categories.map(cat => (
                 <option key={cat.id} value={cat.id}>
                   {cat.name}
@@ -198,10 +198,10 @@ const ProductManagement = () => {
           </label>
           <div style={{ marginTop: '10px' }}>
             <button className="btn-edit" onClick={handleFormSubmit}>
-              Lưu
+              Save
             </button>
             <button className="btn-delete" onClick={() => setShowForm(false)}>
-              Huỷ
+              Cancel
             </button>
           </div>
         </div>
@@ -212,13 +212,13 @@ const ProductManagement = () => {
           <table className="product-table">
             <thead>
               <tr>
-                <th>STT</th>
-                <th>Tên</th>
-                <th>Giá</th>
-                <th>Danh mục</th>
-                <th>Chỉnh danh mục</th>
-                <th>Ảnh</th>
-                <th>Hành động</th>
+                <th>No.</th>
+                <th>Product Name</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Edit Category</th>
+                <th>Image</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -251,18 +251,18 @@ const ProductManagement = () => {
                     {p.productItems?.[0]?.image?.image_url ? (
                       <img src={p.productItems[0].image.image_url} alt={p.name} width={60} height={60} />
                     ) : (
-                      <span>Không có ảnh</span>
+                      <span>No Image</span>
                     )}
                   </td>
                   <td>
                     <button className="btn-edit" onClick={() => handleEdit(p)}>
-                      Sửa
+                      Edit
                     </button>
                     <button
                       className="btn-delete"
                       onClick={() => handleDelete(p.id)}
                     >
-                      Xoá
+                      Delete
                     </button>
                   </td>
                 </tr>
@@ -292,7 +292,7 @@ const ProductManagement = () => {
                 setShowForm(true);
               }}
             >
-              + Thêm sản phẩm
+              + Add Product
             </button>
           </div>
         </>

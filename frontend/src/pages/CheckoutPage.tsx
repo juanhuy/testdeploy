@@ -40,12 +40,12 @@ const CheckoutPage: React.FC = () => {
         body: JSON.stringify(payload),
       });
 
-      if (!res.ok) throw new Error("Đặt hàng thất bại");
+      if (!res.ok) throw new Error("Order failed");
 
-      alert("Đặt hàng thành công!");
+      alert("Order successfully!");
       // TODO: Clear cart nếu cần
     } catch (err) {
-      alert("Đặt hàng thất bại. Vui lòng thử lại.");
+      alert("Please try again");
       console.error(err);
     }
   };
@@ -55,12 +55,12 @@ const CheckoutPage: React.FC = () => {
       <h2>Checkout</h2>
 
       {cart.length === 0 ? (
-        <p>Giỏ hàng của bạn đang trống.</p>
+        <p>Your cart is empty.</p>
       ) : (
         <>
           <div className="checkout-form">
-            <h3>Thông tin giao hàng</h3>
-            <label>Họ tên:</label>
+            <h3>Shipping Information</h3>
+            <label>Full Name:</label>
             <input
               type="text"
               value={formData.fullName}
@@ -72,13 +72,13 @@ const CheckoutPage: React.FC = () => {
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             />
-            <label>Số điện thoại:</label>
+            <label>Phone Number:</label>
             <input
               type="text"
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
             />
-            <label>Địa chỉ:</label>
+            <label>Address:</label>
             <textarea
               rows={3}
               value={formData.address}
@@ -118,7 +118,7 @@ const CheckoutPage: React.FC = () => {
           </div>
 
           <button className="place-order-btn" onClick={handlePlaceOrder}>
-            Đặt hàng
+            Order
           </button>
         </>
       )}

@@ -64,7 +64,7 @@ const Products = () => {
   };
 
   const handleBuy = (item) => {
-    alert(`Bạn đã chọn mua: ${item.name} với giá ${item.value.toLocaleString()}₫`);
+    alert(`You have selected to buy: ${item.name} for ${item.value.toLocaleString()}₫`);
     // TODO: Thêm logic giỏ hàng ở đây
   };
 
@@ -93,7 +93,7 @@ const Products = () => {
       header: "Buy",
       render: (row) => (
         <button className="btn-buy" onClick={() => handleBuy(row)}>
-          Mua
+          Buy
         </button>
       ),
     },

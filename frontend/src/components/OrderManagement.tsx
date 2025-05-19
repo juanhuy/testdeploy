@@ -37,11 +37,11 @@ const OrderManagement = () => {
         <thead>
           <tr>
             <th>ID</th>
-            <th>Khách hàng</th>
-            <th>Tổng tiền</th>
-            <th>Trạng thái</th>
-            <th>Ngày đặt</th>
-            <th>Hành động</th>
+            <th>Customer</th>
+            <th>Total Amount</th>
+            <th>Status</th>
+            <th>Order Date</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -53,9 +53,9 @@ const OrderManagement = () => {
               <td>{order.status}</td>
               <td>{new Date(order.created_at).toLocaleString('vi-VN')}</td>
               <td>
-                <button className="order-button btn-detail">Chi tiết</button>
+                <button className="order-button btn-detail">Detail</button>
                 <button className="order-button btn-delete" onClick={() => handleDelete(order.id)}>
-                  Xoá
+                  Delete
                 </button>
               </td>
             </tr>

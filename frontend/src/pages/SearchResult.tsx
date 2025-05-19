@@ -58,7 +58,7 @@ const SearchResult = () => {
       {!loading && !error && (
         <>
           {products.length === 0 ? (
-            <p>Không tìm thấy sản phẩm nào phù hợp.</p>
+            <p>No products found</p>
           ) : (
             <div className="product-grid">
               {products.map((product) => {
@@ -80,7 +80,7 @@ const SearchResult = () => {
                     <p className="product-price">
                       {typeof price === "number"
                         ? `${price.toLocaleString()}₫`
-                        : "Chưa có giá"}
+                        : "No price available"}
                     </p>
                   </div>
                 );

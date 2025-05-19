@@ -40,7 +40,7 @@ const Swimwear = () => {
           {isFiltering && (
             <div style={{ marginBottom: 16, textAlign: 'right' }}>
               <button className="filter-btn" onClick={handleClearFilters}>
-                Xóa bộ lọc
+                Delete Filter
               </button>
             </div>
           )}

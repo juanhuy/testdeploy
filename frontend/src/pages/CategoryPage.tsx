@@ -43,10 +43,10 @@ export default function CategoryPage() {
       </h1>
 
       {loading ? (
-        <p>Đang tải sản phẩm...</p>
+        <p>Loading...</p>
       ) : products.length === 0 ? (
         <p style={{ marginTop: "40px", color: "#666", fontSize: "18px" }}>
-          🛒 Danh mục hiện tại chưa có sản phẩm.
+          🛒 There are no products in this category yet.
         </p>
       ) : (
         <div
@@ -70,7 +70,7 @@ export default function CategoryPage() {
                           price: item.price,
                           image: item.image.image_url,
                         });
-                        alert("Đã thêm vào giỏ hàng!");
+                        alert("Item added to cart!");
                       }
                     }}
                   >
