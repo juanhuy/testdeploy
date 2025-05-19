@@ -29,24 +29,53 @@ const ProductList: React.FC<ProductListProps> = ({
   const { cart, addToCart, updateQuantity, removeItem } = useCart();
 
   useEffect(() => {
+    console.log("📦 categoryIds prop received:", categoryIds);
+
+    if (!categoryIds || categoryIds.length === 0) {
+      console.warn("⚠️ categoryIds is empty — skipping fetch.");
+      setProductItems([]);
+      return;
+    }
+
     fetch("http://localhost:3001/api/product-items")
+<<<<<<< HEAD
       .then(res => {
         if (!res.ok) throw new Error("Failed to fetch");
         return res.json();
       })
       .then((data: ProductItem[]) => {
         const filtered = data.filter(item =>
+=======
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to fetch product items.");
+        return res.json();
+      })
+      .then((data: ProductItem[]) => {
+        console.log("✅ Fetched all products:", data);
+        console.log("📌 All category_ids in API:", data.map(d => d.product.category_id));
+
+        const filtered = data.filter((item) =>
+>>>>>>> origin/huy_giaodien_fix
           categoryIds.includes(item.product.category_id)
         );
+
+        console.log("🎯 Filtered products to display:", filtered);
         setProductItems(filtered);
         onTotalCountChange?.(filtered.length);
       })
+<<<<<<< HEAD
       .catch(err => console.error("Error loading product items:", err));
   }, [categoryIds, onTotalCountChange]);
 
   // slicing client-side
   const start = (page - 1) * limit;
   const currentItems = productItems.slice(start, start + limit);
+=======
+      .catch((err) => {
+        console.error("❌ Error fetching product items:", err);
+      });
+  }, [categoryIds]);
+>>>>>>> origin/huy_giaodien_fix
 
   const handleBuyNow = (item: ProductItem) => {
     addToCart({

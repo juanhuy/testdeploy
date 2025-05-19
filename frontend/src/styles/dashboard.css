@@ -1,0 +1,40 @@
+.dashboard-container {
+  padding: 30px;
+ 
+  background-color: #f8f9fa;
+  min-height: 100%;
+}
+
+.dashboard-container h1 {
+  font-size: 28px;
+  margin-bottom: 30px;
+  color: #222;
+}
+
+.stats-boxes {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.stat-box {
+  flex: 1;
+  min-width: 200px;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.stat-box h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #007bff;
+}
+
+.stat-box p {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}

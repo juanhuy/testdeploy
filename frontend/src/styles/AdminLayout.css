@@ -1,6 +1,7 @@
 .admin-layout {
   display: flex;
   height: 100%;
+  min-height: 800px;
   font-family: Arial, sans-serif;
   color: black;
 }

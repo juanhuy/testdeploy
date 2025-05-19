@@ -1,4 +1,3 @@
-// src/components/AdminLayout.tsx
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import '../styles/AdminLayout.css';
@@ -9,13 +8,20 @@ const AdminLayout = () => {
       <aside className="sidebar">
         <div className="logo">ADMIN</div>
         <ul className="menu">
+<<<<<<< HEAD
           <li><Link to="/admin/products">📦 Product</Link></li>
           <li><Link to="/admin/orders">🛒 Order</Link></li>
+=======
+          <li><Link to="/admin">Trang chủ</Link></li> 
+          <li><Link to="/admin/users">👤 Người dùng</Link></li>
+          <li><Link to="/admin/products">📦 Sản phẩm</Link></li>
+          <li><Link to="/admin/categories">📂 Danh mục</Link></li>
+          <li><Link to="/admin/orders">🛒 Đơn hàng</Link></li>
+>>>>>>> origin/huy_giaodien_fix
         </ul>
       </aside>
 
       <div className="main">
-      
         <main className="content">
           <Outlet />
         </main>

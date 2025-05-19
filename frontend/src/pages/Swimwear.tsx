@@ -1,16 +1,24 @@
-import React, { useState } from 'react';
-import Breadcrumb from '../components/Breadcrumb';
-import Sidebar, { FilterOptions } from '../components/Sidebar';
-import Pagination from '../components/Pagination';
-import ProductList from '../components/ProductList';
-import FilteredProductList from '../components/FilteredProductList';
-import '../styles/Swimwear.css';
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import Breadcrumb from "../components/Breadcrumb";
+import Sidebar, { FilterOptions } from "../components/Sidebar";
+import Pagination from "../components/Pagination";
+import ProductList from "../components/ProductList";
+import FilteredProductList from "../components/FilteredProductList";
+import "../styles/Swimwear.css";
 
+const SwimwearPage = () => {
+  const { category } = useParams(); // nếu bạn dùng /swimwear/:category sau này
+  const categoryIdsToUse = [2]; // Swimwear ID từ database của bạn
+
+<<<<<<< HEAD
 const Swimwear = () => {
   const [page, setPage] = useState(1);
   const limit = 12;
   const [totalCount, setTotalCount] = useState(0);
 
+=======
+>>>>>>> origin/huy_giaodien_fix
   const [filters, setFilters] = useState<FilterOptions>({});
   const [isFiltering, setIsFiltering] = useState(false);
 
@@ -28,7 +36,17 @@ const Swimwear = () => {
   };
   const totalPages = Math.ceil(totalCount / limit);
 
+<<<<<<< HEAD
    return (
+=======
+  // Reset filter khi category trên URL thay đổi
+  useEffect(() => {
+    setFilters({});
+    setIsFiltering(false);
+  }, [category]);
+
+  return (
+>>>>>>> origin/huy_giaodien_fix
     <main className="swimwear-page">
       <Breadcrumb title="Swimwear" />
       <div className="content-container">
@@ -49,6 +67,7 @@ const Swimwear = () => {
             {isFiltering ? (
               <FilteredProductList
                 filters={filters}
+<<<<<<< HEAD
                 parentCategoryId={3}
                 allowedSubcategoryIds={[20, 21]}
                 page={page}
@@ -62,6 +81,12 @@ const Swimwear = () => {
                 limit={limit}
                 onTotalCountChange={setTotalCount}
               />
+=======
+                parentCategoryId={2} // Swimwear
+              />
+            ) : (
+              <ProductList categoryIds={categoryIdsToUse} />
+>>>>>>> origin/huy_giaodien_fix
             )}
           </div>
 
@@ -115,4 +140,4 @@ const Swimwear = () => {
 //   );
 // };
 
-export default Swimwear;
+export default SwimwearPage;

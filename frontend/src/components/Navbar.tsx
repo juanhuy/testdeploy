@@ -36,18 +36,19 @@ const Navbar: React.FC<NavbarProps> = ({ onCartClick }) => {
               <Link to="/clothing">CLOTHING</Link>
               <ul className="drop-down">
               <ul className="drop-down">
-                <li><Link to="/category/blazer">Blazers</Link></li>
-                <li><Link to="/category/bodysuit">Bodysuits</Link></li>
-                <li><Link to="/category/bottom">Bottoms</Link></li>
-                <li><Link to="/category/jacket">Coats & Jackets</Link></li>
-                <li><Link to="/category/denim">Denim</Link></li>
-                <li><Link to="/category/dress">Dresses</Link></li>
-                <li><Link to="/category/jumpsuit">Jumpsuits</Link></li>
-                <li><Link to="/category/knitwear">Knitwear</Link></li>
-                <li><Link to="/category/loungewear">Loungewear</Link></li>
-                <li><Link to="/category/shorts">Shorts</Link></li>
-                <li><Link to="/category/skirt">Skirts</Link></li>
-                <li><Link to="/category/top">Tops</Link></li>
+                <li><Link to="/clothing/blazer">Blazers</Link></li>
+                <li><Link to="/clothing/bodysuit">Bodysuits</Link></li>
+                <li><Link to="/clothing/bottom">Bottoms</Link></li>
+                <li><Link to="/clothing/jacket">Coats & Jackets</Link></li>
+                <li><Link to="/clothing/denim">Denim</Link></li>
+                <li><Link to="/clothing/dress">Dresses</Link></li>
+                <li><Link to="/clothing/jumpsuit">Jumpsuits</Link></li>
+                <li><Link to="/clothing/knitwear">Knitwear</Link></li>
+                <li><Link to="/clothing/loungewear">Loungewear</Link></li>
+                <li><Link to="/clothing/shorts">Shorts</Link></li>
+                <li><Link to="/clothing/skirt">Skirts</Link></li>
+                <li><Link to="/clothing/top">Tops</Link></li>
+
                 </ul>
 
               </ul>
