@@ -41,7 +41,7 @@ const ProductDetail: React.FC = () => {
     if (!id) return;
 
     fetch(`http://localhost:3001/api/product-items/${id}`)
-      .then((res) => (res.ok ? res.json() : Promise.reject("Không tìm thấy")))
+      .then((res) => (res.ok ? res.json() : Promise.reject("Not found")))
       .then((item: ProductItem) => {
         fetch(`http://localhost:3001/api/categories/${item.product.category_id}`)
           .then((res) => res.json())
@@ -53,7 +53,7 @@ const ProductDetail: React.FC = () => {
               all_rate: item.product.all_rate,
               category: {
                 id: item.product.category_id,
-                name: category.name || "Không rõ",
+                name: category.name || "Unknown",
               },
               productItems: [item],
             };
@@ -67,7 +67,7 @@ const ProductDetail: React.FC = () => {
   if (!product || !product.productItems || product.productItems.length === 0) {
     return (
       <div className="text-center py-20 text-gray-500 text-xl">
-        ❌ Không tìm thấy sản phẩm hoặc chưa có biến thể.
+        Product not found or has no variations.
       </div>
     );
   }
@@ -81,7 +81,7 @@ const ProductDetail: React.FC = () => {
       price: item.price,
       image: item.image.image_url,
     });
-    alert("✔ Sản phẩm đã được thêm vào giỏ hàng");
+    alert("Product added to cart");
   };
 
   const handleBuyNow = () => {
@@ -115,7 +115,7 @@ const ProductDetail: React.FC = () => {
 
           {item.color && (
             <div className="flex items-center gap-2">
-              <span>Màu:</span>
+              <span>Color:</span>
               <div
                 className="color-circle"
                 style={{ backgroundColor: item.color.color_code }}
@@ -134,7 +134,7 @@ const ProductDetail: React.FC = () => {
           </div>
 
           <div className="quantity-control">
-            <span>Số lượng:</span>
+            <span>Quantity:</span>
             <div className="quantity-box">
               <button onClick={() => setQuantity(Math.max(1, quantity - 1))}>−</button>
               <span>{quantity}</span>
@@ -144,15 +144,15 @@ const ProductDetail: React.FC = () => {
 
           <div className="action-buttons">
             <button className="add-to-cart" onClick={handleAddToCart}>
-              Thêm vào giỏ hàng
+              Add to Cart
             </button>
             <button className="buy-now" onClick={handleBuyNow}>
-              Mua ngay
+              Buy Now
             </button>
           </div>
 
           <div className="meta-info">
-            <p><strong>Danh mục:</strong> {product.category.name}</p>
+            <p><strong>Category:</strong> {product.category.name}</p>
           </div>
         </div>
       </div>

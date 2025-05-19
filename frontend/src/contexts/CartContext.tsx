@@ -1,4 +1,4 @@
-// src/contexts/CartContext.tsx
+
 import React, { createContext, useContext, useState } from "react";
 
 export type CartItem = {

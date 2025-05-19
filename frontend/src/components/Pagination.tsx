@@ -1,5 +1,3 @@
-// import React from "react";
-// import "../styles/pagination.css"
 
 // function Pagination(){
 //     return (
@@ -29,21 +27,15 @@ export default function Pagination({ page, totalPages, onChange }: PaginationPro
 
   return (
     <div className="pagination">
-      <a
-        href="#"
-        className={page <= 1 ? "disabled" : ""}
-        onClick={e => {
+      <a href="#" className={page <= 1 ? "disabled" : ""} onClick={e => {
           e.preventDefault();
           if (page > 1) onChange(page - 1);
         }}
-      >
-        &laquo;
+      >&laquo;
       </a>
 
       {pages.map(p => (
-        <a
-          key={p}
-          href="#"
+        <a key={p} href="#"
           className={p === page ? "active" : ""}
           onClick={e => {
             e.preventDefault();
@@ -55,14 +47,11 @@ export default function Pagination({ page, totalPages, onChange }: PaginationPro
       ))}
 
       <a
-        href="#"
-        className={page >= totalPages ? "disabled" : ""}
-        onClick={e => {
+        href="#" className={page >= totalPages ? "disabled" : ""} onClick={e => {
           e.preventDefault();
           if (page < totalPages) onChange(page + 1);
         }}
-      >
-        &raquo;
+      >&raquo;
       </a>
     </div>
   );

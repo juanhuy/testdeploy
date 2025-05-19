@@ -5,14 +5,14 @@ import UserRouter from "./routes/userRoutes";
 
 import promotionRoutes from "./routes/promotionRoutes"; 
 import sizeRoutes from "./routes/SizeRoutes";
-import User_addressRoute from "./routes/User_addressRoute";
+import User_addressRoute from "./routes/UserAddressRoute";
 import ReviewRoutes from "./routes/ReviewRoutes";
-import Shipping_methodRoutes from "./routes/Shipping_methodRoutes";
+import Shipping_methodRoutes from "./routes/ShippingMethodRoutes";
 import productRoutes from "./routes/productRoutes";
 import imageRoutes from "./routes/imageRoutes";
 import categoryRoutes from "./routes/categoryRoutes";
 import userRoutes from "./routes/userRoutes";
-import product_itemRoutes from "./routes/product_itemRoutes";
+import product_itemRoutes from "./routes/productItemRoutes";
 import authRoutes from "./routes/authRoutes";
 
 

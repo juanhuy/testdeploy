@@ -1,6 +1,6 @@
 import { Repository } from "typeorm";
 import { Order } from "../entity/Order";
-import { Order_item } from "../entity/Order_item";
+import { Order_item } from "../entity/OrderItems";
 import { AppDataSource } from "../config/datasource";
 
 export class OrderService {

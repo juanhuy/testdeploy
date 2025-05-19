@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../styles/CategoryAdminPage.css";
-
+import Pagination from "../components/Pagination";
 type Category = {
   id: number;
   name: string;
@@ -11,13 +11,14 @@ const CategoryAdminPage: React.FC = () => {
   const [editingCategory, setEditingCategory] = useState<Category | null>(null);
   const [newName, setNewName] = useState("");
   const [newCategoryName, setNewCategoryName] = useState("");
-
+  const [page, setPage] = useState(1);
+  const limit = 10;
   // Lấy danh sách danh mục
   useEffect(() => {
     fetch("http://localhost:3001/api/categories")
       .then(res => res.json())
       .then(data => setCategories(data))
-      .catch(err => console.error("Lỗi tải danh mục:", err));
+      .catch(err => console.error("Failed to load categories:", err));
   }, []);
 
   // Bắt đầu sửa
@@ -36,7 +37,7 @@ const CategoryAdminPage: React.FC = () => {
       body: JSON.stringify({ name: newName }),
     })
       .then(res => {
-        if (!res.ok) throw new Error("Cập nhật thất bại");
+        if (!res.ok) throw new Error("Update failed");
         return res.json();
       })
       .then(updated => {
@@ -44,15 +45,15 @@ const CategoryAdminPage: React.FC = () => {
           prev.map(cat => (cat.id === updated.id ? updated : cat))
         );
         setEditingCategory(null);
-        alert("✔ Cập nhật thành công");
+        alert("Update successful");
       })
-      .catch(err => alert("❌ Lỗi cập nhật: " + err.message));
+      .catch(err => alert("Update error: " + err.message));
   };
 
   // Gửi POST thêm danh mục
   const handleAdd = () => {
     if (!newCategoryName.trim()) {
-      alert("❗ Vui lòng nhập tên danh mục");
+      alert("Please enter a category name");
       return;
     }
 
@@ -71,50 +72,53 @@ const CategoryAdminPage: React.FC = () => {
       .then((created: Category) => {
         setCategories(prev => [...prev, created]);
         setNewCategoryName("");
-        alert("✔ Thêm thành công");
+        alert("Added successfully");
       })
-      .catch(err => alert("❌ Lỗi thêm: " + err.message));
+      .catch(err => alert("Add error: " + err.message));
   };
 
   // Gửi DELETE xóa danh mục
   const handleDelete = (id: number) => {
-    if (!window.confirm("Bạn có chắc chắn muốn xóa?")) return;
+    if (!window.confirm("Are you sure you want to delete this category?")) return;
 
     fetch(`http://localhost:3001/api/categories/${id}/delete`, {
       method: "DELETE",
     })
       .then(res => {
-        if (!res.ok) throw new Error("Xóa thất bại");
+        if (!res.ok) throw new Error("Delete failed");
         setCategories(prev => prev.filter(cat => cat.id !== id));
-        alert("🗑️ Xóa thành công");
+        alert("Delete successful");
       })
-      .catch(err => alert("❌ Lỗi xóa: " + err.message));
+      .catch(err => alert("Delete error: " + err.message));
   };
-
+  const totalCount = categories.length;
+  const totalPages = Math.ceil(totalCount / limit);
+  const start = (page - 1) * limit;
+  const currentCategories = categories.slice(start, start + limit);
   return (
     <div className="product-table-container">
-      <h2 className="product-table-title">Quản lý danh mục</h2>
+      <h2 className="product-table-title">Category Management</h2>
 
       <div className="add-category-form">
         <input
           type="text"
-          placeholder="Tên danh mục mới"
+          placeholder="New category name"
           value={newCategoryName}
           onChange={(e) => setNewCategoryName(e.target.value)}
         />
-        <button className="btn-add" onClick={handleAdd}>➕ Thêm danh mục</button>
+        <button className="btn-add" onClick={handleAdd}>Add Category</button>
       </div>
 
       <table className="product-table">
         <thead>
           <tr>
             <th>ID</th>
-            <th>Tên danh mục</th>
-            <th>Hành động</th>
+            <th>Category Name</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          {categories.map((cat) => (
+          {currentCategories.map((cat) => (
             <tr key={cat.id}>
               <td>{cat.id}</td>
               <td>
@@ -130,13 +134,13 @@ const CategoryAdminPage: React.FC = () => {
               <td>
                 {editingCategory?.id === cat.id ? (
                   <>
-                    <button className="btn-edit" onClick={handleUpdate}>💾 Lưu</button>
-                    <button className="btn-cancel" onClick={() => setEditingCategory(null)}>❌ Hủy</button>
+                    <button className="btn-edit" onClick={handleUpdate}>Save</button>
+                    <button className="btn-cancel" onClick={() => setEditingCategory(null)}>Cancel</button>
                   </>
                 ) : (
                   <>
-                    <button className="btn-edit" onClick={() => handleEditClick(cat)}>✏️ Sửa</button>
-                    <button className="btn-delete" onClick={() => handleDelete(cat.id)}>🗑️ Xóa</button>
+                    <button className="btn-edit" onClick={() => handleEditClick(cat)}>Edit</button>
+                    <button className="btn-delete" onClick={() => handleDelete(cat.id)}>Delete</button>
                   </>
                 )}
               </td>
@@ -144,6 +148,11 @@ const CategoryAdminPage: React.FC = () => {
           ))}
         </tbody>
       </table>
+      {totalPages > 1 && (
+        <div style={{ textAlign: 'center', marginTop: 24 }}>
+          <Pagination page={page} totalPages={totalPages} onChange={setPage} />
+        </div>
+      )}
     </div>
   );
 };

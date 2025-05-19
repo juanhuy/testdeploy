@@ -1,11 +1,5 @@
-<<<<<<< HEAD
-
-import React, { useState } from "react";
-// import Sidebar from "../components/Sidebar";
-=======
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
->>>>>>> origin/huy_giaodien_fix
 import Sidebar, { FilterOptions } from "../components/Sidebar";
 import ProductList from "../components/ProductList";
 import FilteredProductList from "../components/FilteredProductList";
@@ -26,21 +20,18 @@ const mapCategoryToId = (category: string): number | null => {
 const accessoriesCategoryIds = [3, 9, 10];
 
 const AccessoriesPage = () => {
-<<<<<<< HEAD
+
   const [page, setPage] = useState(1);
   const limit = 12;
   const [totalCount, setTotalCount] = useState(0);
 
   const [filters, setFilters] = useState<FilterOptions>({ category: "Accessories" });
-=======
   const { category } = useParams(); // nếu dùng /accessories/:category
   const categoryIdFromUrl = category ? mapCategoryToId(category) : null;
 
   const categoryIdsToUse =
     categoryIdFromUrl !== null ? [categoryIdFromUrl] : accessoriesCategoryIds;
 
-  const [filters, setFilters] = useState<FilterOptions>({});
->>>>>>> origin/huy_giaodien_fix
   const [isFiltering, setIsFiltering] = useState(false);
 
   const handleFilterChange = (newFilters: FilterOptions) => {
@@ -55,11 +46,6 @@ const AccessoriesPage = () => {
   };
   const totalPages = Math.ceil(totalCount / limit);
 
-  const handleClearFilters = () => {
-    setFilters({});
-    setIsFiltering(false);
-  };
-
   useEffect(() => {
     setFilters({});
     setIsFiltering(false);
@@ -69,7 +55,7 @@ const AccessoriesPage = () => {
     return (
       <main className="accessories-page">
         <Breadcrumb title="Accessories" />
-        <p style={{ padding: 24 }}>Không tìm thấy danh mục phù hợp.</p>
+        <p style={{ padding: 24 }}>No matching categories found. </p>
       </main>
     );
   }
@@ -84,15 +70,9 @@ const AccessoriesPage = () => {
         />
         <div className="right-content">
           {isFiltering && (
-<<<<<<< HEAD
             <div style={{ marginBottom: 16, textAlign: 'right' }}>
               <button className="filter-btn" onClick={handleClearFilters}>
                 Delete Filter
-=======
-            <div style={{ marginBottom: "16px", textAlign: "right" }}>
-              <button className="filter-btn" onClick={handleClearFilters}>
-                Xóa bộ lọc
->>>>>>> origin/huy_giaodien_fix
               </button>
             </div>
           )}
@@ -101,7 +81,6 @@ const AccessoriesPage = () => {
             {isFiltering ? (
               <FilteredProductList
                 filters={filters}
-<<<<<<< HEAD
                 parentCategoryId={3}
                 allowedSubcategoryIds={[20, 21]}
                 page={page}
@@ -127,54 +106,11 @@ const AccessoriesPage = () => {
               />
             </div>
           )}
-=======
-                parentCategoryId={3} // Accessories
-                allowedSubcategoryIds={accessoriesCategoryIds}
-              />
-            ) : (
-              <ProductList categoryIds={categoryIdsToUse} />
-            )}
-          </div>
-
-          <div className="pagination-container">
-            <Pagination />
-          </div>
->>>>>>> origin/huy_giaodien_fix
         </div>
       </div>
     </main>
   );
 };
 
-//   return (
-//     <main className="accessories-page">
-//       <Breadcrumb title="Accessories" />
-//       <div className="content-container">
-//         <Sidebar
-//           onFilterChange={handleFilterChange}
-//           allowedCategories={["Accessories"]}
-//         />
-//         <div className="right-content">
-//           <div className="clothing-wrapper">
-//             {isFiltering ? (
-//               <FilteredProductList
-//                 filters={filters}
-//                 parentCategoryId={1}
-//                 allowedSubcategoryIds={[4, 5]} // Jewelry và ShoesAndBags
-//                 page={0} limit={0}              />
-//             ) : (
-//               <ProductList categoryIds={[1, 4, 5]} page={0} limit={0} />
-//             )}
-//           </div>
-//           <div className="pagination-container">
-//             <Pagination page={0} totalPages={0} onChange={function (newPage: number): void {
-//               throw new Error("Function not implemented.");
-//             } } />
-//           </div>
-//         </div>
-//       </div>
-//     </main>
-//   );
-// };
 
 export default AccessoriesPage;

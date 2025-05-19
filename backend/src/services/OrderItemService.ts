@@ -2,7 +2,7 @@ import { Repository } from "typeorm";
 import { AppDataSource } from "../config/datasource";
 import { Order } from "../entity/Order";
 import { ProductItem } from "../entity/ProductItem"; // Adjusted path to match the correct directory
-import { Order_item } from "../entity/Order_item";
+import { Order_item } from "../entity/OrderItems";
 
 export class OrderItemService {
     createOrderItem(body: any) {

@@ -14,22 +14,22 @@ import LoginSection from "./pages/LoginSection";
 import RegisterSection from "./pages/RegisterSection";
 import ShoppingCartPopup from "./components/ShoppingCartPopup";
 import ForgotPassword from "./components/ForgotPassword";
-import UserManagement from "./pages/Usermanangement";
 import ProductManagement from "./components/ProductManagement";
 import OrderManagement from "./components/OrderManagement";
+
 import SearchResult from "./pages/SearchResult";
 import { CartProvider, useCart } from "./contexts/CartContext"; 
 import CartPopupWrapper from "./components/CartPopupWrapper"; 
 import "./assets/themify-icons/themify-icons.css";
 import CheckoutPage from "./pages/CheckoutPage";
 import CategoryPage from "./pages/CategoryPage";
-<<<<<<< HEAD
+
 import AdminLayout from "./components/AdminLayout";
-=======
 import ProductDetailPage from "./pages/ProductDetailPage";
 import CategoryAdminPage from "./components/CategoryAdminPage";
 import AdminDashboard from "./pages/Dashboard";
->>>>>>> origin/huy_giaodien_fix
+import UserManagement from "./components/Usermanangement";
+
 const App = () => {
   const [cartOpen, setCartOpen] = useState(false);
 

@@ -1,6 +1,6 @@
 
 import { Repository } from "typeorm";
-import { Product_promotion } from "../entity/Product_promotion";
+import { Product_promotion } from "../entity/ProductPromotion";
 import { AppDataSource } from "../config/datasource";
 
 export class ProductPromotionService {

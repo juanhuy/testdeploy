@@ -1,6 +1,6 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../config/datasource";
-import { Order_payment } from "../entity/Order_payment";
+import { Order_payment } from "../entity/OrderPayment";
 import { Order } from "../entity/Order";
 import { Payment } from "../entity/Payment";
 

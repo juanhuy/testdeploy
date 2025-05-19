@@ -16,16 +16,16 @@ const OrderManagement = () => {
     fetch('http://localhost:3001/api/orders')
       .then(res => res.json())
       .then(data => setOrders(data))
-      .catch(err => console.error('Lỗi khi tải đơn hàng:', err));
+      .catch(err => console.error('Error loading order:', err));
   }, []);
 
   const handleDelete = (id: number) => {
-    if (window.confirm('Xác nhận xoá đơn hàng này?')) {
+    if (window.confirm('Are you sure you want to delete this order?')) {
       fetch(`http://localhost:3001/api/orders/${id}`, { method: 'DELETE' })
         .then(res => {
           if (res.ok) setOrders(orders.filter(o => o.id !== id));
         })
-        .catch(err => console.error('Lỗi khi xoá đơn hàng:', err));
+        .catch(err => console.error('Error deleting order:', err));
     }
   };
 

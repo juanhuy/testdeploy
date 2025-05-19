@@ -16,15 +16,6 @@ const Products = () => {
   const [editingItem, setEditingItem] = useState(null);
   const [adding, setAdding] = useState(false);
 
-  // const columns = [
-  //   { key: "id", header: "ID" },
-  //   { key: "name", header: "Name" },
-  //   { key: "value", header: "Price" },
-  //   { key: "description", header: "Description" },
-  //   { key: "all_rate", header: "Rating" },
-  //   { key: "category_id", header: "Category ID" },
-  //   { key: "view", header: "View", render: (row) => <img src={row.view} alt={row.name} width="50" height="50" /> }
-  // ];
 
   const handleSearch = (query) => {
     const lowerCaseQuery = query.toLowerCase();

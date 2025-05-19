@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { AppDataSource } from "../config/datasource";
 import { AddressService } from "../services/AddressService";
 import { Address } from "../entity/Address";
-import { User_address } from "../entity/User_address";
+import { User_address } from "../entity/UserAddress";
 
 const addressService = new AddressService();
 

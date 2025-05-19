@@ -108,7 +108,7 @@ const FilteredProductList: React.FC<FilteredProductListProps> = ({
     <div className="product-list-container">
       <div className="product-container">
         {currentItems.length === 0 ? (
-          <p className="no-product">Không có sản phẩm nào phù hợp.</p>
+          <p className="no-product">No matching products found.</p>
         ) : (
           currentItems.map(item => (
             <ProductCard

@@ -11,14 +11,10 @@ const SwimwearPage = () => {
   const { category } = useParams(); // nếu bạn dùng /swimwear/:category sau này
   const categoryIdsToUse = [2]; // Swimwear ID từ database của bạn
 
-<<<<<<< HEAD
-const Swimwear = () => {
   const [page, setPage] = useState(1);
   const limit = 12;
   const [totalCount, setTotalCount] = useState(0);
 
-=======
->>>>>>> origin/huy_giaodien_fix
   const [filters, setFilters] = useState<FilterOptions>({});
   const [isFiltering, setIsFiltering] = useState(false);
 
@@ -36,9 +32,6 @@ const Swimwear = () => {
   };
   const totalPages = Math.ceil(totalCount / limit);
 
-<<<<<<< HEAD
-   return (
-=======
   // Reset filter khi category trên URL thay đổi
   useEffect(() => {
     setFilters({});
@@ -46,7 +39,6 @@ const Swimwear = () => {
   }, [category]);
 
   return (
->>>>>>> origin/huy_giaodien_fix
     <main className="swimwear-page">
       <Breadcrumb title="Swimwear" />
       <div className="content-container">
@@ -67,7 +59,6 @@ const Swimwear = () => {
             {isFiltering ? (
               <FilteredProductList
                 filters={filters}
-<<<<<<< HEAD
                 parentCategoryId={3}
                 allowedSubcategoryIds={[20, 21]}
                 page={page}
@@ -81,12 +72,6 @@ const Swimwear = () => {
                 limit={limit}
                 onTotalCountChange={setTotalCount}
               />
-=======
-                parentCategoryId={2} // Swimwear
-              />
-            ) : (
-              <ProductList categoryIds={categoryIdsToUse} />
->>>>>>> origin/huy_giaodien_fix
             )}
           </div>
 
@@ -104,40 +89,5 @@ const Swimwear = () => {
     </main>
   );
 };
-//   return (
-//     <main className="swimear-page">
-//       <Breadcrumb title="Swimwear" />
-//       <div className="content-container">
-//         <Sidebar onFilterChange={handleFilterChange} allowedCategories={["Swimwear"]} />
-//         <div className="right-content">
-//           {isFiltering && (
-//             <div style={{ marginBottom: "16px", textAlign: "right" }}>
-//               <button className="filter-btn" onClick={handleClearFilters}>
-//                 Xóa bộ lọc
-//               </button>
-//             </div>
-//           )}
-
-//           <div className="clothing-wrapper">
-//             {isFiltering ? (
-//               <FilteredProductList
-//                 filters={filters}
-//                 parentCategoryId={3}
-//                 allowedSubcategoryIds={[20, 21]} page={0} limit={0}              />
-//             ) : (
-//               <ProductList categoryIds={[3, 20, 21]} page={0} limit={0} />
-//             )}
-//           </div>
-
-//           <div className="pagination-container">
-//             <Pagination page={0} totalPages={0} onChange={function (newPage: number): void {
-//               throw new Error('Function not implemented.');
-//             } } />
-//           </div>
-//         </div>
-//       </div>
-//     </main>
-//   );
-// };
 
 export default SwimwearPage;

@@ -63,27 +63,6 @@ const Sale: React.FC = () => {
     </main>
   );
 };
-  //   return (
-  //     <main className="sale-page">
-  //       <Breadcrumb title="Sale" />
-  //         <div className="content-container">
-  //             <Sidebar onFilterChange={function (filters: FilterOptions): void {
-  //           throw new Error("Function not implemented.");
-  //         } } /> {/* Sidebar bên trái */}
-  //             <div className="right-content">
-  //                 <div className="clothing-wrapper">
-  //                     <SaleProductList />
-  //                 </div>
-  //                 <div className="pagination-container">
-  //                     <Pagination page={0} totalPages={0} onChange={function (newPage: number): void {
-  //               throw new Error("Function not implemented.");
-  //             } }/>
-  //                 </div>
-  //             </div>
-  //         </div>
-  //     </main>
-  //   );
-  // };
   
   export default Sale;
 

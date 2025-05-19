@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { AppDataSource } from "../config/datasource";
-import { Shipping_method } from "../entity/Shipping_method";
+import { Shipping_method } from "../entity/ShippingMethod";
 
 const repo = AppDataSource.getRepository(Shipping_method);
 

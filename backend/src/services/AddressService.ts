@@ -1,6 +1,6 @@
 import { Repository } from "typeorm";
 import { Address } from "../entity/Address";
-import { User_address } from "../entity/User_address";
+import { User_address } from "../entity/UserAddress";
 import { AppDataSource } from "../config/datasource";
 
 export class AddressService {

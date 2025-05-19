@@ -9,7 +9,7 @@ import {
 } from "typeorm";
 import { User } from "./User";
 import { Address } from "./Address";
-import { Shipping_method } from "./Shipping_method";
+import { Shipping_method } from "./ShippingMethod";
 import { Order_status } from "./Order_status";
 import { OrderItem } from "./OrderItem"; //  Import thêm
 

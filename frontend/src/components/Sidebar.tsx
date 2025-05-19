@@ -204,7 +204,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onFilterChange, allowedCategories }) 
       <hr className="section-divider" />
 
       <button className="filter-btn" onClick={handleApplyFilters}>
-        Áp dụng bộ lọc
+        Apply Filter
       </button>
     </aside>
   );

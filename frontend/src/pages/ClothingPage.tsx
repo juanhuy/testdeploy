@@ -5,7 +5,7 @@ import FilteredProductList from "../components/FilteredProductList";
 import Sidebar, { FilterOptions } from "../components/Sidebar";
 import Breadcrumb from "../components/Breadcrumb";
 import "../styles/Clothing.css";
-
+import Pagination from "../components/Pagination";
 // Ánh xạ tên danh mục URL sang ID
 const mapCategoryToId = (category: string): number | null => {
   const map: Record<string, number> = {
@@ -23,17 +23,15 @@ const mapCategoryToId = (category: string): number | null => {
 // Danh sách các danh mục con của Clothing (parentId = 1)
 const clothingSubcategoryIds = [4, 5, 6, 7, 8, 11, 13];
 
-<<<<<<< HEAD
+
 const ClothingPage: React.FC = () => {
   const clothingCategoryIds = [1, 4, 5, 6, 7, 8, 11];
-=======
-const ClothingPage = () => {
   const { category } = useParams();
   const categoryIdFromUrl = category ? mapCategoryToId(category) : null;
 
   const categoryIdsToUse =
     categoryIdFromUrl !== null ? [categoryIdFromUrl] : clothingSubcategoryIds;
->>>>>>> origin/huy_giaodien_fix
+
 
   // Pagination state
   const [page, setPage] = useState(1);
@@ -56,10 +54,8 @@ const ClothingPage = () => {
     setPage(1); // reset to first page
   };
 
-<<<<<<< HEAD
   // Compute total pages
   const totalPages = Math.ceil(totalCount / limit);
-=======
   // Reset bộ lọc mỗi khi URL category thay đổi
   useEffect(() => {
     setFilters({});
@@ -71,11 +67,10 @@ const ClothingPage = () => {
     return (
       <main className="clothing-page">
         <Breadcrumb title="Clothing" />
-        <p style={{ padding: 24 }}>Không tìm thấy danh mục phù hợp.</p>
+        <p style={{ padding: 24 }}>No matching categories found.</p>
       </main>
     );
   }
->>>>>>> origin/huy_giaodien_fix
 
   return (
     <main className="clothing-page">
@@ -95,7 +90,6 @@ const ClothingPage = () => {
             </div>
           )}
 
-<<<<<<< HEAD
           <div className="clothing-wrapper">
             {isFiltering ? (
               <FilteredProductList
@@ -124,16 +118,6 @@ const ClothingPage = () => {
                 onChange={setPage}
               />
             </div>
-=======
-          {isFiltering ? (
-            <FilteredProductList
-              filters={filters}
-              parentCategoryId={1} // ID của Clothing
-              allowedSubcategoryIds={clothingSubcategoryIds}
-            />
-          ) : (
-            <ProductList categoryIds={categoryIdsToUse} />
->>>>>>> origin/huy_giaodien_fix
           )}
         </div>
       </div>
