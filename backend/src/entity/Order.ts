@@ -11,7 +11,7 @@ import { User } from "./User";
 import { Address } from "./Address";
 import { Shipping_method } from "./ShippingMethod";
 import { Order_status } from "./Order_status";
-import { OrderItem } from "./OrderItem"; //  Import thêm
+import { OrderItem } from "./OrderItems"; //  Import thêm
 
 @Entity()
 export class Order {

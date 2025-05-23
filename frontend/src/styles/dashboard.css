@@ -38,3 +38,32 @@
   font-weight: bold;
   color: #333;
 }
+
+.dashboard-filter {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.dashboard-select{
+  font-size: 17px;
+  padding: 7px 14px;
+  border: 1.5px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+  outline: none;
+  margin-bottom: 4px;
+}
+
+.dashboard-input {
+  width: 50%;
+  font-size: 17px;
+  padding: 7px 14px;
+  border: 1.5px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+  outline: none;
+  margin-bottom: 4px;
+}

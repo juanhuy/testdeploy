@@ -4,7 +4,7 @@ import { Size } from "./Size";
 import { Image } from "./Image";
 import { Color } from "./Color";
 import { Cart_item } from "./CartItem";
-import { OrderItem } from "./OrderItem"; 
+import { OrderItem } from "./OrderItems"; 
 
 @Entity()
 export class ProductItem {

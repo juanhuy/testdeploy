@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createShippingMethod, deleteShippingMethod, getShippingMethods } from "../controllers/ShippingMethodController";
+import { createShippingMethod, deleteShippingMethod, getShippingMethods } from "../controllers/Shipping_methodController";
 
 const router = Router();
 

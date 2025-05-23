@@ -1,15 +1,16 @@
 import { Repository } from "typeorm";
 import { Order } from "../entity/Order";
-import { Order_item } from "../entity/OrderItems";
+import { OrderItem } from "../entity/OrderItems";
 import { AppDataSource } from "../config/datasource";
-
+import { Order_status } from "../entity/Order_status";
 export class OrderService {
   private orderRepository: Repository<Order>;
-  private orderItemRepository: Repository<Order_item>;
+  private orderItemRepository: Repository<OrderItem>;
+  static orderRepository: any;
 
   constructor() {
     this.orderRepository = AppDataSource.getRepository(Order);
-    this.orderItemRepository = AppDataSource.getRepository(Order_item);
+    this.orderItemRepository = AppDataSource.getRepository(OrderItem);
   }
 
   // Lấy tất cả đơn hàng
@@ -61,7 +62,7 @@ export class OrderService {
   }
 
   // Thêm chi tiết đơn hàng
-  async addOrderItem(orderId: number, orderItemData: Partial<Order_item>): Promise<Order_item> {
+  async addOrderItem(orderId: number, orderItemData: Partial<OrderItem>): Promise<OrderItem> {
     const order = await this.getOrderById(orderId);
     if (!order) throw new Error("Order not found");
 
@@ -72,4 +73,6 @@ export class OrderService {
 
     return this.orderItemRepository.save(orderItem);
   }
+
+
 }

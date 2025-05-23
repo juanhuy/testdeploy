@@ -1,8 +1,8 @@
 import express, {Request, Response} from "express";
 import dotenv from "dotenv";
 import { AppDataSource } from "./config/datasource";
-import UserRouter from "./routes/userRoutes";
 
+import UserRouter from "./routes/userRoutes";
 import promotionRoutes from "./routes/promotionRoutes"; 
 import sizeRoutes from "./routes/SizeRoutes";
 import User_addressRoute from "./routes/UserAddressRoute";
@@ -11,11 +11,10 @@ import Shipping_methodRoutes from "./routes/ShippingMethodRoutes";
 import productRoutes from "./routes/productRoutes";
 import imageRoutes from "./routes/imageRoutes";
 import categoryRoutes from "./routes/categoryRoutes";
-import userRoutes from "./routes/userRoutes";
+
 import product_itemRoutes from "./routes/productItemRoutes";
 import authRoutes from "./routes/authRoutes";
-
-
+import StatisticsRoutes from "./routes/StatisticsRoutes";
 
 import path from "path";
 
@@ -45,10 +44,9 @@ app.use("/api/products", productRoutes);
 app.use("/api/product-items", product_itemRoutes);
 app.use("/api/images", imageRoutes);
 app.use("/api/categories", categoryRoutes);
-app.use("/api/users", userRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/auth", authRoutes);
-
+app.use("/api/statistics", StatisticsRoutes);
 // Serve static files from the uploads directory
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
