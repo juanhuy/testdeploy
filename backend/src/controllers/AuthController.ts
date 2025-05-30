@@ -34,7 +34,6 @@ export const register = async (
   });
 };
 
-// ✅ Đăng nhập
 export const login = async (
   req: Request<{}, {}, LoginRequestBody>,
   res: Response

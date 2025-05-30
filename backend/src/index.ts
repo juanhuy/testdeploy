@@ -1,7 +1,7 @@
 import express, {Request, Response} from "express";
 import dotenv from "dotenv";
 import { AppDataSource } from "./config/datasource";
-
+import { keycloak, isAuthenticated, adminOnly, memoryStore } from "./middleware/keycloak";
 import UserRouter from "./routes/userRoutes";
 import promotionRoutes from "./routes/promotionRoutes"; 
 import sizeRoutes from "./routes/SizeRoutes";
@@ -28,81 +28,33 @@ const app = express();
 const PORT = 3001;
 
 // keycloak config
-const USER_ROLE = process.env.USER_ROLE;
-const ADMIN_ROLE = process.env.ADMIN_ROLE;
-
-const session = require("express-session");
-const Keycloak = require("keycloak-connect");
-
-const kcConfig = {
-    clientId: process.env.KEYCLOAK_CLIENT_ID,
-    bearerOnly: true,
-    serverUrl: process.env.KEYCLOAK_URL,
-    realm: process.env.KEYCLOAK_REALM
-};
-
-const memoryStore = new session.MemoryStore();
-
-Keycloak.prototype.accessDenied = function (request: Request, response: Response) {
-    response.status(401)
-    response.setHeader('Content-Type', 'application/json')
-    response.end(JSON.stringify({ status: 401, message: 'Unauthorized/Forbidden', result: { errorCode: 'ERR-401', errorMessage: 'Unauthorized/Forbidden' } }))
-}
-
-const keycloak = new Keycloak({ store: memoryStore }, kcConfig);
-
-function adminOnly(token: Token, request: Request) {
-    return token.hasRole(`realm:${ADMIN_ROLE}`);
-}
-
-function isAuthenticated(token: Token, request: Request) {
-    return token.hasRole(`realm:${ADMIN_ROLE}`) || token.hasRole(`realm:${USER_ROLE}`);
-}
-
-app.use(session({
-    secret: process.env.APP_SECRET || 'BV&%R*BD66JH',
-    resave: false,
-    saveUninitialized: true,
-    store: memoryStore
-}));
-
-app.use( keycloak.middleware() );
 
 
-app.use(session({
-    secret: process.env.APP_SECRET || 'BV&%R*BD66JH',
-    resave: false,
-    saveUninitialized: true,
-    store: memoryStore
-}));
 
 
 app.use(cors({
-    origin: "http://localhost:3000", // hoặc "*" nếu muốn cho tất cả
+    origin: "http://localhost:3000",
     credentials: true
 }));
-
-
-
 app.use(
     "/api/users",
-    keycloak.protect(adminOnly),
+    keycloak.protect(isAuthenticated),
     UserRouter
 );
 app.use("/api/promotions", promotionRoutes); 
 app.use("/api/sizes", sizeRoutes); 
-app.use("/api/user-addresses", User_addressRoute);
+app.use("/api/user-addresses", keycloak.protect(isAuthenticated),User_addressRoute);
 app.use("/api/reviews", ReviewRoutes);
-app.use("/api/shipping-methods", Shipping_methodRoutes);
+app.use("/api/shipping-methods",keycloak.protect(isAuthenticated), Shipping_methodRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/product-items", product_itemRoutes);
 app.use("/api/images", imageRoutes);
 app.use("/api/categories", categoryRoutes);
-app.use("/api/orders", orderRoutes);
-app.use("/api/auth", authRoutes);
-app.use("/api/statistics", StatisticsRoutes);
+app.use("/api/orders", keycloak.protect(isAuthenticated),orderRoutes);
+app.use("/api/auth", keycloak.protect(isAuthenticated),authRoutes);
+app.use("/api/statistics",keycloak.protect(adminOnly), StatisticsRoutes);
 // Serve static files from the uploads directory
-app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
+app.use("/uploads", keycloak.protect(adminOnly),express.static(path.join(__dirname, "../uploads")));
 
 // DB + start server
 AppDataSource.initialize()
