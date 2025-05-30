@@ -27,6 +27,7 @@ dotenv.config();
 const app = express();
 const PORT = 3001;
 
+// keycloak config
 const USER_ROLE = process.env.USER_ROLE;
 const ADMIN_ROLE = process.env.ADMIN_ROLE;
 
@@ -57,6 +58,16 @@ function adminOnly(token: Token, request: Request) {
 function isAuthenticated(token: Token, request: Request) {
     return token.hasRole(`realm:${ADMIN_ROLE}`) || token.hasRole(`realm:${USER_ROLE}`);
 }
+
+app.use(session({
+    secret: process.env.APP_SECRET || 'BV&%R*BD66JH',
+    resave: false,
+    saveUninitialized: true,
+    store: memoryStore
+}));
+
+app.use( keycloak.middleware() );
+
 
 app.use(session({
     secret: process.env.APP_SECRET || 'BV&%R*BD66JH',
