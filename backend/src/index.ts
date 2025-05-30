@@ -76,7 +76,6 @@ app.use(session({
     store: memoryStore
 }));
 
-app.use( keycloak.middleware());
 
 app.use(cors({
     origin: "http://localhost:3000", // hoặc "*" nếu muốn cho tất cả
@@ -85,7 +84,11 @@ app.use(cors({
 
 
 
-app.use("/api/users", UserRouter);
+app.use(
+    "/api/users",
+    keycloak.protect(adminOnly),
+    UserRouter
+);
 app.use("/api/promotions", promotionRoutes); 
 app.use("/api/sizes", sizeRoutes); 
 app.use("/api/user-addresses", User_addressRoute);
@@ -109,4 +112,4 @@ AppDataSource.initialize()
             console.log(`Server running at http://localhost:${PORT}`);
         });
     })
-    .catch((error) => console.log("Database connection error:", error));
+    .catch((error) => console.log("Database connection error:", error))
