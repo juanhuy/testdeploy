@@ -1,5 +1,6 @@
 import { DataSource } from "typeorm";
 import dotenv from "dotenv";
+import express from "express";
 
 dotenv.config();
 
@@ -19,5 +20,5 @@ export const AppDataSource = new DataSource({
 });
 
 AppDataSource.initialize()
-  .then(() => console.log("Database Connected!"))
-  .catch((err) => console.error("Database Connection Error:", err));
+  .then(() => console.log("✅ Database Connected!"))
+  .catch((err) => console.error("❌ Database Connection Error:", err));

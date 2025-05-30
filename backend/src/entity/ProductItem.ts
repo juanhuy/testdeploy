@@ -3,7 +3,8 @@ import { Product } from "./Product";
 import { Size } from "./Size";
 import { Image } from "./Image";
 import { Color } from "./Color";
-import { Cart_item } from "./Cart_item"; 
+import { Cart_item } from "./CartItem";
+import { OrderItem } from "./OrderItems"; 
 
 @Entity()
 export class ProductItem {
@@ -27,7 +28,11 @@ export class ProductItem {
   color!: Color;
 
   @OneToMany(() => Cart_item, (cartItem) => cartItem.productItem, { cascade: true })
-  cartItems!: Cart_item[]; 
+  cartItems!: Cart_item[];
+
+  // Quan hệ với OrderItem
+  @OneToMany(() => OrderItem, (orderItem) => orderItem.productItem, { cascade: true })
+  orderItems!: OrderItem[];
 
   @Column()
   quantity!: number;

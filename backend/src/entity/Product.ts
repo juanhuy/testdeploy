@@ -19,8 +19,12 @@ export class Product {
   productItems!: ProductItem[];
 
   @ManyToOne(() => Category, (category) => category.products, {
-    onDelete: "CASCADE", // Nếu danh mục bị xóa, sản phẩm liên quan cũng bị xóa.
+    onDelete: "CASCADE",
+    nullable: true, // cho phép null
   })
   @JoinColumn({ name: "category_id" }) 
-  category!: Category;
+  category!: Category | null;
+
+  @Column({nullable: true}) 
+  category_id!: number | null;
 }

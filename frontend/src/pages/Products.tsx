@@ -16,15 +16,6 @@ const Products = () => {
   const [editingItem, setEditingItem] = useState(null);
   const [adding, setAdding] = useState(false);
 
-  const columns = [
-    { key: "id", header: "ID" },
-    { key: "name", header: "Name" },
-    { key: "value", header: "Price" },
-    { key: "description", header: "Description" },
-    { key: "all_rate", header: "Rating" },
-    { key: "category_id", header: "Category ID" },
-    { key: "view", header: "View", render: (row) => <img src={row.view} alt={row.name} width="50" height="50" /> }
-  ];
 
   const handleSearch = (query) => {
     const lowerCaseQuery = query.toLowerCase();
@@ -63,17 +54,53 @@ const Products = () => {
     }
   };
 
+  const handleBuy = (item) => {
+    alert(`You have selected to buy: ${item.name} for ${item.value.toLocaleString()}₫`);
+    // TODO: Thêm logic giỏ hàng ở đây
+  };
+
+  const columns = [
+    { key: "id", header: "ID" },
+    { key: "name", header: "Name" },
+    { key: "value", header: "Price" },
+    { key: "description", header: "Description" },
+    { key: "all_rate", header: "Rating" },
+    { key: "category_id", header: "Category ID" },
+    {
+      key: "view",
+      header: "View",
+      render: (row) => (
+        <img
+          src={row.view}
+          alt={row.name}
+          width="50"
+          height="50"
+          className="product-img"
+        />
+      ),
+    },
+    {
+      key: "buy",
+      header: "Buy",
+      render: (row) => (
+        <button className="btn-buy" onClick={() => handleBuy(row)}>
+          Buy
+        </button>
+      ),
+    },
+  ];
+
   return (
     <div className="products-container">
       <div className="products-header">
         <h1 className="title">Products</h1>
-        <button className="btn-add" onClick={() => setAdding(true)}>Add Product</button>
+        <button className="btn-add" onClick={() => setAdding(true)}>
+          Add Product
+        </button>
       </div>
 
-      {/* Search Bar */}
       <SearchBar onSearch={handleSearch} />
 
-      {/* Display Table with filtered data */}
       <Table data={filteredData} columns={columns} onEdit={handleEdit} onDelete={handleDelete} />
 
       {(editingItem || adding) && (

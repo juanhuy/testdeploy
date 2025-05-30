@@ -1,88 +1,122 @@
-/* Container tổng của trang quần áo */
-.clothing-container {
-  padding: 20px;
+.clothing-wrapper {
+ padding: 20px;
+  
 }
 
-/* Dropdown sắp xếp */
-.order-by {
+/* Khu vực chọn sắp xếp */
+.clothing-wrapper .order-by {
   display: flex;
   justify-content: flex-end;
-  margin: 20px;
+  margin-bottom: 20px;
 }
 
-.order-by select {
-  padding: 8px 12px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
+.clothing-wrapper .order-by select {
+  
+  
+  border-radius: 5px;
   font-size: 14px;
   background-color: #fff;
-  cursor: pointer;
 }
 
-/* Vùng chứa danh sách sản phẩm */
-.product-list {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin-bottom: 100px;
-}
-
-/* Grid hiển thị sản phẩm */
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  padding: 20px;
-  max-width: 1200px;
-  width: 100%;
-}
-
-/* Card sản phẩm (áp dụng nếu ProductCard không có CSS riêng) */
-.product {
-  background-color: #fff;
-  padding: 16px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  transition: transform 0.2s ease-in-out;
-}
-
-.product:hover {
-  transform: translateY(-5px);
-}
-
-.product img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
-}
-
-/* Layout toàn trang nếu cần dùng */
-.clothing-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0;
-}
-
-/* Hiển thị sidebar và nội dung bên phải theo hàng ngang */
-.content-container {
-  display: flex;
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
-  gap: 24px;
-}
-
-/* Bên phải gồm clothing + pagination */
-.right-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Pagination canh giữa */
-.pagination-container {
+/* Danh sách và lưới sản phẩm */
+.clothing-wrapper .product-list {
   display: flex;
   justify-content: center;
+}
+
+.clothing-wrapper .product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (max-width: 992px) {
+  .clothing-wrapper .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .clothing-wrapper .product-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+/* Thẻ sản phẩm */
+.clothing-wrapper .product-card {
+  
+
+  padding: 15px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s ease-in-out;
+  height: 100%;
+  position: relative;
+}
+
+.clothing-wrapper .product-card:hover {
+  transform: scale(1.05);
+}
+
+/* Ảnh */
+.clothing-wrapper .product-card img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+/* Tên sản phẩm */
+.clothing-wrapper .product-card h3 {
+  font-size: 16px;
+  margin: 10px 0;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Giá */
+.clothing-wrapper .product-card p {
+  font-size: 14px;
+  color: #555;
+  font-weight: bold;
+  min-height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Nút mua */
+.clothing-wrapper .product-card .buy-btn {
+  margin-top: auto;
+  margin-bottom: 10px;
+  padding: 8px 16px;
+  background-color: #414141;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: 500;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.clothing-wrapper .product-card:hover .buy-btn {
+  opacity: 1;
+  transform: translateY(0);
+  height: auto;
+  pointer-events: auto;
+  margin-top: 10px;
+}
+
+.clothing-wrapper .buy-btn:hover {
+  background-color: #313131;
 }

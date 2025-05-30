@@ -46,6 +46,9 @@
   
   .footer-links ul li a:hover {
     text-decoration: underline;
+
+    color: #379E9E;
+
   }
   
   .footer-bottom {
@@ -92,4 +95,11 @@
       width: 100%;
       text-align: center;
     }
+
+  }
+  button{
+    background-color: white;
+    color: black;
+    size: 18px;
+
   }

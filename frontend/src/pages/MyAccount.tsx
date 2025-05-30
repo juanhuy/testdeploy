@@ -1,20 +1,20 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import Sidebar2 from "../components/Sidebar2";
 import OrderList from "../components/OrderList";
 import Address from "../components/Address";
 import AccountDetails from "../components/AccountDetail";
 import "../styles/MyAccount.css"; // Import CSS để tạo bố cục
 import Breadcrumb from "../components/Breadcrumb";
-import LoginSection from "./LoginSection";
-import RegisterForm from "./RegisterForm";
+
+import Sidebar2 from "../components/Sidebar2";
+
 const MyAccount = () => {
   return (
     <div className="my-account">
       <Breadcrumb title="My Account" />
       <div className="account-content">
         {/* Sidebar nằm dưới navbar */}
-        <Sidebar2 />
+        <Sidebar2/>
         <div className="account-details">
           <Routes>
             <Route index element={<Navigate to="orders" />} />

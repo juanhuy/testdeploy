@@ -1,78 +1,117 @@
-import React from "react";
-import {
-  AreaChart,
-  Area,
-  XAxis,
-  YAxis,
-  Tooltip,
-  CartesianGrid,
-} from "recharts";
+import React, { useEffect, useState } from "react";
 import "../styles/dashboard.css";
 
-const data = [
-  { name: "Jan", orders: 50, users: 30, promotions: 20, products: 40 },
-  { name: "Feb", orders: 70, users: 50, promotions: 40, products: 60 },
-  { name: "Mar", orders: 90, users: 60, promotions: 50, products: 80 },
-  { name: "Apr", orders: 60, users: 40, promotions: 30, products: 50 },
-  { name: "May", orders: 100, users: 80, promotions: 60, products: 90 },
-];
+const AdminDashboard: React.FC = () => {
+  const [type, setType] = useState("day");
+  const [date, setDate] = useState(() => new Date().toISOString().slice(0, 10)); // yyyy-MM-dd
 
-const orders = [
-  { id: "325092", date: "16 Jul 2022", price: "$1297" },
-  { id: "927383", date: "16 Jul 2022", price: "$2255" },
-  { id: "368585", date: "27 Jun 2022", price: "$666" },
-  { id: "585410", date: "24 Jun 2022", price: "$1381" },
-];
+  const [stats, setStats] = useState({
+    categories: 0,
+    products: 0,
+    orders: 0,
+    users: 0,
+  });
 
-const Dashboard = () => {
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const [catRes, userRes] = await Promise.all([
+          fetch("http://localhost:3001/api/categories"),
+          fetch("http://localhost:3001/api/users"),
+        ]);
+
+        const [catData, userData] = await Promise.all([
+          catRes.json(),
+          userRes.json(),
+        ]);
+
+       setStats(prev => ({
+          ...prev,
+          categories: catData.length,
+          users: userData.length,
+        }));
+      } catch (err) {
+        console.error("Failed to load statistics:", err);
+      }
+    };
+
+    fetchStats();
+  }, []);
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const [prodRes, orderRes] = await Promise.all([
+          fetch(`http://localhost:3001/api/statistics/products?type=${type}&date=${date}`),
+          fetch(`http://localhost:3001/api/statistics/orders?type=${type}&date=${date}`),
+        ]);
+
+        const prodData = await prodRes.json();
+        const orderData = await orderRes.json();
+
+        setStats(prev => ({
+          ...prev,
+          products: prodData.totalInStock || 0, // nếu backend trả về { totalInStock: ... }
+          orders: orderData.totalOrders || 0,
+        }));
+
+      } catch (err) {
+        setStats(prev => ({
+          ...prev,
+          products: 0,
+          orders: 0,
+        }));
+        console.error("Failed to load statistics:", err);
+      }
+    };
+
+    fetchStats();
+  }, [type, date]);
+  
   return (
     <div className="dashboard-container">
-      <h2>Dashboard</h2>
-
-      <div className="filters">
-        <label>
-          From: <input type="date" />
-        </label>
-        <label>
-          To: <input type="date" />
-        </label>
+      <h1>Welcome to the Admin Dashboard</h1>
+      
+      <div className="dashboard-filter">
+        <select
+          className="dashboard-select"
+          value={type}
+          onChange={e => setType(e.target.value)}
+        >
+          <option value="day">Day</option>
+          <option value="week">Week</option>
+          <option value="month">Month</option>
+          <option value="year">Year</option>
+        </select>
+        <input
+          className="dashboard-input"
+          type="date"
+          value={date}
+          onChange={e => setDate(e.target.value)}
+        />
       </div>
 
-      <div className="dashboard-stats">
+
+      <div className="stats-boxes">
         <div className="stat-box">
-          <h3>Orders</h3>
-          <p>200</p>
+          <h2>Categories</h2>
+          <p>{stats.categories}</p>
         </div>
         <div className="stat-box">
-          <h3>Users</h3>
-          <p>150</p>
+          <h2>Products</h2>
+          <p>{stats.products}</p>
         </div>
         <div className="stat-box">
-          <h3>Promotions</h3>
-          <p>50</p>
+          <h2>Orders</h2>
+          <p>{stats.orders}</p>
         </div>
         <div className="stat-box">
-          <h3>Products</h3>
-          <p>300</p>
+          <h2>Users</h2>
+          <p>{stats.users}</p>
         </div>
       </div>
-
-      <div className="dashboard-charts">
-        <h3>Analytics</h3>
-        <AreaChart width={800} height={300} data={data}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Area type="monotone" dataKey="orders" stroke="#27A4F2" fill="#27A4F2" />
-          <Area type="monotone" dataKey="users" stroke="#3EAEF4" fill="#3EAEF4" />
-          <Area type="monotone" dataKey="promotions" stroke="#6586E6" fill="#6586E6" />
-          <Area type="monotone" dataKey="products" stroke="#9FD7F9" fill="#9FD7F9" />
-        </AreaChart>
-      </div>
-
     </div>
   );
 };
 
-export default Dashboard;
+export default AdminDashboard;

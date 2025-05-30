@@ -1,46 +1,106 @@
 import React, { useEffect, useState } from "react";
 import "../styles/ProductList.css";
 import ProductCard from "./ProductCard";
-import Pagination from "./Pagination";
+import ShoppingCartPopup from "./ShoppingCartPopup";
+import { useCart } from "../contexts/CartContext";
 
-type Product = { name: string; img: string; price: number;};
+export type ProductItem = {
+  id: number;
+  price: number;
+  image: { image_url: string };
+  product: { name: string; category_id: number };
+};
 
-  const products: Product[] = [
-      { name: "ALTIA BIKINI", img: "https://stitched-lb.com/wp-content/uploads/2025/03/7ALA2-280x420.jpg", price: 210.0},
-      { name: "ALTIA BIKINI", img: "https://stitched-lb.com/wp-content/uploads/2025/03/GREEN-280x420.jpg", price: 210.0},
-      {  name: "ALTIA BIKINI", img: "https://stitched-lb.com/wp-content/uploads/2025/03/ATILA-BLUE.avif", price: 210.0},
-      { name: "ALTIA BIKINI", img: "https://stitched-lb.com/wp-content/uploads/2025/03/SENSEL.jpg", price: 210.0},
-      { name: "ALTIA BIKINI", img: "https://stitched-lb.com/wp-content/uploads/2023/09/primrose-earrings-large-fuchsia-64f719c9ddaf8-234x300.jpg", price: 210.0},
-      { name: "ALTIA BIKINI", img: "https://stitched-lb.com/wp-content/uploads/2023/09/CITRUS-PINK-234x300.jpg", price: 210.0},
-      {  name: "ALTIA BIKINI", img: "https://stitched-lb.com/wp-content/uploads/2023/09/LEMON-234x300.jpeg", price: 210.0},
-      { name: "ALTIA BIKINI", img: "https://stitched-lb.com/wp-content/uploads/2023/09/sparkle-heart-beaded-earrings-khaki--234x300.jpeg", price: 210.0}, 
-      {  name: "ALTIA BIKINI", img: "https://stitched-lb.com/wp-content/uploads/2023/09/primrose-earrings-silver-64eda8d35931a-234x300.jpg", price: 210.0},
-      {  name: "ALTIA BIKINI", img: "https://stitched-lb.com/wp-content/uploads/2023/07/629df66c752a2-280x280.png", price: 210.0},
-      {  name: "ALTIA BIKINI", img: "https://stitched-lb.com/wp-content/uploads/2023/07/629df46861cd3-280x280.png", price: 210.0},
-      {  name: "ALTIA BIKINI", img: "https://stitched-lb.com/wp-content/uploads/2023/07/629df2f85a976-280x280.png", price: 210.0},
-      {  name: "ALTIA BIKINI", img: "https://stitched-lb.com/wp-content/uploads/2023/09/FLOWER-HOOPS-WHITE.jpeg", price: 210.0},
-      { name: "ALTIA BIKINI", img: "https://stitched-lb.com/wp-content/uploads/2025/03/BAGSS.jpg", price: 210.0},
-    ];
+interface ProductListProps {
+  categoryIds: number[];
+  page: number;
+  limit: number;
+  onTotalCountChange?: (n: number) => void;
+}
 
-    function ProductList() {
-      return (
-          <div>
-              <div className="order-by">
-                  <select id="sort">
-                      <option value="popularity">Sort by Popularity</option>
-                      <option value="price-low">Price: Low to High</option>
-                      <option value="price-high">Price: High to Low</option>
-                  </select>
-              </div>
-              <div className="product-list">
-                  <div className="product-grid">
-                      {products.map((product, index) => (
-                          <ProductCard key={index} product={product} />
-                      ))}
-                  </div>
-              </div>
-          </div>
-      );
-  }
-  
-  export default ProductList;
+const ProductList: React.FC<ProductListProps> = ({
+  categoryIds,
+  page,
+  limit,
+  onTotalCountChange,
+}) => {
+  const [productItems, setProductItems] = useState<ProductItem[]>([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const { cart, addToCart, updateQuantity, removeItem } = useCart();
+
+  useEffect(() => {
+    console.log("📦 categoryIds prop received:", categoryIds);
+
+    if (!categoryIds || categoryIds.length === 0) {
+      console.warn("⚠️ categoryIds is empty — skipping fetch.");
+      setProductItems([]);
+      return;
+    }
+
+    fetch("http://localhost:3001/api/product-items")
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to fetch product items.");
+        return res.json();
+      })
+      .then((data: ProductItem[]) => {
+        console.log("Fetched all products:", data);
+        console.log("All category_ids in API:", data.map(d => d.product.category_id));
+
+        const filtered = data.filter((item) =>
+          categoryIds.includes(item.product.category_id)
+        );
+
+        console.log("Filtered products to display:", filtered);
+        setProductItems(filtered);
+        onTotalCountChange?.(filtered.length);
+      })
+      .catch(err => console.error("Error loading product items:", err));
+  }, [categoryIds, onTotalCountChange]);
+
+  // slicing client-side
+  const start = (page - 1) * limit;
+  const currentItems = productItems.slice(start, start + limit);
+
+  const handleBuyNow = (item: ProductItem) => {
+    addToCart({
+      id: item.id,
+      name: item.product.name,
+      price: item.price,
+      image: item.image.image_url,
+    });
+    setIsCartOpen(true);
+  };
+
+  return (
+    <div className="product-list-container">
+      <div className="product-container">
+        {currentItems.length === 0 ? (
+          <p className="no-product">No matching products found.</p>
+        ) : (
+          currentItems.map(item => (
+            <ProductCard
+              key={item.id}
+              product={{
+                id: item.id,
+                name: item.product.name,
+                img: item.image.image_url,
+                price: item.price,
+              }}
+              onBuy={() => handleBuyNow(item)}
+            />
+          ))
+        )}
+      </div>
+
+      <ShoppingCartPopup
+        isOpen={isCartOpen}
+        onClose={() => setIsCartOpen(false)}
+        cartItems={cart}
+        updateQuantity={updateQuantity}
+        removeItem={removeItem}
+      />
+    </div>
+  );
+};
+
+export default ProductList;

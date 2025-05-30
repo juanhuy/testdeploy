@@ -2,8 +2,10 @@
 .login-section {
     width: 100%;
     max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
+    margin: 100px auto;
+    padding: 40px;
+    padding-left: 50px;
+    padding-right: 50px; 
     background-color: #f4f4f4;
     border-radius: 8px;
     margin-bottom: 300px;
@@ -57,4 +59,34 @@
   
   .login-btn:hover {
     background-color: #000000;
+  }@media (max-width: 600px) {
+    .login-form {
+      width: 90%;
+      padding: 20px;
+    }
   }
+  .login-form p a {
+    color: #000000;
+    font: bold 14px Cabin, Arial, Helvetica, sans-serif;
+    text-decoration: none;
+  }
+  
+  .login-form p a:hover {
+    text-decoration: underline;
+    color: #555;
+  }
+  .forgot-password {
+    margin-top: 6px;
+    text-align: right;
+  }
+  
+  .forgot-password a {
+    font-size: 0.9rem;
+    color: #379E9E;
+    text-decoration: none;
+  }
+  
+  .forgot-password a:hover {
+    text-decoration: underline;
+  }
+  

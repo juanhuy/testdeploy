@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 import "../styles/Sidebar2.css";
 
 const Sidebar2 = () => {
+  function handleLogout(event: React.MouseEvent<HTMLLIElement, MouseEvent>): void {
+    throw new Error("Function not implemented.");
+  }
+
   return (
     <div className="sidebar2">
       <ul>
@@ -14,9 +18,6 @@ const Sidebar2 = () => {
         </li>
         <li>
           <Link to="/myaccount/details">Account details</Link>
-        </li>
-        <li>
-          <Link to="/myaccount/logout">Logout</Link>
         </li>
       </ul>
     </div>
