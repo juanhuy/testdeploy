@@ -4,6 +4,10 @@ import "../styles/CategoryAdminPage.css";
 type Category = {
   id: number;
   name: string;
+  parent?: {
+    id: number;
+    name: string;
+  } | null;
 };
 
 const CategoryAdminPage: React.FC = () => {
@@ -11,6 +15,7 @@ const CategoryAdminPage: React.FC = () => {
   const [editingCategory, setEditingCategory] = useState<Category | null>(null);
   const [newName, setNewName] = useState("");
   const [newCategoryName, setNewCategoryName] = useState("");
+  const [selectedParentId, setSelectedParentId] = useState<number | null>(null);
 
   // Lấy danh sách danh mục
   useEffect(() => {
@@ -59,7 +64,7 @@ const CategoryAdminPage: React.FC = () => {
     fetch("http://localhost:3001/api/categories/create", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name: newCategoryName }),
+      body: JSON.stringify({ name: newCategoryName, parent_id: selectedParentId }),
     })
       .then(async res => {
         if (!res.ok) {
@@ -71,6 +76,7 @@ const CategoryAdminPage: React.FC = () => {
       .then((created: Category) => {
         setCategories(prev => [...prev, created]);
         setNewCategoryName("");
+        setSelectedParentId(null);
         alert("✔ Thêm thành công");
       })
       .catch(err => alert("❌ Lỗi thêm: " + err.message));
@@ -102,7 +108,22 @@ const CategoryAdminPage: React.FC = () => {
           value={newCategoryName}
           onChange={(e) => setNewCategoryName(e.target.value)}
         />
-        <button className="btn-add" onClick={handleAdd}>➕ Thêm danh mục</button>
+        <select
+          value={selectedParentId ?? ""}
+          onChange={(e) =>
+            setSelectedParentId(e.target.value ? parseInt(e.target.value) : null)
+          }
+        >
+          <option value="">-- Không có danh mục cha --</option>
+          {categories.map((cat) => (
+            <option key={cat.id} value={cat.id}>
+              {cat.name}
+            </option>
+          ))}
+        </select>
+        <button className="btn-add" onClick={handleAdd}>
+          ➕ Thêm danh mục
+        </button>
       </div>
 
       <table className="product-table">
@@ -110,6 +131,7 @@ const CategoryAdminPage: React.FC = () => {
           <tr>
             <th>ID</th>
             <th>Tên danh mục</th>
+            <th>Danh mục cha</th>
             <th>Hành động</th>
           </tr>
         </thead>
@@ -127,16 +149,25 @@ const CategoryAdminPage: React.FC = () => {
                   cat.name
                 )}
               </td>
+              <td>{cat.parent ? cat.parent.name : "(Không có)"}</td>
               <td>
                 {editingCategory?.id === cat.id ? (
                   <>
-                    <button className="btn-edit" onClick={handleUpdate}>💾 Lưu</button>
-                    <button className="btn-cancel" onClick={() => setEditingCategory(null)}>❌ Hủy</button>
+                    <button className="btn-edit" onClick={handleUpdate}>
+                      💾 Lưu
+                    </button>
+                    <button className="btn-cancel" onClick={() => setEditingCategory(null)}>
+                      ❌ Hủy
+                    </button>
                   </>
                 ) : (
                   <>
-                    <button className="btn-edit" onClick={() => handleEditClick(cat)}>✏️ Sửa</button>
-                    <button className="btn-delete" onClick={() => handleDelete(cat.id)}>🗑️ Xóa</button>
+                    <button className="btn-edit" onClick={() => handleEditClick(cat)}>
+                      ✏️ Sửa
+                    </button>
+                    <button className="btn-delete" onClick={() => handleDelete(cat.id)}>
+                      🗑️ Xóa
+                    </button>
                   </>
                 )}
               </td>

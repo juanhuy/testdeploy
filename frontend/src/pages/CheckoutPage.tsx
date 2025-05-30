@@ -1,35 +1,72 @@
-// src/pages/CheckoutPage.tsx
 import React, { useState } from "react";
 import { useCart } from "../contexts/CartContext";
 import "../styles/CheckoutPage.css";
 
+const currentUser = JSON.parse(localStorage.getItem("currentUser") || "null");
+
 const CheckoutPage: React.FC = () => {
-  const { cart, updateQuantity, removeItem } = useCart();
+  const { cart, updateQuantity, removeItem, clearCart } = useCart();
+
   const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    address: "",
-    phone: "",
+    guest_name: "",
+    guest_email: "",
+    guest_phone: "",
+    street_name: "",
+    city: "",
+    region: "",
+    district: "",
+    country: "Việt Nam",
   });
 
-  const total = cart.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
-  );
+  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+  const handleInputChange = (field: string, value: string) => {
+    setFormData({ ...formData, [field]: value });
+  };
 
   const handlePlaceOrder = async () => {
-    const payload = {
-      user_id: 1, // giả định user đăng nhập có id là 1
-      shipping_address_id: 3, // giả định địa chỉ giao hàng đã lưu có id là 3
-      shipping_method_id: 2, // giả định phương thức giao hàng có id là 2
-      order_status_id: 1, // trạng thái mới tạo
+    const isGuest = !currentUser;
+
+    if (
+      isGuest &&
+      (!formData.guest_name.trim() ||
+        !formData.guest_email.trim() ||
+        !formData.guest_phone.trim() ||
+        !formData.street_name.trim() ||
+        !formData.city.trim() ||
+        !formData.region.trim() ||
+        !formData.district.trim())
+    ) {
+      alert("Vui lòng điền đầy đủ thông tin giao hàng.");
+      return;
+    }
+
+    const payload: any = {
       order_total: total.toFixed(2),
+      shipping_method_id: 1,
+      order_status_id: 1,
       order_items: cart.map((item) => ({
         product_item_id: item.id,
         quantity: item.quantity.toString(),
         price: item.price.toFixed(2),
       })),
     };
+
+    if (currentUser) {
+      payload.user_id = currentUser.id;
+      payload.shipping_address_id = 3; // giả định có sẵn
+    } else {
+      payload.guest_info = {
+        guest_name: formData.guest_name,
+        guest_email: formData.guest_email,
+        guest_phone: formData.guest_phone,
+        street_name: formData.street_name,
+        city: formData.city,
+        region: formData.region,
+        district: formData.district,
+        country: formData.country,
+      };
+    }
 
     try {
       const res = await fetch("http://localhost:3001/api/orders", {
@@ -42,49 +79,83 @@ const CheckoutPage: React.FC = () => {
 
       if (!res.ok) throw new Error("Đặt hàng thất bại");
 
-      alert("Đặt hàng thành công!");
-      // TODO: Clear cart nếu cần
+      alert("✅ Đặt hàng thành công!");
+      clearCart();
     } catch (err) {
-      alert("Đặt hàng thất bại. Vui lòng thử lại.");
+      alert("❌ Đặt hàng thất bại. Vui lòng thử lại.");
       console.error(err);
     }
   };
 
   return (
     <div className="checkout-page">
-      <h2>Checkout</h2>
+      <h2>Thanh toán</h2>
 
       {cart.length === 0 ? (
-        <p>Giỏ hàng của bạn đang trống.</p>
+        <p>🛒 Giỏ hàng của bạn đang trống.</p>
       ) : (
         <>
-          <div className="checkout-form">
-            <h3>Thông tin giao hàng</h3>
-            <label>Họ tên:</label>
-            <input
-              type="text"
-              value={formData.fullName}
-              onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-            />
-            <label>Email:</label>
-            <input
-              type="email"
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            />
-            <label>Số điện thoại:</label>
-            <input
-              type="text"
-              value={formData.phone}
-              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-            />
-            <label>Địa chỉ:</label>
-            <textarea
-              rows={3}
-              value={formData.address}
-              onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-            ></textarea>
-          </div>
+          {!currentUser && (
+            <div className="checkout-form">
+              <h3>Thông tin giao hàng</h3>
+
+              <label>Họ tên:</label>
+              <input
+                type="text"
+                value={formData.guest_name}
+                onChange={(e) => handleInputChange("guest_name", e.target.value)}
+              />
+
+              <label>Email:</label>
+              <input
+                type="email"
+                value={formData.guest_email}
+                onChange={(e) => handleInputChange("guest_email", e.target.value)}
+              />
+
+              <label>Số điện thoại:</label>
+              <input
+                type="text"
+                value={formData.guest_phone}
+                onChange={(e) => handleInputChange("guest_phone", e.target.value)}
+              />
+
+              <label>Địa chỉ chi tiết:</label>
+              <input
+                type="text"
+                value={formData.street_name}
+                onChange={(e) => handleInputChange("street_name", e.target.value)}
+              />
+
+              <label>Quận/Huyện:</label>
+              <input
+                type="text"
+                value={formData.district}
+                onChange={(e) => handleInputChange("district", e.target.value)}
+              />
+
+              <label>Thành phố:</label>
+              <input
+                type="text"
+                value={formData.city}
+                onChange={(e) => handleInputChange("city", e.target.value)}
+              />
+
+              <label>Vùng/Miền:</label>
+              <input
+                type="text"
+                value={formData.region}
+                onChange={(e) => handleInputChange("region", e.target.value)}
+              />
+
+              <label>Quốc gia:</label>
+              <input
+                type="text"
+                value={formData.country}
+                onChange={(e) => handleInputChange("country", e.target.value)}
+              />
+            </div>
+          )}
 
           <ul className="checkout-list">
             {cart.map((item) => (
@@ -106,7 +177,7 @@ const CheckoutPage: React.FC = () => {
                     </button>
                   </div>
                   <button className="remove-btn" onClick={() => removeItem(item.id)}>
-                    Delete
+                    Xoá
                   </button>
                 </div>
               </li>
@@ -114,7 +185,7 @@ const CheckoutPage: React.FC = () => {
           </ul>
 
           <div className="checkout-summary">
-            <strong>Total: </strong> <span>{total.toLocaleString()}₫</span>
+            <strong>Tổng cộng:</strong> <span>{total.toLocaleString()}₫</span>
           </div>
 
           <button className="place-order-btn" onClick={handlePlaceOrder}>

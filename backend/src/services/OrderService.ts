@@ -4,6 +4,9 @@ import { Order_item } from "../entity/Order_item";
 import { AppDataSource } from "../config/datasource";
 
 export class OrderService {
+  getDataSource() {
+    throw new Error("Method not implemented.");
+  }
   private orderRepository: Repository<Order>;
   private orderItemRepository: Repository<Order_item>;
 

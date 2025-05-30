@@ -14,7 +14,7 @@ import categoryRoutes from "./routes/categoryRoutes";
 import userRoutes from "./routes/userRoutes";
 import product_itemRoutes from "./routes/product_itemRoutes";
 import authRoutes from "./routes/authRoutes";
-
+import Order_itemRoutes from "./routes/order_itemRoutes";
 
 
 import path from "path";
@@ -22,6 +22,7 @@ import path from "path";
 
 import cors from "cors";
 import orderRoutes from "./routes/orderRoutes";
+import { Order_item } from "./entity/Order_item";
 
 dotenv.config();
 const app = express();
@@ -79,6 +80,7 @@ app.use("/api/categories", categoryRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/order_items",Order_itemRoutes);
 
 // Serve static files from the uploads directory
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));

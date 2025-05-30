@@ -5,7 +5,7 @@ import FilteredProductList from "../components/FilteredProductList";
 import Sidebar, { FilterOptions } from "../components/Sidebar";
 import Breadcrumb from "../components/Breadcrumb";
 import "../styles/Clothing.css";
-
+import Pagination from "../components/Pagination";
 // Ánh xạ tên danh mục URL sang ID
 const mapCategoryToId = (category: string): number | null => {
   const map: Record<string, number> = {
@@ -23,26 +23,39 @@ const mapCategoryToId = (category: string): number | null => {
 // Danh sách các danh mục con của Clothing (parentId = 1)
 const clothingSubcategoryIds = [4, 5, 6, 7, 8, 11, 13];
 
-const ClothingPage = () => {
+
+const ClothingPage: React.FC = () => {
+  const clothingCategoryIds = [1, 4, 5, 6, 7, 8, 11];
   const { category } = useParams();
   const categoryIdFromUrl = category ? mapCategoryToId(category) : null;
 
   const categoryIdsToUse =
     categoryIdFromUrl !== null ? [categoryIdFromUrl] : clothingSubcategoryIds;
 
+
+  // Pagination state
+  const [page, setPage] = useState(1);
+  const limit = 12;
+  const [totalCount, setTotalCount] = useState(0);
+
+  // Filter state
   const [filters, setFilters] = useState<FilterOptions>({});
   const [isFiltering, setIsFiltering] = useState(false);
 
   const handleFilterChange = (newFilters: FilterOptions) => {
     setFilters(newFilters);
     setIsFiltering(true);
+    setPage(1); // reset to first page when filters change
   };
 
   const handleClearFilters = () => {
     setFilters({});
     setIsFiltering(false);
+    setPage(1); // reset to first page
   };
 
+  // Compute total pages
+  const totalPages = Math.ceil(totalCount / limit);
   // Reset bộ lọc mỗi khi URL category thay đổi
   useEffect(() => {
     setFilters({});
@@ -54,7 +67,7 @@ const ClothingPage = () => {
     return (
       <main className="clothing-page">
         <Breadcrumb title="Clothing" />
-        <p style={{ padding: 24 }}>Không tìm thấy danh mục phù hợp.</p>
+        <p style={{ padding: 24 }}>No matching categories found.</p>
       </main>
     );
   }
@@ -67,23 +80,45 @@ const ClothingPage = () => {
           onFilterChange={handleFilterChange}
           allowedCategories={["Clothing"]}
         />
+
         <div className="right-content">
           {isFiltering && (
-            <div style={{ marginBottom: "16px", textAlign: "right" }}>
+            <div style={{ marginBottom: 16, textAlign: "right" }}>
               <button className="filter-btn" onClick={handleClearFilters}>
-                Xóa bộ lọc
+                Delete Filter
               </button>
             </div>
           )}
 
-          {isFiltering ? (
-            <FilteredProductList
-              filters={filters}
-              parentCategoryId={1} // ID của Clothing
-              allowedSubcategoryIds={clothingSubcategoryIds}
-            />
-          ) : (
-            <ProductList categoryIds={categoryIdsToUse} />
+          <div className="clothing-wrapper">
+            {isFiltering ? (
+              <FilteredProductList
+                filters={filters}
+                parentCategoryId={1}
+                allowedSubcategoryIds={[4, 5, 6, 7, 8, 11]}
+                page={page}
+                limit={limit}
+                onTotalCountChange={setTotalCount}
+              />
+            ) : (
+             <ProductList
+  categoryIds={categoryIdsToUse} 
+  page={page}
+  limit={limit}
+  onTotalCountChange={setTotalCount}
+/>
+
+            )}
+          </div>
+
+          {totalPages > 1 && (
+            <div className="pagination-container">
+              <Pagination
+                page={page}
+                totalPages={totalPages}
+                onChange={setPage}
+              />
+            </div>
           )}
         </div>
       </div>

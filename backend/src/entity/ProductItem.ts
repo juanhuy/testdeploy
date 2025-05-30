@@ -19,18 +19,21 @@ export class ProductItem {
   @JoinColumn({ name: "size_id" })
   size!: Size;
 
-  @ManyToOne(() => Image, (image) => image.productItems, { onDelete: "SET NULL" })
-  @JoinColumn({ name: "image_id" })
-  image!: Image;
+  // BỎ QUAN HỆ NÀY ĐI (KHÔNG NÊN CÓ)
+  // @ManyToOne(() => Image, (image) => image.productItem, { onDelete: "SET NULL" })
+  // @JoinColumn({ name: "image_id" })
+  // image!: Image;
 
   @ManyToOne(() => Color, (color) => color.productItems, { onDelete: "SET NULL" })
   @JoinColumn({ name: "color_id" })
   color!: Color;
 
+  @OneToMany(() => Image, (image) => image.productItem) // Một ProductItem có nhiều Image
+  images!: Image[];
+
   @OneToMany(() => Cart_item, (cartItem) => cartItem.productItem, { cascade: true })
   cartItems!: Cart_item[];
 
-  // Quan hệ với OrderItem
   @OneToMany(() => Order_item, (orderItem) => orderItem.productItem, { cascade: true })
   orderItems!: Order_item[];
 

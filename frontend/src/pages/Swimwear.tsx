@@ -11,18 +11,26 @@ const SwimwearPage = () => {
   const { category } = useParams(); // nếu bạn dùng /swimwear/:category sau này
   const categoryIdsToUse = [2]; // Swimwear ID từ database của bạn
 
+  const [page, setPage] = useState(1);
+  const limit = 12;
+  const [totalCount, setTotalCount] = useState(0);
+
   const [filters, setFilters] = useState<FilterOptions>({});
   const [isFiltering, setIsFiltering] = useState(false);
+
 
   const handleFilterChange = (newFilters: FilterOptions) => {
     setFilters(newFilters);
     setIsFiltering(true);
+    setPage(1);
   };
 
   const handleClearFilters = () => {
     setFilters({});
     setIsFiltering(false);
+    setPage(1);
   };
+  const totalPages = Math.ceil(totalCount / limit);
 
   // Reset filter khi category trên URL thay đổi
   useEffect(() => {
@@ -40,9 +48,9 @@ const SwimwearPage = () => {
         />
         <div className="right-content">
           {isFiltering && (
-            <div style={{ marginBottom: "16px", textAlign: "right" }}>
+            <div style={{ marginBottom: 16, textAlign: 'right' }}>
               <button className="filter-btn" onClick={handleClearFilters}>
-                Xóa bộ lọc
+                Delete Filter
               </button>
             </div>
           )}
@@ -51,16 +59,31 @@ const SwimwearPage = () => {
             {isFiltering ? (
               <FilteredProductList
                 filters={filters}
-                parentCategoryId={2} // Swimwear
+                parentCategoryId={2}
+                allowedSubcategoryIds={[20, 21]}
+                page={page}
+                limit={limit}
+                onTotalCountChange={setTotalCount}
               />
             ) : (
-              <ProductList categoryIds={categoryIdsToUse} />
+              <ProductList
+                categoryIds={[2,13,14]}
+                page={page}
+                limit={limit}
+                onTotalCountChange={setTotalCount}
+              />
             )}
           </div>
 
-          <div className="pagination-container">
-            <Pagination />
-          </div>
+          {totalPages > 1 && (
+            <div className="pagination-container">
+              <Pagination
+                page={page}
+                totalPages={totalPages}
+                onChange={setPage}
+              />
+            </div>
+          )}
         </div>
       </div>
     </main>
