@@ -15,6 +15,8 @@ import categoryRoutes from "./routes/categoryRoutes";
 import product_itemRoutes from "./routes/productItemRoutes";
 import authRoutes from "./routes/authRoutes";
 import StatisticsRoutes from "./routes/StatisticsRoutes";
+import Order_itemRoutes from "./routes/order_itemRoutes";
+
 
 import path from "path";
 
@@ -22,6 +24,7 @@ import path from "path";
 import cors from "cors";
 import orderRoutes from "./routes/orderRoutes";
 import {Token} from "keycloak-connect";
+import { OrderItem } from "./entity/OrderItem";
 
 dotenv.config();
 const app = express();
@@ -53,6 +56,10 @@ app.use("/api/categories", categoryRoutes);
 app.use("/api/orders", keycloak.protect(isAuthenticated),orderRoutes);
 app.use("/api/auth", keycloak.protect(isAuthenticated),authRoutes);
 app.use("/api/statistics",keycloak.protect(adminOnly), StatisticsRoutes);
+app.use("/api/orders", orderRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/order_items",Order_itemRoutes);
+
 // Serve static files from the uploads directory
 app.use("/uploads", keycloak.protect(adminOnly),express.static(path.join(__dirname, "../uploads")));
 

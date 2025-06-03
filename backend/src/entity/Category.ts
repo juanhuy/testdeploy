@@ -20,8 +20,9 @@ export class Category {
   products!: Product[];
 
   @ManyToOne(() => Category, (category) => category.children, { nullable: true })
-  @JoinColumn({ name: 'parentId' }) 
-  parent?: Category;
+  @JoinColumn({ name: 'parentId' })
+  parent!: Category | null;
+
 
   @OneToMany(() => Category, (category) => category.parent)
   children!: Category[];

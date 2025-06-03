@@ -30,6 +30,7 @@ import CategoryAdminPage from "./components/CategoryAdminPage";
 import AdminDashboard from "./pages/Dashboard";
 import UserManagement from "./components/Usermanangement";
 
+import OrderDetails from "./components/OrderDetails";
 const App = () => {
   const [cartOpen, setCartOpen] = useState(false);
 
@@ -52,7 +53,7 @@ const App = () => {
           <Route path="/search" element={<SearchResult />} />
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/product/:id" element={<ProductDetailPage />} />
-         
+          <Route path="/orders/:id" element={<OrderDetails />} />
            <Route path="/clothing/:category" element={<ClothingPage />} />
 
           {/* Admin routes */}
