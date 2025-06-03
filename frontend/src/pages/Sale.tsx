@@ -5,7 +5,6 @@ import SaleProductList from "../components/SaleProductList";
 import Breadcrumb from "../components/Breadcrumb";
 import Sidebar, { FilterOptions } from "../components/Sidebar";
 import Pagination from "../components/Pagination";
-// import Clothing from "../components/Clothing";
 
 
 const Sale: React.FC = () => {

@@ -20,7 +20,7 @@ export class ProductService {
         "productItems",
         "productItems.size",
         "productItems.color",
-        "productItems.image"
+        "productItems.images"
       ]
     });
   }

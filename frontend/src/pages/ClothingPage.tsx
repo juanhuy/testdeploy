@@ -101,12 +101,13 @@ const ClothingPage: React.FC = () => {
                 onTotalCountChange={setTotalCount}
               />
             ) : (
-              <ProductList
-                categoryIds={clothingCategoryIds}
-                page={page}
-                limit={limit}
-                onTotalCountChange={setTotalCount}
-              />
+             <ProductList
+  categoryIds={categoryIdsToUse} 
+  page={page}
+  limit={limit}
+  onTotalCountChange={setTotalCount}
+/>
+
             )}
           </div>
 

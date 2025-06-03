@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import "../styles/ProductDetail.css";
-import { useCart } from "../contexts/CartContext"; // ✅ Thêm
+import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate, Link } from 'react-router-dom';
+import '../styles/ProductDetail.css';
+import { useCart } from '../contexts/CartContext';
 
 type ProductItem = {
   id: number;
   price: number;
   quantity: number;
   size: string | null;
-  image: { image_url: string };
+  images: {image_url: string }[];
   color: { name: string; color_code: string };
   product: {
     id: number;
@@ -31,17 +31,19 @@ type Product = {
 const ProductDetail: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { addToCart } = useCart(); // ✅ Dùng context
+  const { addToCart } = useCart();
 
   const [product, setProduct] = useState<Product | null>(null);
   const [quantity, setQuantity] = useState(1);
-  const [selectedImage, setSelectedImage] = useState<string>("");
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [activeTab, setActiveTab] = useState('description');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!id) return;
 
     fetch(`http://localhost:3001/api/product-items/${id}`)
-      .then((res) => (res.ok ? res.json() : Promise.reject("Not found")))
+      .then((res) => res.json())
       .then((item: ProductItem) => {
         fetch(`http://localhost:3001/api/categories/${item.product.category_id}`)
           .then((res) => res.json())
@@ -53,108 +55,140 @@ const ProductDetail: React.FC = () => {
               all_rate: item.product.all_rate,
               category: {
                 id: item.product.category_id,
-                name: category.name || "Unknown",
+                name: category.name || 'Không rõ',
               },
               productItems: [item],
             };
             setProduct(fullProduct);
-            setSelectedImage(item.image.image_url || "");
+            setLoading(false);
           });
       })
-      .catch(() => setProduct(null));
+      .catch((err) => {
+        console.error('❌ Error loading product:', err);
+        setLoading(false);
+      });
   }, [id]);
 
-  if (!product || !product.productItems || product.productItems.length === 0) {
-    return (
-      <div className="text-center py-20 text-gray-500 text-xl">
-        Product not found or has no variations.
-      </div>
-    );
-  }
+  if (loading) return <p>Loading...</p>;
+  if (!product || product.productItems.length === 0) return <p>Không tìm thấy sản phẩm.</p>;
 
   const item = product.productItems[0];
+  const imageUrl = (img: any) => img?.image_url || '/fallback.jpg';
 
   const handleAddToCart = () => {
     addToCart({
       id: item.id,
       name: product.name,
       price: item.price,
-      image: item.image.image_url,
+      image: imageUrl(item.images[0]),
     });
-    alert("Product added to cart");
+    alert('✔ Sản phẩm đã được thêm vào giỏ hàng');
   };
 
   const handleBuyNow = () => {
     handleAddToCart();
-    navigate("/checkout");
+    navigate('/checkout');
   };
 
   return (
-    <div className="product-container">
-      <div className="product-grid">
-        <div>
-          <div className="product-image-main">
-            <img src={selectedImage} alt={product.name} />
+    <div className="product-page">
+      <div className="product-main">
+        <div className="product-images">
+          <div className="thumbnail-gallery">
+            {item.images?.map((img, index) => (
+              <img
+                key={index}
+                src={imageUrl(img)}
+                alt={`Thumbnail ${index + 1}`}
+                className={`thumbnail ${selectedImageIndex === index ? 'active' : ''}`}
+                onClick={() => setSelectedImageIndex(index)}
+              />
+            ))}
           </div>
-          <div className="product-thumbnails">
-            <img
-              src={item.image.image_url}
-              onClick={() => setSelectedImage(item.image.image_url)}
-              className={`product-thumbnail ${
-                selectedImage === item.image.image_url ? "thumbnail-active" : ""
-              }`}
-              alt="Thumbnail"
-            />
+          <div className="main-image">
+            <img src={imageUrl(item.images[selectedImageIndex])} alt="Main" />
           </div>
         </div>
 
-        <div className="product-info">
-          <h1 className="product-name">{product.name}</h1>
-          <p className="product-price">{item.price.toLocaleString()} ₫</p>
-          <p className="product-description">{product.description}</p>
+        <div className="product-details">
+          <div className="breadcrumb">
+            <Link to="/">Home</Link> / <Link to="/shop">Shop</Link> / Product #{item.id}
+          </div>
+          <h1>{product.name}</h1>
+          <p className="price">{item.price.toLocaleString()}₫</p>
+          <p className="description">{product.description}</p>
 
-          {item.color && (
-            <div className="flex items-center gap-2">
-              <span>Color:</span>
-              <div
-                className="color-circle"
-                style={{ backgroundColor: item.color.color_code }}
-                title={item.color.name}
-              />
+          <div className="color-selection">
+            <span>Màu: </span>
+            <div
+              className="color-circle"
+              style={{ backgroundColor: item.color?.color_code || '#ccc' }}
+              title={item.color?.name}
+            ></div>
+          </div>
+
+          {item.size && (
+            <div className="size-selection">
+              <span>Size: </span>
+              <button className="size-button">{item.size}</button>
             </div>
           )}
 
-          <div className="flex items-center gap-2">
-            <span>Size:</span>
-            <div className="size-buttons">
-              {["XS", "S", "M", "L", "XL"].map((s) => (
-                <button key={s}>{s}</button>
-              ))}
-            </div>
-          </div>
-
-          <div className="quantity-control">
-            <span>Quantity:</span>
-            <div className="quantity-box">
-              <button onClick={() => setQuantity(Math.max(1, quantity - 1))}>−</button>
-              <span>{quantity}</span>
-              <button onClick={() => setQuantity(quantity + 1)}>+</button>
-            </div>
+          <div className="quantity-selection">
+            <button onClick={() => setQuantity(Math.max(1, quantity - 1))}>-</button>
+            <span>{quantity}</span>
+            <button onClick={() => setQuantity(quantity + 1)}>+</button>
           </div>
 
           <div className="action-buttons">
-            <button className="add-to-cart" onClick={handleAddToCart}>
-              Add to Cart
-            </button>
-            <button className="buy-now" onClick={handleBuyNow}>
-              Buy Now
-            </button>
+            <button className="add-to-cart" onClick={handleAddToCart}>THÊM VÀO GIỎ</button>
+            <button className="buy-now" onClick={handleBuyNow}>MUA NGAY</button>
           </div>
 
-          <div className="meta-info">
-            <p><strong>Category:</strong> {product.category.name}</p>
+          <div className="product-meta">
+            <p><strong>SKU:</strong> N/A</p>
+            <p><strong>Danh mục:</strong> {product.category.name}</p>
           </div>
         </div>
+      </div>
+
+      <div className="tabs">
+        <button className={`tab ${activeTab === 'description' ? 'active' : ''}`} onClick={() => setActiveTab('description')}>
+          MÔ TẢ
+        </button>
+        <button className={`tab ${activeTab === 'additional' ? 'active' : ''}`} onClick={() => setActiveTab('additional')}>
+          THÔNG TIN BỔ SUNG
+        </button>
+        <button className={`tab ${activeTab === 'reviews' ? 'active' : ''}`} onClick={() => setActiveTab('reviews')}>
+          ĐÁNH GIÁ (0)
+        </button>
+      </div>
+
+      <div className="tab-content">
+        {activeTab === 'description' && (
+          <p>Thông tin mô tả sản phẩm sẽ được hiển thị ở đây.</p>
+        )}
+        {activeTab === 'additional' && (
+          <table>
+            <tbody>
+              <tr>
+                <td>Màu</td>
+                <td>{item.color?.name || 'N/A'}</td>
+              </tr>
+              <tr>
+                <td>Size</td>
+                <td>{item.size || 'N/A'}</td>
+              </tr>
+              <tr>
+                <td>Số lượng còn lại</td>
+                <td>{item.quantity}</td>
+              </tr>
+            </tbody>
+          </table>
+        )}
+        {activeTab === 'reviews' && (
+          <p>Chưa có đánh giá nào.</p>
+        )}
       </div>
     </div>
   );

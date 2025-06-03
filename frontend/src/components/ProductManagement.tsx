@@ -1,3 +1,4 @@
+// ... các import giữ nguyên ...
 import React, { useEffect, useState } from 'react';
 import '../styles/ProductManagement.css';
 import Pagination from '../components/Pagination';
@@ -5,9 +6,7 @@ import Pagination from '../components/Pagination';
 type ProductItem = {
   id: number;
   price: number;
-  image: {
-    image_url: string;
-  };
+  images: { image_url: string }[];
 };
 
 type Product = {
@@ -47,10 +46,7 @@ const ProductManagement = () => {
       .catch(err => console.error('Lỗi khi tải sản phẩm:', err));
 
     fetch('http://localhost:3001/api/categories')
-      .then(res => {
-        if (!res.ok) throw new Error('Không thể tải danh mục');
-        return res.json();
-      })
+      .then(res => res.json())
       .then(data => setCategories(data))
       .catch(err => console.error('Lỗi khi tải danh mục:', err));
   }, []);
@@ -92,41 +88,83 @@ const ProductManagement = () => {
     setFormData({
       name: product.name,
       price: product.productItems?.[0]?.price || 0,
-      image: product.productItems?.[0]?.image?.image_url || '',
+      image: product.productItems?.[0]?.images?.[0]?.image_url|| '',
       category_id: product.category_id,
       description: product.description || '',
     });
     setShowForm(true);
   };
 
-  const handleFormSubmit = () => {
-    if (editingProduct) {
-      fetch(`http://localhost:3001/api/products/${editingProduct.id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      })
-        .then(res => res.json())
-        .then(updated => {
-          setProducts(prev =>
-            prev.map(p => (p.id === updated.id ? updated : p))
-          );
-          setShowForm(false);
-          setEditingProduct(null);
-        })
-        .catch(err => console.error('Lỗi khi cập nhật sản phẩm:', err));
-    } else {
-      fetch('http://localhost:3001/api/products', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      })
-        .then(res => res.json())
-        .then(newProduct => {
-          setProducts(prev => [...prev, newProduct]);
-          setShowForm(false);
-        })
-        .catch(err => console.error('Lỗi khi thêm sản phẩm:', err));
+  const handleFormSubmit = async () => {
+    try {
+      if (editingProduct) {
+        // Cập nhật sản phẩm
+        await fetch(`http://localhost:3001/api/products/${editingProduct.id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: formData.name,
+            description: formData.description,
+            category_id: formData.category_id,
+          }),
+        });
+
+        // Cập nhật productItem
+        const productItemId = editingProduct.productItems?.[0]?.id;
+        if (productItemId) {
+          const currentImage = editingProduct.productItems?.[0]?.images?.[0]?.image_url || '';
+          const updateBody: any = {
+            price: formData.price,
+            product_id: editingProduct.id,
+          };
+
+          if (formData.image && formData.image !== currentImage) {
+            updateBody.images = [{ cloudinary_url: formData.image }];
+          }
+
+          await fetch(`http://localhost:3001/api/product-items/${productItemId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updateBody),
+          });
+        }
+
+        const updatedRes = await fetch(`http://localhost:3001/api/products`);
+        const updatedList = await updatedRes.json();
+        setProducts(updatedList);
+        setShowForm(false);
+        setEditingProduct(null);
+      } else {
+        // Thêm sản phẩm mới
+        const res = await fetch('http://localhost:3001/api/products', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: formData.name,
+            description: formData.description,
+            category_id: formData.category_id,
+          }),
+        });
+
+        const newProduct = await res.json();
+
+        await fetch(`http://localhost:3001/api/product-items`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            price: formData.price,
+            images: [{ cloudinary_url: formData.image }],
+            product_id: newProduct.id,
+          }),
+        });
+
+        const refreshedRes = await fetch(`http://localhost:3001/api/products`);
+        const refreshedList = await refreshedRes.json();
+        setProducts(refreshedList);
+        setShowForm(false);
+      }
+    } catch (err) {
+      console.error('Lỗi khi lưu sản phẩm:', err);
     }
   };
   const totalCount = products.length;
@@ -248,8 +286,13 @@ const ProductManagement = () => {
                     </select>
                   </td>
                   <td>
-                    {p.productItems?.[0]?.image?.image_url ? (
-                      <img src={p.productItems[0].image.image_url} alt={p.name} width={60} height={60} />
+                    {p.productItems?.[0]?.images?.[0]?.image_url ? (
+                      <img
+                        src={p.productItems[0].images[0].image_url}
+                        alt={p.name}
+                        width={60}
+                        height={60}
+                      />
                     ) : (
                       <span>No Image</span>
                     )}
