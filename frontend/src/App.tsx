@@ -1,35 +1,77 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import AccessoriesPage from "./pages/AccessoriesPage";
+import "./styles/app.css";
+import Home from "./pages/Home";
+import Sale from "./pages/Sale";
+import Footer from "./components/Footer";
+import Swimwear from "./pages/Swimwear";
+import ClothingPage from "./pages/ClothingPage";
+import MyAccount from "./pages/MyAccount";
+import ItemPage from "./pages/ItemPage";
+import LoginSection from "./pages/LoginSection";
+import RegisterSection from "./pages/RegisterSection";
+import ShoppingCartPopup from "./components/ShoppingCartPopup";
+import ForgotPassword from "./components/ForgotPassword";
+import ProductManagement from "./components/ProductManagement";
+import OrderManagement from "./components/OrderManagement";
 
-function App() {
-  const [count, setCount] = useState(0)
+import SearchResult from "./pages/SearchResult";
+import { CartProvider, useCart } from "./contexts/CartContext"; 
+import CartPopupWrapper from "./components/CartPopupWrapper"; 
+import "./assets/themify-icons/themify-icons.css";
+import CheckoutPage from "./pages/CheckoutPage";
+import CategoryPage from "./pages/CategoryPage";
+
+import AdminLayout from "./components/AdminLayout";
+import ProductDetailPage from "./pages/ProductDetailPage";
+import CategoryAdminPage from "./components/CategoryAdminPage";
+import AdminDashboard from "./pages/Dashboard";
+import UserManagement from "./components/Usermanangement";
+
+const App = () => {
+  const [cartOpen, setCartOpen] = useState(false);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <CartProvider>
+      <Router>
+        <Navbar onCartClick={() => setCartOpen(true)} />
 
-export default App
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/clothing" element={<ClothingPage />} />
+          <Route path="/swimwear" element={<Swimwear />} />
+          <Route path="/accessories" element={<AccessoriesPage />} />
+          <Route path="/sale" element={<Sale />} />
+          <Route path="/myaccount/*" element={<MyAccount />} />
+          <Route path="/item/*" element={<ItemPage />} />
+          <Route path="/login" element={<LoginSection />} />
+          <Route path="/signup" element={<RegisterSection />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/search" element={<SearchResult />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/product/:id" element={<ProductDetailPage />} />
+         
+           <Route path="/clothing/:category" element={<ClothingPage />} />
+
+          {/* Admin routes */}
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<AdminDashboard />} />
+            <Route path="products" element={<ProductManagement />} />
+            <Route path="users" element={<UserManagement />} />
+            <Route path="orders" element={<OrderManagement />} />
+            <Route path="categories" element={<CategoryAdminPage />} />
+          </Route>
+        </Routes>
+
+        {}
+        <CartPopupWrapper cartOpen={cartOpen} setCartOpen={setCartOpen} />
+
+        <Footer />
+      </Router>
+    </CartProvider>
+  );
+};
+
+export default App;
