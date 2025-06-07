@@ -15,8 +15,8 @@ import userRoutes from "./routes/userRoutes";
 import product_itemRoutes from "./routes/product_itemRoutes";
 import authRoutes from "./routes/authRoutes";
 import Order_itemRoutes from "./routes/order_itemRoutes";
-
-
+import adminOrderRoutes from "./routes/adminOrderRoutes";
+import uploadRoute from "./routes/uploadRoute";
 import path from "path";
 
 
@@ -81,10 +81,10 @@ app.use("/api/users", userRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/order_items",Order_itemRoutes);
-
+app.use('/admin/api/orders', adminOrderRoutes);
 // Serve static files from the uploads directory
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
-
+app.use("/api/upload", uploadRoute);
 // DB + start server
 AppDataSource.initialize()
     .then(() => {
