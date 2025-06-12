@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/OrderManagement.css';
+import InvoiceButton from "../components/InvoiceButton";
 
 enum OrderStatus {
   PENDING = 'pending',
@@ -15,6 +16,7 @@ type Order = {
   status: string | 'pending';
   orderDate: string;
 };
+
 
 const OrderManagement = () => {
   const [orders, setOrders] = useState<Order[] | null>(null);
@@ -71,6 +73,8 @@ const OrderManagement = () => {
                 <td>
                   <button className="order-button btn-detail" onClick={() => handleDetail(order.id)}>Chi tiết</button>
                   <button className="order-button btn-delete" onClick={() => handleDelete(order.id)}>Xoá</button>
+                  <InvoiceButton id={order.id} />
+
                 </td>
               </tr>
             ))

@@ -109,17 +109,17 @@ const ProductManagement = () => {
     const value = e.target.value;
     setFormData(prev => ({
       ...prev,
-      [name]: value === '' ? '' : Number(value),
+      [name]: value === '' ? '' : Math.max(0, parseFloat(value)),
     }));
   };
 
-  // Đây là phần xử lý upload + preview ảnh chuẩn
+
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     const files = Array.from(e.target.files);
 
     for (const file of files) {
-      // Preview (chỉ cho trải nghiệm mượt)
+      
       const reader = new FileReader();
       reader.onloadend = async () => {
         try {

@@ -26,12 +26,14 @@ const AdminDashboard: React.FC = () => {
           userRes.json(),
         ]);
 
-        setStats({
-          categories: catData.length,
-          products: prodData.length,
-          orders: orderData.length,
-          users: userData.length,
-        });
+       setStats({
+  categories: Array.isArray(catData) ? catData.length : 0,
+  products: typeof prodData.totalCount === 'number' ? prodData.totalCount : 0,
+
+  orders: Array.isArray(orderData) ? orderData.length : 0,
+  users: Array.isArray(userData) ? userData.length : 0,
+});
+
       } catch (err) {
         console.error("Lỗi tải thống kê:", err);
       }
@@ -42,22 +44,22 @@ const AdminDashboard: React.FC = () => {
 
   return (
     <div className="dashboard-container">
-      <h1>👋 Chào mừng đến trang quản trị</h1>
+      <h1>Chào mừng đến trang quản trị</h1>
       <div className="stats-boxes">
         <div className="stat-box">
-          <h2>📁 Danh mục</h2>
+          <h2>Danh mục</h2>
           <p>{stats.categories}</p>
         </div>
         <div className="stat-box">
-          <h2>📦 Sản phẩm</h2>
+          <h2>Sản phẩm</h2>
           <p>{stats.products}</p>
         </div>
         <div className="stat-box">
-          <h2>🛒 Đơn hàng</h2>
+          <h2> Đơn hàng</h2>
           <p>{stats.orders}</p>
         </div>
         <div className="stat-box">
-          <h2>👤 Người dùng</h2>
+          <h2> Người dùng</h2>
           <p>{stats.users}</p>
         </div>
       </div>

@@ -18,7 +18,7 @@ import Order_itemRoutes from "./routes/order_itemRoutes";
 import adminOrderRoutes from "./routes/adminOrderRoutes";
 import uploadRoute from "./routes/uploadRoute";
 import path from "path";
-
+import invoice from "./routes/invoice";
 
 import cors from "cors";
 import orderRoutes from "./routes/orderRoutes";
@@ -34,7 +34,7 @@ app.use(cors({
     credentials: true
 }));
 
-// Keycloak setup
+
 const Keycloak = require("keycloak-connect");
 const session = require("express-session");
 export const memoryStore = new session.MemoryStore();
@@ -56,7 +56,7 @@ Keycloak.prototype.accessDenied = function (request: Request, response: Response
 
 const keycloak = new Keycloak({ store: memoryStore }, kcConfig);
 
-// Middleware
+
 
 app.use(express.json());
 app.use(session({
@@ -85,12 +85,13 @@ app.use('/admin/api/orders', adminOrderRoutes);
 // Serve static files from the uploads directory
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 app.use("/api/upload", uploadRoute);
+app.use("/api/invoice", invoice);
 // DB + start server
 AppDataSource.initialize()
     .then(() => {
-        console.log("✅ Database connected successfully");
+        console.log(" Database connected successfully");
         app.listen(PORT, () => {
-            console.log(`🚀 Server running at http://localhost:${PORT}`);
+            console.log(` Server running at http://localhost:${PORT}`);
         });
     })
-    .catch((error) => console.log("❌ Database connection error:", error));
+    .catch((error) => console.log("Database connection error:", error));
