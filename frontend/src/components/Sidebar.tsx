@@ -46,6 +46,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onFilterChange, allowedCategories }) 
     { name: "Accessories", subcategories: ["ShoesAndBags", "Jewelry"] },
     { name: "Clothing", subcategories: ["Blazers", "Cardigan", "Skirt", "Jacket", "Dress", "Denim"] },
     { name: "Swimwear", subcategories: ["Bikinis", "Cover up", "One piece", "Pareo"] },
+    { name: "Sale", subcategories: ["Clothing", "Swimwear", "Accessories"] },
   ];
 
   const visibleCategories = allowedCategories
