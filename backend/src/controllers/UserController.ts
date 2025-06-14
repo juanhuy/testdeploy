@@ -78,4 +78,13 @@ res.json({
             res.status(500).json({ message: "Error creating user", error });
         }
     }
+    static async getUserCount(req: Request, res: Response) {
+  try {
+    const count = await userRepository.count();
+    res.json({ count });
+  } catch (error) {
+    res.status(500).json({ message: "Error counting users", error });
+  }
+}
+
 }

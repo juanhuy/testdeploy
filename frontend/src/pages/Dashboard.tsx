@@ -15,8 +15,8 @@ const AdminDashboard: React.FC = () => {
         const [catRes, prodRes, orderRes, userRes] = await Promise.all([
           fetch("http://localhost:3001/api/categories"),
           fetch("http://localhost:3001/api/products"),
-          fetch("http://localhost:3001/api/orders"),
-          fetch("http://localhost:3001/api/users"),
+          fetch("http://localhost:3001/api/orders/count"),
+          fetch("http://localhost:3001/api/users/count"),
         ]);
 
         const [catData, prodData, orderData, userData] = await Promise.all([
@@ -30,8 +30,8 @@ const AdminDashboard: React.FC = () => {
   categories: Array.isArray(catData) ? catData.length : 0,
   products: typeof prodData.totalCount === 'number' ? prodData.totalCount : 0,
 
-  orders: Array.isArray(orderData) ? orderData.length : 0,
-  users: Array.isArray(userData) ? userData.length : 0,
+  orders: typeof orderData.count==='number' ? orderData.count : 0,
+  users: typeof userData.count=== 'number' ? userData.count : 0,
 });
 
       } catch (err) {

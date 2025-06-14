@@ -18,7 +18,7 @@ const UserManagement = () => {
     fetch(`http://localhost:3001/api/users?page=${page}&limit=${limit}`)
       .then(res => res.json())
       .then(data => {
-        setUsers(data.data || []);      // data.users hoặc data.data tùy API
+        setUsers(data.data || []);      
         setTotalCount(data.totalCount || 0);
       })
       .catch(err => console.error('Lỗi khi tải người dùng:', err));
@@ -53,7 +53,7 @@ const UserManagement = () => {
 
   const handleFormSubmit = (user: UserInput | User) => {
     if ('id' in user) {
-      // 👉 SỬA
+      
       fetch(`http://localhost:3001/api/users/${user.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
@@ -66,7 +66,7 @@ const UserManagement = () => {
         })
         .catch(err => console.error('Lỗi khi cập nhật:', err));
     } else {
-      // 👉 THÊM
+     
       fetch('http://localhost:3001/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

@@ -2,7 +2,7 @@ import { Repository } from "typeorm";
 import { Order } from "../entity/Order";
 import { Order_item } from "../entity/Order_item";
 import { AppDataSource } from "../config/datasource";
-
+const orderRepository = AppDataSource.getRepository(Order);
 export class OrderService {
   getDataSource() {
     throw new Error("Method not implemented.");
@@ -75,5 +75,8 @@ async getAllOrders(page: number, limit: number) {
     });
 
     return this.orderItemRepository.save(orderItem);
+  }
+  async getOrderCount(): Promise<number> {
+    return await orderRepository.count();
   }
 }

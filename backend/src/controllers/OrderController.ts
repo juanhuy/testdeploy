@@ -100,7 +100,6 @@ static async createOrderWithItems(req: Request, res: Response): Promise<void> {
 
     const order = new Order();
 
-    // 👤 Người dùng đăng nhập
     if (user_id) {
       user = await userRepo.findOneBy({ id: user_id }) ?? undefined;
       address = await addressRepo.findOneBy({ id: shipping_address_id });
@@ -114,7 +113,7 @@ static async createOrderWithItems(req: Request, res: Response): Promise<void> {
 
       order.user = user;
     } 
-    // 👤 Khách vãng lai
+    
     else if (guest_info) {
       address = addressRepo.create({
         street_name: guest_info.street_name,
@@ -149,26 +148,26 @@ static async createOrderWithItems(req: Request, res: Response): Promise<void> {
     order.orderStatus = orderStatus;
     order.order_total = order_total;
 
-    // ✅ Thêm đoạn này để tránh bị undefined → null rõ ràng
+    
     order.user = user ?? null;
     order.shippingAddress = address ?? null;
     order.shippingMethod = shippingMethod ?? null;
     order.orderStatus = orderStatus ?? null;
 
-    console.log("📝 [Order before save]:", order);
+    console.log("[Order before save]:", order);
 
     const newOrder = await AppDataSource.getRepository(Order).save(order);
-    console.log("✅ [Order saved]:", newOrder);
+    console.log(" [Order saved]:", newOrder);
 
     const createdItems = [];
 
     for (const item of order_items) {
       const productItem = await productItemRepo.findOne({
         where: { id: item.product_item_id },
-        relations: ["product", "color", "size", "images"], // ✅ image -> images
+        relations: ["product", "color", "size", "images"], 
       });
 
-      console.log("📦 [ProductItem]:", productItem);
+      console.log(" [ProductItem]:", productItem);
 
       if (!productItem) continue;
 
@@ -178,7 +177,7 @@ static async createOrderWithItems(req: Request, res: Response): Promise<void> {
         price: item.price,
       });
 
-      console.log("➕ [OrderItem created]:", orderItem);
+      console.log("[OrderItem created]:", orderItem);
       createdItems.push(orderItem);
     }
 
@@ -188,7 +187,7 @@ static async createOrderWithItems(req: Request, res: Response): Promise<void> {
       order_items: createdItems,
     });
   } catch (error) {
-    console.error("❌ Lỗi khi tạo đơn hàng:", error);
+    console.error(" Lỗi khi tạo đơn hàng:", error);
     res.status(500).json({ message: "Lỗi khi tạo đơn hàng", error });
   }
 }
@@ -233,6 +232,15 @@ static async createOrderWithItems(req: Request, res: Response): Promise<void> {
       res.status(201).json(orderItem);
     } catch (error) {
       res.status(500).json({ message: "Error adding order item", error });
+    }
+  }
+  static async getOrdersCount(req: Request, res: Response) {
+    try {
+      const count= await orderService.getOrderCount();
+      
+      res.json({ count });
+    } catch (error) {
+      res.status(500).json({ message: "Error counting Order", error });
     }
   }
 }

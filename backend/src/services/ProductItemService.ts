@@ -5,7 +5,9 @@ import { Size } from "../entity/Size";
 import { Color } from "../entity/Color";
 import { Image } from "../entity/Image";
 import { AppDataSource } from "../config/datasource";
+import { In } from "typeorm";
 
+const repo = AppDataSource.getRepository(ProductItem);
 export class ProductItemService {
   private productItemRepository: Repository<ProductItem>;
   private productRepository: Repository<Product>;
@@ -110,5 +112,20 @@ export class ProductItemService {
       image.image_url = img.image_url;
       return image;
     });
+  }
+   async getPaginatedProductItems(page: number, limit: number, categoryIds: number[]) {
+    const [data, totalCount] = await repo.findAndCount({
+      relations: ["product", "images"],
+      where: {
+        product: {
+          category_id: In(categoryIds),
+        },
+      },
+      skip: (page - 1) * limit,
+      take: limit,
+      order: { id: "ASC" },
+    });
+
+    return { data, totalCount };
   }
 }

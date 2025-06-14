@@ -25,6 +25,7 @@ export default function UserRouter(keycloak: any) {
 // export default router;
 
 const router = Router();
+router.get("/count", UserController.getUserCount);
 router.get("/", UserController.getAllUsers);
 router.get("/:id", UserController.getUserById);
 router.post("/create", UserController.createUser);
