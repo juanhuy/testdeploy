@@ -17,6 +17,7 @@ router.get("/", ProductController.getAllProducts);
 console.log("ProductController.getAllProducts is typeof:", typeof ProductController.getAllProducts);
 console.log("Router initialized successfully");
 router.get("/:id", ProductController.getProductById);
+router.get('/sale', ProductController.getSaleProducts);
 
 router.post("/", ProductController.createProduct);                
 router.put("/:id", ProductController.updateProduct);               

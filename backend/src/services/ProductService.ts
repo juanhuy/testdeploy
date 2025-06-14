@@ -24,6 +24,34 @@ export class ProductService {
       ]
     });
   }
+async countProducts(categoryIds: number[]): Promise<number> {
+  const query = AppDataSource.getRepository(Product)
+    .createQueryBuilder('product');
+
+  if (categoryIds.length > 0) {
+    query.andWhere('product.category_id IN (:...categoryIds)', { categoryIds });
+  }
+
+  return await query.getCount();
+}
+
+async getProductsPaginated(matchedCategoryIds: number[] = [], offset: number = 0, limit: number = 10): Promise<Product[]> {
+  const queryBuilder = this.productRepository
+    .createQueryBuilder("product")
+    .leftJoinAndSelect("product.productItems", "productItems")
+    .leftJoinAndSelect("productItems.images", "images")
+    .leftJoinAndSelect("product.productPromotions", "productPromotions")
+    .leftJoinAndSelect("productPromotions.promotion", "promotion")
+    .orderBy("product.id", "DESC")
+    .skip(offset)
+    .take(limit);
+
+  if (matchedCategoryIds.length > 0) {
+    queryBuilder.where("product.category_id IN (:...matchedCategoryIds)", { matchedCategoryIds });
+  }
+
+  return await queryBuilder.getMany();
+}
 
  
   async getProductById(id: number): Promise<Product | null> {
@@ -34,7 +62,9 @@ export class ProductService {
         "productItems",
         "productItems.size",
         "productItems.color",
-        "productItems.image"
+        "productItems.images",
+        "productPromotions",
+        "productPromotions.promotion"
       ]
     });
   }
@@ -48,7 +78,9 @@ export class ProductService {
         "productItems",
         "productItems.size",
         "productItems.color",
-        "productItems.image"
+        "productItems.images",
+        "productPromotions",
+        "productPromotions.promotion"
       ]
     });
   }
@@ -66,7 +98,9 @@ export class ProductService {
         "productItems",
         "productItems.size",
         "productItems.color",
-        "productItems.image"
+        "productItems.images",
+        "productPromotions",
+        "productPromotions.promotion"
       ]
     });
   }
@@ -94,6 +128,10 @@ export class ProductService {
     if (data.category) {
       const category = await this.categoryRepository.findOne({ where: { id: data.category.id } });
       if (category) product.category = category;
+    }
+
+    if (data.all_rate === undefined) {
+      data.all_rate = product.all_rate;
     }
 
     Object.assign(product, data);

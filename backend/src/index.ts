@@ -16,15 +16,16 @@ import product_itemRoutes from "./routes/productItemRoutes";
 import authRoutes from "./routes/authRoutes";
 import StatisticsRoutes from "./routes/StatisticsRoutes";
 import Order_itemRoutes from "./routes/order_itemRoutes";
-
-
+import adminOrderRoutes from "./routes/adminOrderRoutes";
+import uploadRoute from "./routes/uploadRoute";
 import path from "path";
-
+import invoice from "./routes/invoice";
 
 import cors from "cors";
 import orderRoutes from "./routes/orderRoutes";
 import {Token} from "keycloak-connect";
 import { OrderItem } from "./entity/OrderItem";
+import productPromotionRoutes from "./routes/productPromotionRoutes";
 
 dotenv.config();
 const app = express();
@@ -44,6 +45,41 @@ app.use(
     keycloak.protect(isAuthenticated),
     UserRouter
 );
+
+
+const Keycloak = require("keycloak-connect");
+const session = require("express-session");
+const memoryStoreLocal = new session.MemoryStore();
+
+const kcConfig = {
+    clientId: 'express-api',
+    bearerOnly: true,
+    serverUrl: process.env.AUTH_SERVER || 'http://localhost:8080',
+    realm: process.env.AUTH_REALM || 'ecommserse'
+};
+
+Keycloak.prototype.accessDenied = function (request: Request, response: Response) {
+    response.status(401).json({
+        status: 401,
+        message: 'Unauthorized/Forbidden',
+        result: { errorCode: 'ERR-401', errorMessage: 'Unauthorized/Forbidden' }
+    });
+};
+
+const keycloakLocal = new Keycloak({ store: memoryStoreLocal }, kcConfig);
+
+
+
+app.use(express.json());
+app.use(session({
+    secret: 'I17g6De2mxstjNCF4bbST0Yh52MeVStT',
+    resave: false,
+    saveUninitialized: true,
+    store: memoryStoreLocal
+}));
+app.use(keycloakLocal.middleware());
+
+app.use("/api/users", UserRouter);
 app.use("/api/promotions", promotionRoutes); 
 app.use("/api/sizes", sizeRoutes); 
 app.use("/api/user-addresses", keycloak.protect(isAuthenticated),User_addressRoute);
@@ -59,7 +95,7 @@ app.use("/api/statistics",keycloak.protect(adminOnly), StatisticsRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/order_items",Order_itemRoutes);
-
+app.use('/admin/api/orders', adminOrderRoutes);
 // Serve static files from the uploads directory
 app.use("/uploads", keycloak.protect(adminOnly),express.static(path.join(__dirname, "../uploads")));
 
@@ -72,3 +108,16 @@ AppDataSource.initialize()
         });
     })
     .catch((error) => console.log("Database connection error:", error))
+app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
+app.use("/api/upload", uploadRoute);
+app.use("/api/invoice", invoice);
+app.use("/api/product-promotions", productPromotionRoutes);
+// DB + start server
+AppDataSource.initialize()
+    .then(() => {
+        console.log(" Database connected successfully");
+        app.listen(PORT, () => {
+            console.log(` Server running at http://localhost:${PORT}`);
+        });
+    })
+    .catch((error) => console.log("Database connection error:", error));

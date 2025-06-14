@@ -6,6 +6,7 @@ import { Color } from "./Color";
 import { Cart_item } from "./CartItem";
 import { OrderItem } from "./OrderItems"; 
 
+
 @Entity()
 export class ProductItem {
   @PrimaryGeneratedColumn()
@@ -17,18 +18,13 @@ export class ProductItem {
 
   @ManyToOne(() => Size, (size) => size.productItems, { onDelete: "SET NULL" })
   @JoinColumn({ name: "size_id" })
-  size!: Size;
-
-  // BỎ QUAN HỆ NÀY ĐI (KHÔNG NÊN CÓ)
-  // @ManyToOne(() => Image, (image) => image.productItem, { onDelete: "SET NULL" })
-  // @JoinColumn({ name: "image_id" })
-  // image!: Image;
+  size!: Size | null;
 
   @ManyToOne(() => Color, (color) => color.productItems, { onDelete: "SET NULL" })
   @JoinColumn({ name: "color_id" })
-  color!: Color;
+  color!: Color | null;
 
-  @OneToMany(() => Image, (image) => image.productItem) // Một ProductItem có nhiều Image
+  @OneToMany(() => Image, (image) => image.productItem, { cascade: true })
   images!: Image[];
 
   @OneToMany(() => Cart_item, (cartItem) => cartItem.productItem, { cascade: true })
@@ -41,5 +37,5 @@ export class ProductItem {
   quantity!: number;
 
   @Column({ type: "decimal", precision: 10, scale: 2 })
-  price!: string;
+  price!: number;
 }

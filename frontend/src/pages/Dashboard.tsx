@@ -25,11 +25,12 @@ const AdminDashboard: React.FC = () => {
           userRes.json(),
         ]);
 
-       setStats(prev => ({
-          ...prev,
-          categories: catData.length,
-          users: userData.length,
-        }));
+        setStats({
+          categories: Array.isArray(catData) ? catData.length : 0,
+          products: 0,
+          orders: 0,
+          users: Array.isArray(userData) ? userData.length : 0,
+        });
       } catch (err) {
         console.error("Failed to load statistics:", err);
       }
@@ -51,7 +52,7 @@ const AdminDashboard: React.FC = () => {
 
         setStats(prev => ({
           ...prev,
-          products: prodData.totalInStock || 0, // nếu backend trả về { totalInStock: ... }
+          products: prodData.totalInStock || 0,
           orders: orderData.totalOrders || 0,
         }));
 
@@ -70,7 +71,7 @@ const AdminDashboard: React.FC = () => {
   
   return (
     <div className="dashboard-container">
-      <h1>Welcome to the Admin Dashboard</h1>
+      <h1>Chào mừng đến trang quản trị</h1>
       
       <div className="dashboard-filter">
         <select
@@ -91,22 +92,21 @@ const AdminDashboard: React.FC = () => {
         />
       </div>
 
-
       <div className="stats-boxes">
         <div className="stat-box">
-          <h2>Categories</h2>
+          <h2>Danh mục</h2>
           <p>{stats.categories}</p>
         </div>
         <div className="stat-box">
-          <h2>Products</h2>
+          <h2>Sản phẩm</h2>
           <p>{stats.products}</p>
         </div>
         <div className="stat-box">
-          <h2>Orders</h2>
+          <h2>Đơn hàng</h2>
           <p>{stats.orders}</p>
         </div>
         <div className="stat-box">
-          <h2>Users</h2>
+          <h2>Người dùng</h2>
           <p>{stats.users}</p>
         </div>
       </div>
