@@ -10,17 +10,21 @@ type ProductItem = {
   images: { image_url: string }[];
 };
 
+type ProductPromotion = {
+  promotion: {
+    discount_rate: number;
+    start_at: string;
+    end_at: string;
+  };
+};
+
 type Product = {
   id: number;
   name: string;
   description: string;
   category_id: number;
   productItems: ProductItem[];
-  productPromotions?: {
-    promotion: {
-      discount_rate: number;
-    };
-  }[];
+  productPromotions?: ProductPromotion[];
 };
 
 type Category = {
@@ -60,16 +64,18 @@ const ProductManagement = () => {
   const limit = 10;
   const [totalCount, setTotalCount] = useState(0);
   const totalPages = Math.ceil(totalCount / limit);
+  const [fetchAll, setFetchAll] = useState(true);
 
   const loadProducts = () => {
-    fetch(`http://localhost:3001/api/products?page=${page}&limit=${limit}`)
+    const url = fetchAll
+      ? 'http://localhost:3001/api/products'
+      : `http://localhost:3001/api/products?page=${page}&limit=${limit}`;
+    fetch(url)
       .then(res => res.json())
       .then(data => {
-        console.log("DATA PRODUCT MANAGEMENT:", data);
-        // Nếu backend trả về mảng hoặc object có data
-        if (Array.isArray(data)) {
-          setProducts(data);
-          setTotalCount(data.length);
+        if (fetchAll) {
+          setProducts(data.data);
+          setTotalCount(data.data.length);
         } else {
           setProducts(data.data);
           setTotalCount(data.totalCount);
@@ -78,7 +84,7 @@ const ProductManagement = () => {
       .catch(err => console.error('Lỗi khi tải sản phẩm:', err));
   };
 
-  useEffect(() => { loadProducts(); }, [page]);
+  useEffect(() => { loadProducts(); }, [page, fetchAll]);
 
   useEffect(() => {
     fetch('http://localhost:3001/api/categories')
@@ -401,7 +407,14 @@ const ProductManagement = () => {
             <tbody>
               {currentProducts.map((p, index) => {
                 const originalPrice = p.productItems?.[0]?.price ?? 0;
-                const discountRate = p.productPromotions?.[0]?.promotion?.discount_rate ?? 0;
+                const now = new Date();
+                const validPromotion = p.productPromotions?.find(
+                  pp => pp.promotion &&
+                    pp.promotion.start_at && pp.promotion.end_at &&
+                    new Date(pp.promotion.start_at) <= now &&
+                    new Date(pp.promotion.end_at) >= now
+                );
+                const discountRate = validPromotion?.promotion?.discount_rate ?? 0;
                 const newPrice = discountRate > 0 ? Math.round(originalPrice * (1 - discountRate)) : originalPrice;
 
                 return (

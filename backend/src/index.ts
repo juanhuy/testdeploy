@@ -95,7 +95,7 @@ app.use("/api/statistics",keycloak.protect(adminOnly), StatisticsRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/order_items",Order_itemRoutes);
-app.use('/admin/api/orders', adminOrderRoutes);
+app.use('/admin/api/orders', orderRoutes);
 // Serve static files from the uploads directory
 app.use("/uploads", keycloak.protect(adminOnly),express.static(path.join(__dirname, "../uploads")));
 

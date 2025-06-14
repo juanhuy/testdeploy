@@ -72,55 +72,55 @@ export class ProductController {
 
 
   static getAllProducts = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const categoryName = req.query.category?.toString().toLowerCase();
+      const page = req.query.page ? parseInt(req.query.page as string) : null;
+      const limit = req.query.limit ? parseInt(req.query.limit as string) : null;
+      const offset = page && limit ? (page - 1) * limit : 0;
 
-  try {
-    const categoryName = req.query.category?.toString().toLowerCase();
-    const page = parseInt(req.query.page as string) || 1;
-    const limit = parseInt(req.query.limit as string) || 10;
-    const offset = (page - 1) * limit;
+      const categoryRepo = AppDataSource.getRepository(Category);
+      let matchedCategoryIds: number[] = [];
 
-    const categoryRepo = AppDataSource.getRepository(Category);
-    let matchedCategoryIds: number[] = [];
+      if (categoryName) {
+        const allCategories = await categoryRepo.find({ relations: ["parent"] });
+        const parentCategory = allCategories.find(
+          (c) => c.name.toLowerCase() === categoryName
+        );
+        if (!parentCategory) {
+          res.json({ data: [], totalCount: 0 });
+          return;
+        }
+        matchedCategoryIds = allCategories
+          .filter((c) => c.id === parentCategory.id || c.parent?.id === parentCategory.id)
+          .map((c) => c.id);
+      }
 
-    if (categoryName) {
-      const allCategories = await categoryRepo.find({ relations: ["parent"] });
-
-      const parentCategory = allCategories.find(
-        (c) => c.name.toLowerCase() === categoryName
-      );
-
-      if (!parentCategory) {
-        res.json({ data: [], totalCount: 0 });
+      if (!page || !limit) {
+        // Trả về toàn bộ sản phẩm nếu không truyền page/limit
+        const products = await productService.getAllProducts();
+        res.json({ data: products, totalCount: products.length });
         return;
       }
 
-      matchedCategoryIds = allCategories
-        .filter((c) => c.id === parentCategory.id || c.parent?.id === parentCategory.id)
-        .map((c) => c.id);
+      // Đếm total
+      const totalCount = await productService.countProducts(matchedCategoryIds);
+      // Lấy product có phân trang
+      const products = await productService.getProductsPaginated(matchedCategoryIds, offset, limit);
+      res.json({
+        data: products,
+        totalCount: totalCount
+      });
+    } catch (error) {
+      console.error("❌ Error in getAllProducts:", error);
+      res.status(500).json({
+        message: "Error fetching products",
+        error: {
+          message: error instanceof Error ? error.message : String(error),
+          stack: error instanceof Error ? error.stack : undefined,
+        },
+      });
     }
-
-    // Đếm total
-    const totalCount = await productService.countProducts(matchedCategoryIds);
-
-    // Lấy product có phân trang
-    const products = await productService.getProductsPaginated(matchedCategoryIds, offset, limit);
-
-    res.json({
-      data: products,
-      totalCount: totalCount
-    });
-
-  } catch (error) {
-    console.error("❌ Error in getAllProducts:", error);
-    res.status(500).json({
-      message: "Error fetching products",
-      error: {
-        message: error instanceof Error ? error.message : String(error),
-        stack: error instanceof Error ? error.stack : undefined,
-      },
-    });
-  }
-};
+  };
 
 
   static getProductById = async (req: Request, res: Response): Promise<void> => {

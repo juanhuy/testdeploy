@@ -16,18 +16,19 @@ export class OrderService {
     this.orderItemRepository = AppDataSource.getRepository(OrderItem);
   }
 
-  // Lấy tất cả đơn hàng
-  async getAllOrders(): Promise<Order[]> {
-    return this.orderRepository.find({
-      relations: [
-        "user",
-        "shippingAddress",
-        "shippingMethod",
-        "orderStatus",
-        "orderItems",
-      ],
-    });
-  }
+ 
+async getAllOrders(page: number, limit: number) {
+  const offset = (page - 1) * limit;
+
+  const [orders, totalCount] = await this.orderRepository.findAndCount({
+    skip: offset,
+    take: limit,
+    relations: ["user", "orderStatus"], // thêm quan hệ nếu cần
+    order: { orderDate: "DESC" }
+  });
+
+  return { data: orders, totalCount };
+}
 
   // Lấy đơn hàng theo ID
   async getOrderById(id: number): Promise<Order | null> {

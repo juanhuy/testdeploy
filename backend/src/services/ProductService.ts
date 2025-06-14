@@ -20,7 +20,9 @@ export class ProductService {
         "productItems",
         "productItems.size",
         "productItems.color",
-        "productItems.images"
+        "productItems.images",
+        "productPromotions",
+        "productPromotions.promotion"
       ]
     });
   }

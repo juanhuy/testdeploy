@@ -113,14 +113,14 @@ export class ProductPromotionService {
                 productPromotion.promotion.end_at = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000);
                 await this.promotionRepository.save(productPromotion.promotion);
             } else {
-                // Tạo promotion mới
+        // Tạo promotion mới
                 const product = await this.productRepository.findOne({ where: { id: productId } });
                 const promotion = this.promotionRepository.create({
                     name: product?.name || "Promotion",
                     discount_rate: discountRate,
                     start_at: now,
                     end_at: new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000)
-                });
+        });
                 await this.promotionRepository.save(promotion);
                 const newProductPromotion = this.productPromotionRepository.create({
                     product: { id: productId },

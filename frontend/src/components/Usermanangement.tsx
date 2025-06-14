@@ -9,14 +9,25 @@ const UserManagement = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [editingUser, setEditingUser] = useState<User | null>(null);
   const [showForm, setShowForm] = useState(false);
+
   const [page, setPage] = useState(1);
   const limit = 10;
-  useEffect(() => {
-    fetch('http://localhost:3001/api/users')
+  const [totalCount, setTotalCount] = useState(0);
+  const totalPages = Math.ceil(totalCount / limit);
+
+  const loadUsers = () => {
+    fetch(`http://localhost:3001/api/users?page=${page}&limit=${limit}`)
       .then(res => res.json())
-      .then(data => setUsers(data))
-      .catch(err => console.error('Failed to load users:', err));
-  }, []);
+      .then(data => {
+        setUsers(data.data || []);      // data.users hoặc data.data tùy API
+        setTotalCount(data.totalCount || 0);
+      })
+      .catch(err => console.error('Lỗi khi tải người dùng:', err));
+  };
+
+  useEffect(() => {
+    loadUsers();
+  }, [page]);
 
   const handleAdd = () => {
     setEditingUser(null);
@@ -34,11 +45,9 @@ const UserManagement = () => {
         method: 'DELETE'
       })
         .then(res => {
-          if (res.ok) {
-            setUsers(users.filter(u => u.id !== id));
-          } else {
-            console.error('Delete failed');
-          }
+
+          if (res.ok) loadUsers(); // Reload page
+          else console.error('Xoá thất bại');
         })
         .catch(err => console.error('Error deleting user:', err));
     }
@@ -46,20 +55,20 @@ const UserManagement = () => {
 
   const handleFormSubmit = (user: UserInput | User) => {
     if ('id' in user) {
-      // 👉 SỬA người dùng
+      // 👉 SỬA
       fetch(`http://localhost:3001/api/users/${user.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(user)
       })
         .then(res => res.json())
-        .then(updated => {
-          setUsers(prev => prev.map(u => (u.id === updated.id ? updated : u)));
+        .then(() => {
+          loadUsers();
           setShowForm(false);
         })
         .catch(err => console.error('Error updating user:', err));
     } else {
-      // 👉 THÊM người dùng mới qua API đăng ký
+      // 👉 THÊM
       fetch('http://localhost:3001/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -69,9 +78,8 @@ const UserManagement = () => {
           if (!res.ok) throw new Error('Creation failed');
           return res.json();
         })
-        .then(newUser => {
-          // API trả về dạng: { status: "success", user: {...} }
-          setUsers(prev => [...prev, newUser.user]); // ✅ Dùng newUser.user
+        .then(() => {
+          loadUsers();
           setShowForm(false);
         })
         .catch(err => {
@@ -84,8 +92,8 @@ const UserManagement = () => {
   const handleCancel = () => {
     setShowForm(false);
   };
-  const totalCount = users.length;
-  const totalPages = Math.ceil(totalCount / limit);
+  // const totalCount = users.length;
+  // const totalPages = Math.ceil(totalCount / limit);
   const start = (page - 1) * limit;
   const currentUsers = users.slice(start, start + limit);
   return (
@@ -106,12 +114,25 @@ const UserManagement = () => {
         />
       ) : (
         <>
-          <UserTable users={currentUsers} onEdit={handleEdit} onDelete={handleDelete} />
 
-          {/* Pagination UI */}
+          <UserTable users={users} onEdit={handleEdit} onDelete={handleDelete} />
+
           {totalPages > 1 && (
-            <div style={{ textAlign: 'center', marginTop: 24 }}>
-              <Pagination page={page} totalPages={totalPages} onChange={setPage} />
+            <div style={{ textAlign: 'center', marginTop: 20 }}>
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map(pageNumber => (
+                <button
+                  key={pageNumber}
+                  style={{
+                    margin: 4, padding: '8px 12px',
+                    backgroundColor: pageNumber === page ? '#333' : '#eee',
+                    color: pageNumber === page ? '#fff' : '#000',
+                    border: 'none', borderRadius: 4, cursor: 'pointer',
+                  }}
+                  onClick={() => setPage(pageNumber)}
+                >
+                  {pageNumber}
+                </button>
+              ))}
             </div>
           )}
         </>

@@ -21,6 +21,16 @@ export class UserService {
         return await this.userRepository.find({relations: ['carts', 'orders']});
     }
 
+    async getAllUsersWithPagination(page: number, limit: number): Promise<[User[], number]> {
+        const skip = (page - 1) * limit;
+        return await this.userRepository.findAndCount({
+            skip,
+            take: limit,
+            order: { id: "ASC" },
+            relations: ['carts', 'orders']
+        });
+    }
+
     async getUserById(id: number): Promise<User | null> {
         return await this.userRepository.findOne({where: {id}, relations: ['carts', 'orders']});
     }
