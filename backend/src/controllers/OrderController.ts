@@ -11,14 +11,31 @@ import { Order_status } from "../entity/Order_status";
 const orderService = new OrderService();
 
 export class OrderController {
-  static async getAllOrders(req: Request, res: Response): Promise<void> {
-    try {
-      const orders = await orderService.getAllOrders();
-      res.json(orders);
-    } catch (error) {
-      res.status(500).json({ message: "Error fetching orders", error });
-    }
+static async getAllOrders(req: Request, res: Response): Promise<void> {
+  try {
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 10;
+    const skip = (page - 1) * limit;
+
+    const [orders, totalCount] = await AppDataSource.getRepository(Order).findAndCount({
+      skip,
+      take: limit,
+      order: { orderDate: "DESC" },
+      relations: ["user", "orderItems", "orderItems.productItem"]
+    });
+
+    
+res.json({
+  data: orders,
+  totalCount
+});
+
+  } catch (error) {
+    console.error("❌ Error fetching orders:", error);
+    res.status(500).json({ message: "Error fetching orders", error });
   }
+}
+
 
   static async getOrderById(req: Request, res: Response): Promise<void> {
     try {

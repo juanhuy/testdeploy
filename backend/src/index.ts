@@ -81,7 +81,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/order_items",Order_itemRoutes);
-app.use('/admin/api/orders', adminOrderRoutes);
+app.use('/admin/api/orders', orderRoutes);
 // Serve static files from the uploads directory
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 app.use("/api/upload", uploadRoute);

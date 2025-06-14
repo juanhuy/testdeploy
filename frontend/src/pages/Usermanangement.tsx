@@ -9,12 +9,24 @@ const UserManagement = () => {
   const [editingUser, setEditingUser] = useState<User | null>(null);
   const [showForm, setShowForm] = useState(false);
 
-  useEffect(() => {
-    fetch('http://localhost:3001/api/users')
+  const [page, setPage] = useState(1);
+  const limit = 10;
+  const [totalCount, setTotalCount] = useState(0);
+  const totalPages = Math.ceil(totalCount / limit);
+
+  const loadUsers = () => {
+    fetch(`http://localhost:3001/api/users?page=${page}&limit=${limit}`)
       .then(res => res.json())
-      .then(data => setUsers(data))
+      .then(data => {
+        setUsers(data.data || []);      // data.users hoặc data.data tùy API
+        setTotalCount(data.totalCount || 0);
+      })
       .catch(err => console.error('Lỗi khi tải người dùng:', err));
-  }, []);
+  };
+
+  useEffect(() => {
+    loadUsers();
+  }, [page]);
 
   const handleAdd = () => {
     setEditingUser(null);
@@ -32,11 +44,8 @@ const UserManagement = () => {
         method: 'DELETE'
       })
         .then(res => {
-          if (res.ok) {
-            setUsers(users.filter(u => u.id !== id));
-          } else {
-            console.error('Xoá thất bại');
-          }
+          if (res.ok) loadUsers(); // Reload page
+          else console.error('Xoá thất bại');
         })
         .catch(err => console.error('Lỗi khi xoá người dùng:', err));
     }
@@ -44,20 +53,20 @@ const UserManagement = () => {
 
   const handleFormSubmit = (user: UserInput | User) => {
     if ('id' in user) {
-      // 👉 SỬA người dùng
+      // 👉 SỬA
       fetch(`http://localhost:3001/api/users/${user.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(user)
       })
         .then(res => res.json())
-        .then(updated => {
-          setUsers(prev => prev.map(u => (u.id === updated.id ? updated : u)));
+        .then(() => {
+          loadUsers();
           setShowForm(false);
         })
         .catch(err => console.error('Lỗi khi cập nhật:', err));
     } else {
-      // 👉 THÊM người dùng mới qua API đăng ký
+      // 👉 THÊM
       fetch('http://localhost:3001/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -67,9 +76,8 @@ const UserManagement = () => {
           if (!res.ok) throw new Error('Thêm thất bại');
           return res.json();
         })
-        .then(newUser => {
-          // API trả về dạng: { status: "success", user: {...} }
-          setUsers(prev => [...prev, newUser.user]); // ✅ Dùng newUser.user
+        .then(() => {
+          loadUsers();
           setShowForm(false);
         })
         .catch(err => {
@@ -100,7 +108,28 @@ const UserManagement = () => {
           onCancel={handleCancel}
         />
       ) : (
-        <UserTable users={users} onEdit={handleEdit} onDelete={handleDelete} />
+        <>
+          <UserTable users={users} onEdit={handleEdit} onDelete={handleDelete} />
+
+          {totalPages > 1 && (
+            <div style={{ textAlign: 'center', marginTop: 20 }}>
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map(pageNumber => (
+                <button
+                  key={pageNumber}
+                  style={{
+                    margin: 4, padding: '8px 12px',
+                    backgroundColor: pageNumber === page ? '#333' : '#eee',
+                    color: pageNumber === page ? '#fff' : '#000',
+                    border: 'none', borderRadius: 4, cursor: 'pointer',
+                  }}
+                  onClick={() => setPage(pageNumber)}
+                >
+                  {pageNumber}
+                </button>
+              ))}
+            </div>
+          )}
+        </>
       )}
     </div>
   );
