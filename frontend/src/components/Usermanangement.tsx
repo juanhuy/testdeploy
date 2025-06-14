@@ -3,6 +3,7 @@ import { User, UserInput } from '../types/User';
 import UserForm from '../components/UserForm';
 import UserTable from '../components/UserTable';
 import '../styles/UserManagement.css';
+import Pagination from '../components/Pagination';
 
 const UserManagement = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -39,15 +40,16 @@ const UserManagement = () => {
   };
 
   const handleDelete = (id: number) => {
-    if (window.confirm('Bạn có chắc muốn xoá người dùng này?')) {
+    if (window.confirm('Are you sure you want to delete this user?')) {
       fetch(`http://localhost:3001/api/users/${id}`, {
         method: 'DELETE'
       })
         .then(res => {
+
           if (res.ok) loadUsers(); // Reload page
           else console.error('Xoá thất bại');
         })
-        .catch(err => console.error('Lỗi khi xoá người dùng:', err));
+        .catch(err => console.error('Error deleting user:', err));
     }
   };
 
@@ -64,7 +66,7 @@ const UserManagement = () => {
           loadUsers();
           setShowForm(false);
         })
-        .catch(err => console.error('Lỗi khi cập nhật:', err));
+        .catch(err => console.error('Error updating user:', err));
     } else {
      
       fetch('http://localhost:3001/api/auth/register', {
@@ -73,7 +75,7 @@ const UserManagement = () => {
         body: JSON.stringify(user)
       })
         .then(res => {
-          if (!res.ok) throw new Error('Thêm thất bại');
+          if (!res.ok) throw new Error('Creation failed');
           return res.json();
         })
         .then(() => {
@@ -81,8 +83,8 @@ const UserManagement = () => {
           setShowForm(false);
         })
         .catch(err => {
-          console.error('Lỗi khi thêm mới:', err);
-          alert('Email đã tồn tại hoặc dữ liệu không hợp lệ!');
+          console.error('Error add user:', err);
+          alert('Email already exists or invalid data!');
         });
     }
   };
@@ -90,14 +92,17 @@ const UserManagement = () => {
   const handleCancel = () => {
     setShowForm(false);
   };
-
+  // const totalCount = users.length;
+  // const totalPages = Math.ceil(totalCount / limit);
+  const start = (page - 1) * limit;
+  const currentUsers = users.slice(start, start + limit);
   return (
     <div className="user-management-container">
-      <h2 className="user-management-title">Quản lý người dùng</h2>
+      <h2 className="user-management-title">User Management</h2>
 
       {!showForm && (
         <div className="user-management-action">
-          <button className="btn-add" onClick={handleAdd}>+ Thêm người dùng</button>
+          <button className="btn-add" onClick={handleAdd}>Add User</button>
         </div>
       )}
 
@@ -109,6 +114,7 @@ const UserManagement = () => {
         />
       ) : (
         <>
+
           <UserTable users={users} onEdit={handleEdit} onDelete={handleDelete} />
 
           {totalPages > 1 && (
@@ -134,5 +140,6 @@ const UserManagement = () => {
     </div>
   );
 };
+
 
 export default UserManagement;

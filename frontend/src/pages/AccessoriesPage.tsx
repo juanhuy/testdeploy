@@ -39,14 +39,14 @@ const AccessoriesPage = () => {
     setIsFiltering(true);
     setPage(1);
   };
-
   const handleClearFilters = () => {
     setFilters({});
     setIsFiltering(false);
     setPage(1);
   };
-
   const totalPages = Math.ceil(totalCount / limit);
+
+
 
   useEffect(() => {
     setFilters({});
@@ -63,12 +63,12 @@ const AccessoriesPage = () => {
   }
 
   return (
-    <main className="accessories-page">
-      <Breadcrumb title="Accessories" />
+    <main className="swimwear-page">
+      <Breadcrumb title="Swimwear" />
       <div className="content-container">
         <Sidebar
           onFilterChange={handleFilterChange}
-          allowedCategories={["Accessories"]}
+          allowedCategories={["Swimwear"]}
         />
         <div className="right-content">
           {isFiltering && (
@@ -113,5 +113,6 @@ const AccessoriesPage = () => {
     </main>
   );
 };
+
 
 export default AccessoriesPage;

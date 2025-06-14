@@ -5,7 +5,7 @@ import { Order } from "../entity/Order";
 import { ProductItem } from "../entity/ProductItem";
 import { User } from "../entity/User";
 import { Address } from "../entity/Address";
-import { Shipping_method } from "../entity/Shipping_method";
+import { Shipping_method } from "../entity/ShippingMethod";
 import { Order_status } from "../entity/Order_status";
 
 const orderService = new OrderService();

@@ -1,10 +1,11 @@
 import { DataSource } from "typeorm";
 import dotenv from "dotenv";
+import express from "express";
 
 dotenv.config();
 
 export const AppDataSource = new DataSource({
-  type: "mssql", 
+  type: process.env.DB_TYPE as any,
   host: process.env.DB_HOST,
   port: Number(process.env.DB_PORT) || 1433,
   username: process.env.DB_USERNAME,
@@ -13,8 +14,8 @@ export const AppDataSource = new DataSource({
   synchronize: process.env.DB_SYNCHRONIZE === "true",
   logging: process.env.DB_LOGGING === "true",
   entities: ["src/entity/*.ts"],
-  extra: {
-    encrypt: process.env.DB_ENCRYPT === "true", 
+  options: {
+    encrypt: process.env.DB_ENCRYPT === "true",
   },
 });
 

@@ -221,7 +221,7 @@ console.log("ORDER CREATED:", createdOrder);
           </div>
 
           <button className="place-order-btn" onClick={handlePlaceOrder}>
-            Đặt hàng
+            Order
           </button>
          
         </>

@@ -33,7 +33,7 @@ const SearchResult = () => {
 
     fetch(`${API_URL}/api/products/search?q=${encodeURIComponent(query.trim())}`)
       .then((res) => {
-        if (!res.ok) throw new Error("Lỗi khi fetch dữ liệu");
+        if (!res.ok) throw new Error("Failed to fetch data");
         return res.json();
       })
       .then((data) => {
@@ -41,7 +41,7 @@ const SearchResult = () => {
       })
       .catch((err) => {
         console.error(err);
-        setError("Không thể tải dữ liệu từ máy chủ.");
+        setError("Unable to load data from the server.");
       })
       .finally(() => {
         setLoading(false);
@@ -50,15 +50,15 @@ const SearchResult = () => {
 
   return (
     <div className="search-result-container">
-      <h2 className="title">Kết quả tìm kiếm cho: "{query}"</h2>
+      <h2 className="title">Search results for: "{query}"</h2>
 
-      {loading && <p>Đang tải...</p>}
+      {loading && <p>Loading...</p>}
       {error && <p style={{ color: "red" }}>{error}</p>}
 
       {!loading && !error && (
         <>
           {products.length === 0 ? (
-            <p>Không tìm thấy sản phẩm nào phù hợp.</p>
+            <p>No products found</p>
           ) : (
             <div className="product-grid">
               {products.map((product) => {
@@ -81,7 +81,7 @@ const SearchResult = () => {
                     <p className="product-price">
                       {typeof price === "number"
                         ? `${price.toLocaleString()}₫`
-                        : "Chưa có giá"}
+                        : "No price available"}
                     </p>
                   </div>
                 );

@@ -7,7 +7,7 @@ export class User {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column()
+  @Column({name: 'keycloak_id'})
   keycloakId!: string;
 
   @Column()

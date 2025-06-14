@@ -8,11 +8,11 @@ const AdminLayout = () => {
       <aside className="sidebar">
         <div className="logo">ADMIN</div>
         <ul className="menu">
-          <li><Link to="/admin">Trang chủ</Link></li> 
-          <li><Link to="/admin/users">👤 Người dùng</Link></li>
-          <li><Link to="/admin/products">📦 Sản phẩm</Link></li>
-          <li><Link to="/admin/categories">📂 Danh mục</Link></li>
-          <li><Link to="/admin/orders">🛒 Đơn hàng</Link></li>
+          <li><Link to="/admin">Dashboard</Link></li> 
+          <li><Link to="/admin/users">User</Link></li>
+          <li><Link to="/admin/products">Product</Link></li>
+          <li><Link to="/admin/categories">Category</Link></li>
+          <li><Link to="/admin/orders">Order</Link></li>
         </ul>
       </aside>
 

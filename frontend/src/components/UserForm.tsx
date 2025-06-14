@@ -1,4 +1,4 @@
-// src/components/UserForm.tsx
+
 import React, { useState, useEffect } from 'react';
 import '../styles/UserForm.css';
 import { User, UserInput } from '../types/User';
@@ -28,7 +28,7 @@ const UserForm: React.FC<Props> = ({ initialData, onSubmit, onCancel }) => {
     e.preventDefault();
 
     if (!initialData && password !== confirmPassword) {
-      alert('Mật khẩu không khớp');
+      alert('Password do not match');
       return;
     }
 
@@ -41,7 +41,7 @@ const UserForm: React.FC<Props> = ({ initialData, onSubmit, onCancel }) => {
 
   return (
     <form className="user-form" onSubmit={handleSubmit}>
-      <h3>{initialData ? 'Chỉnh sửa người dùng' : 'Thêm người dùng'}</h3>
+      <h3>{initialData ? 'Edit user' : 'Add user'}</h3>
 
       <div className="form-group">
         <label>Username</label>
@@ -50,7 +50,7 @@ const UserForm: React.FC<Props> = ({ initialData, onSubmit, onCancel }) => {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
-          placeholder="Tên tài khoản"
+          placeholder="Username"
         />
       </div>
 
@@ -61,7 +61,7 @@ const UserForm: React.FC<Props> = ({ initialData, onSubmit, onCancel }) => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          placeholder="Địa chỉ email"
+          placeholder="Email address"
         />
       </div>
 
@@ -72,7 +72,7 @@ const UserForm: React.FC<Props> = ({ initialData, onSubmit, onCancel }) => {
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
           required
-          placeholder="Số điện thoại"
+          placeholder="Phone number"
         />
       </div>
 
@@ -85,7 +85,7 @@ const UserForm: React.FC<Props> = ({ initialData, onSubmit, onCancel }) => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              placeholder="Mật khẩu"
+              placeholder="Password"
             />
           </div>
 
@@ -96,7 +96,7 @@ const UserForm: React.FC<Props> = ({ initialData, onSubmit, onCancel }) => {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
-              placeholder="Xác nhận mật khẩu"
+              placeholder="Confirm Password"
             />
           </div>
         </>
@@ -104,10 +104,10 @@ const UserForm: React.FC<Props> = ({ initialData, onSubmit, onCancel }) => {
 
       <div className="form-actions">
         <button type="submit" className="btn-save">
-          {initialData ? 'Lưu' : 'Thêm'}
+          {initialData ? 'Save' : 'Add'}
         </button>
         <button type="button" className="btn-cancel" onClick={onCancel}>
-          Huỷ
+          Cancel
         </button>
       </div>
     </form>

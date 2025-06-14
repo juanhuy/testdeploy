@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { CartItemService } from "../services/Cart_itemService";
+import { CartItemService } from "../services/CartItemService";
 
 const cartItemService = new CartItemService();
 

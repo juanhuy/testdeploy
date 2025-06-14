@@ -1,18 +1,23 @@
 import { Repository } from "typeorm";
 import { Order } from "../entity/Order";
-import { Order_item } from "../entity/Order_item";
+import { OrderItem } from "../entity/OrderItems";
 import { AppDataSource } from "../config/datasource";
+<<<<<<< HEAD
 const orderRepository = AppDataSource.getRepository(Order);
+=======
+import { Order_status } from "../entity/Order_status";
+>>>>>>> origin/cuong_routes
 export class OrderService {
   getDataSource() {
     throw new Error("Method not implemented.");
   }
   private orderRepository: Repository<Order>;
-  private orderItemRepository: Repository<Order_item>;
+  private orderItemRepository: Repository<OrderItem>;
+  static orderRepository: any;
 
   constructor() {
     this.orderRepository = AppDataSource.getRepository(Order);
-    this.orderItemRepository = AppDataSource.getRepository(Order_item);
+    this.orderItemRepository = AppDataSource.getRepository(OrderItem);
   }
 
  
@@ -65,7 +70,7 @@ async getAllOrders(page: number, limit: number) {
   }
 
   // Thêm chi tiết đơn hàng
-  async addOrderItem(orderId: number, orderItemData: Partial<Order_item>): Promise<Order_item> {
+  async addOrderItem(orderId: number, orderItemData: Partial<OrderItem>): Promise<OrderItem> {
     const order = await this.getOrderById(orderId);
     if (!order) throw new Error("Order not found");
 
@@ -76,7 +81,13 @@ async getAllOrders(page: number, limit: number) {
 
     return this.orderItemRepository.save(orderItem);
   }
+<<<<<<< HEAD
   async getOrderCount(): Promise<number> {
     return await orderRepository.count();
   }
 }
+=======
+
+
+}
+>>>>>>> origin/cuong_routes

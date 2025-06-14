@@ -10,6 +10,12 @@
   flex-grow: 1; /* Chiếm toàn bộ không gian trống để đẩy footer xuống */
 }
 
+.sidebar {
+  width: 250px;
+  background-color: #f4f4f4;
+  padding: 20px;
+}
+
 .account-details {
   flex-grow: 1;
   padding: 20px;

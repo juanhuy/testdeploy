@@ -3,8 +3,10 @@ import { Product } from "./Product";
 import { Size } from "./Size";
 import { Image } from "./Image";
 import { Color } from "./Color";
-import { Cart_item } from "./Cart_item";
-import { Order_item } from "./Order_item";
+import { Cart_item } from "./CartItem";
+import { OrderItem } from "./OrderItems"; 
+
+
 @Entity()
 export class ProductItem {
   @PrimaryGeneratedColumn()
@@ -28,8 +30,8 @@ export class ProductItem {
   @OneToMany(() => Cart_item, (cartItem) => cartItem.productItem, { cascade: true })
   cartItems!: Cart_item[];
 
-  @OneToMany(() => Order_item, (orderItem) => orderItem.productItem, { cascade: true })
-  orderItems!: Order_item[];
+  @OneToMany(() => OrderItem, (orderItem) => orderItem.productItem, { cascade: true })
+  orderItems!: OrderItem[];
 
   @Column()
   quantity!: number;

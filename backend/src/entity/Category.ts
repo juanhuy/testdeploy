@@ -19,9 +19,9 @@ export class Category {
   @OneToMany(() => Product, (product) => product.category)
   products!: Product[];
 
-@ManyToOne(() => Category, (category) => category.children, { nullable: true })
-@JoinColumn({ name: 'parentId' })
-parent!: Category | null;
+  @ManyToOne(() => Category, (category) => category.children, { nullable: true })
+  @JoinColumn({ name: 'parentId' })
+  parent!: Category | null;
 
 
   @OneToMany(() => Category, (category) => category.parent)

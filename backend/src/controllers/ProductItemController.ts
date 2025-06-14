@@ -9,7 +9,7 @@ export class ProductItemController {
       const productItems = await productItemService.getAllProductItems();
       res.json(productItems);
     } catch (error) {
-      console.error("❌ Error getAllProductItems:", error);
+      console.error("Error getAllProductItems:", error);
       res.status(500).json({ message: "Error fetching product items", error });
     }
   }

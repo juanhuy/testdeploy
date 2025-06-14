@@ -66,12 +66,13 @@ const OrderManagement = () => {
       <table className="order-table">
         <thead>
           <tr>
-            <th>STT</th>
-            <th>Khách hàng</th>
-            <th>Tổng tiền</th>
-            <th>Trạng thái</th>
-            <th>Ngày đặt</th>
-            <th>Hành động</th>
+            
+            <th>ID</th>
+            <th>Customer</th>
+            <th>Total Amount</th>
+            <th>Status</th>
+            <th>Order Date</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>

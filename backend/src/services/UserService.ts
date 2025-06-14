@@ -1,5 +1,5 @@
 import {User} from "../entity/User"
-import {User_address} from "../entity/User_address"
+import {User_address} from "../entity/UserAddress"
 import {Address} from "../entity/Address"
 import { Repository } from "typeorm";
 import { AppDataSource } from "../config/datasource";
@@ -21,14 +21,30 @@ export class UserService {
         return await this.userRepository.find({relations: ['carts', 'orders']});
     }
 
+    async getAllUsersWithPagination(page: number, limit: number): Promise<[User[], number]> {
+        const skip = (page - 1) * limit;
+        return await this.userRepository.findAndCount({
+            skip,
+            take: limit,
+            order: { id: "ASC" },
+            relations: ['carts', 'orders']
+        });
+    }
+
     async getUserById(id: number): Promise<User | null> {
         return await this.userRepository.findOne({where: {id}, relations: ['carts', 'orders']});
     }
 
-    async createUser(userData: Partial<User>): Promise<User> {
-        const hashedPassword = await bcrypt.hash(userData.hash_password!, 10);
-        const user = await this.userRepository.create({...userData, hash_password: hashedPassword});
-        return this.userRepository.save(user);
+    async createUser(userData: any): Promise<User> {
+        const hashedPassword = await bcrypt.hash(userData.password!, 10);
+        const user= this.userRepository.create({
+            keycloakId: userData.keycloakId,
+            username: userData.username,
+            hash_password: hashedPassword,
+            phone: userData.phone,
+            email: userData.email,
+        });
+        return await this.userRepository.save(user);
     }
 
     async updateUser(id: number, userData: Partial<User>): Promise<User | null> {
@@ -60,5 +76,17 @@ export class UserService {
         });
 
         return this.useAddressRepository.save(userAddress);
+    }
+
+    async getUserByKeycloakId(keycloakId: string): Promise<User | null> {
+        return await this.userRepository.findOne({
+            where: { keycloakId },
+            relations: ['carts', 'orders']
+        });
+    }
+    async getUserByCredentials(username: string, password: string): Promise<User | null> {
+        return await this.userRepository.findOne({
+            where: { username: username, hash_password: password },
+        });
     }
 }

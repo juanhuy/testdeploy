@@ -44,7 +44,7 @@ const ForgotPassword: React.FC = () => {
         </>
       ) : (
         <div className="success-message">
-          <p>✅ A password reset link has been sent to <strong>{email}</strong>.</p>
+          <p>A password reset link has been sent to <strong>{email}</strong>.</p>
           <p>Please check your inbox and follow the instructions.</p>
           <Link to="/login" className="login-btn" style={{ display: 'inline-block', marginTop: '20px' }}>
             Back to Login

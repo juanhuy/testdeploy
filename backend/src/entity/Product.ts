@@ -1,6 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne, JoinColumn } from "typeorm";
 import { ProductItem } from "./ProductItem";
 import { Category } from "./Category";
+import { Product_promotion } from "./ProductPromotion";
 
 @Entity()
 export class Product {
@@ -10,10 +11,10 @@ export class Product {
   @Column()
   name!: string;
 
-  @Column()
+  @Column({ nullable: true })
   description!: string;
 
-  @Column({ type: "decimal", precision: 3, scale: 2 })
+  @Column({ type: "float", default: 0 })
   all_rate!: number;
 
   @OneToMany(() => ProductItem, (productItem) => productItem.product)
@@ -21,10 +22,14 @@ export class Product {
 
   @ManyToOne(() => Category, (category) => category.products, {
     onDelete: "CASCADE",
+    nullable: true, // cho phép null
   })
   @JoinColumn({ name: "category_id" }) 
-  category!: Category;
+  category!: Category | null;
 
-  @Column() 
-  category_id!: number;
+  @Column({nullable: true}) 
+  category_id!: number | null;
+
+  @OneToMany(() => Product_promotion, (productPromotion) => productPromotion.product)
+  productPromotions!: Product_promotion[];
 }

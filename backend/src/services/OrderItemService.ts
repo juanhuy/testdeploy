@@ -2,20 +2,20 @@ import { Repository } from "typeorm";
 import { AppDataSource } from "../config/datasource";
 import { Order } from "../entity/Order";
 import { ProductItem } from "../entity/ProductItem";
-import { Order_item } from "../entity/Order_item";
+import { OrderItem } from "../entity/OrderItem";
 
 export class OrderItemService {
-  private orderItemRepository: Repository<Order_item>;
+  private orderItemRepository: Repository<OrderItem>;
   private orderRepository: Repository<Order>;
   private productItemRepository: Repository<ProductItem>;
 
   constructor() {
-    this.orderItemRepository = AppDataSource.getRepository(Order_item);
+    this.orderItemRepository = AppDataSource.getRepository(OrderItem);
     this.orderRepository = AppDataSource.getRepository(Order);
     this.productItemRepository = AppDataSource.getRepository(ProductItem);
   }
 
-  async getAllOrderItems(): Promise<Order_item[]> {
+  async getAllOrderItems(): Promise<OrderItem[]> {
     return this.orderItemRepository.find({
       relations: ["order", "productItem"],
     });

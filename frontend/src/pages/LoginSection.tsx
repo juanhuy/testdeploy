@@ -27,13 +27,13 @@ const LoginSection: React.FC = () => {
         // ✅ Lưu thông tin user vào localStorage nếu muốn
         localStorage.setItem('userInfo', JSON.stringify(data.user));
 
-        alert('Đăng nhập thành công');
+        alert('Login successful');
         navigate('/'); // ➜ chuyển về trang chủ sau đăng nhập
       } else {
-        alert(data.message || 'Sai tên đăng nhập hoặc mật khẩu');
+        alert(data.message || 'Incorrect username or password');
       }
     } catch (error) {
-      alert('Lỗi kết nối đến server');
+      alert('Failed to connect to the server');
       console.error(error);
 
     }

@@ -9,9 +9,9 @@ import {
 } from "typeorm";
 import { User } from "./User";
 import { Address } from "./Address";
-import { Shipping_method } from "./Shipping_method";
+import { Shipping_method } from "./ShippingMethod";
 import { Order_status } from "./Order_status";
-import { Order_item } from "./Order_item";
+import { OrderItem } from "./OrderItems"; //  Import thêm
 
 @Entity()
 export class Order {
@@ -61,9 +61,6 @@ export class Order {
   @Column({ type: "decimal", precision: 10, scale: 2 })
   order_total!: string;
 
-  @OneToMany(() => Order_item, (orderItem) => orderItem.order, {
-    cascade: true,
-    eager: true,
-  })
-  orderItems!: Order_item[];
+  @OneToMany(() => OrderItem, (orderItem) => orderItem.order, { cascade: true })
+  orderItems!: OrderItem[];
 }

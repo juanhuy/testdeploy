@@ -3,7 +3,7 @@ import { Order } from "./Order";
 import { ProductItem } from "./ProductItem";
 
 @Entity()
-export class Order_item {
+export class OrderItem {
   @PrimaryGeneratedColumn()
   id!: number;
 

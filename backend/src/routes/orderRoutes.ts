@@ -1,4 +1,4 @@
-import {Router} from 'express';
+import { Router } from 'express';
 import { OrderController } from '../controllers/OrderController';
 
 const router = Router();
@@ -9,5 +9,6 @@ router.post('/', OrderController.createOrderWithItems);
 
 router.put('/:id', OrderController.updateOrder);
 router.delete('/:id', OrderController.deleteOrder);
+
 
 export default router;
