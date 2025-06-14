@@ -55,12 +55,14 @@ const SaleProductList: React.FC<SaleProductListProps> = ({
   useEffect(() => {
     (async () => {
       try {
-        const res = await fetch("http://localhost:3001/api/products/sale");
-        if (!res.ok) throw new Error("Failed to fetch sale products");
+        // Ưu tiên lấy từ /api/products/sale nếu có, fallback sang /api/products
+        let res = await fetch('http://localhost:3001/api/products/sale');
+        if (!res.ok) res = await fetch('http://localhost:3001/api/products');
+        if (!res.ok) throw new Error('Failed to fetch products');
         const data = await res.json();
         setAllProducts(Array.isArray(data) ? data : data.data);
       } catch (err) {
-        console.error("Error loading sale products:", err);
+        console.error('Error loading products:', err);
       }
     })();
   }, []);

@@ -111,15 +111,32 @@ const Sidebar: React.FC<SidebarProps> = ({ onFilterChange, allowedCategories }) 
                   {category.subcategories.map((sub) => (
                     <li
                       key={sub}
-                      className={filters.subcategory === String(subcategoryNameToId[sub]) ? "active" : ""}
-                      onClick={() =>
-                        setFilters((prev) => ({
-                          ...prev,
-                          category: category.name,
-                          subcategory: String(subcategoryNameToId[sub]),
-                          size: undefined, // reset size khi chọn subcategory mới
-                        }))
-                      }
+                      className={filters.category === sub ? "active" : ""}
+                      onClick={() => {
+                        if (category.name === "Sale" && ["Clothing", "Swimwear", "Accessories"].includes(sub)) {
+                          setFilters((prev) => ({
+                            ...prev,
+                            category: sub,
+                            subcategory: undefined,
+                            size: undefined,
+                          }));
+                          onFilterChange({
+                            ...filters,
+                            category: sub,
+                            subcategory: undefined,
+                            size: undefined,
+                            minPrice: priceRange[0],
+                            maxPrice: priceRange[1],
+                          });
+                        } else {
+                          setFilters((prev) => ({
+                            ...prev,
+                            category: category.name,
+                            subcategory: String(subcategoryNameToId[sub]),
+                            size: undefined,
+                          }));
+                        }
+                      }}
                     >
                       {sub}
                     </li>
@@ -137,7 +154,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onFilterChange, allowedCategories }) 
       <div className="price-range-container">
         <Range
           step={1}
-          min={70}
+          min={0}
           max={1000}
           values={priceRange}
           onChange={(values) => setPriceRange([...values] as [number, number])}

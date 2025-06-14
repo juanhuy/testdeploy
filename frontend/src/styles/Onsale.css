@@ -128,3 +128,28 @@
       height: 300px;
     }
   }
+
+.price-sale-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: center;
+}
+
+.new-price {
+  color: #e44d26;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.sale-badge {
+  color: #e44d26;
+  font-weight: bold;
+  margin-left: 4px;
+  font-size: 1.1em;
+}
+
+.buy-now-green {
+  background: #1abc9c !important;
+  color: #fff !important;
+}
