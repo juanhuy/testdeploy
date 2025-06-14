@@ -65,8 +65,15 @@ const ProductManagement = () => {
     fetch(`http://localhost:3001/api/products?page=${page}&limit=${limit}`)
       .then(res => res.json())
       .then(data => {
-        setProducts(data.data);
-        setTotalCount(data.totalCount);
+        console.log("DATA PRODUCT MANAGEMENT:", data);
+        // Nếu backend trả về mảng hoặc object có data
+        if (Array.isArray(data)) {
+          setProducts(data);
+          setTotalCount(data.length);
+        } else {
+          setProducts(data.data);
+          setTotalCount(data.totalCount);
+        }
       })
       .catch(err => console.error('Lỗi khi tải sản phẩm:', err));
   };
