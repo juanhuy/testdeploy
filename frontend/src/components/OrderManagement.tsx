@@ -20,15 +20,16 @@ const OrderManagement = () => {
   const limit = 10;
   const [totalCount, setTotalCount] = useState(0);
   const totalPages = Math.ceil(totalCount / limit);
+  const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
 
   const loadOrders = () => {
-    fetch(`http://localhost:3001/admin/api/orders?page=${page}&limit=${limit}`)
+    const query = `http://localhost:3001/admin/api/orders?page=${page}&limit=${limit}&search=${encodeURIComponent(searchTerm)}`;
+    console.log("📦 Fetching orders from backend:", query);
+
+    fetch(query)
       .then((res) => res.json())
       .then((data) => {
- console.log("📦 Fetching orders from backend:", `http://localhost:3001/admin/api/orders?page=${page}&limit=${limit}`);
-
-
         if (Array.isArray(data.data)) {
           setOrders(data.data);
           setTotalCount(data.totalCount || 0);
@@ -63,10 +64,23 @@ const OrderManagement = () => {
 
   return (
     <div className="order-container">
+      {/*  Thanh tìm kiếm */}
+      <div className="search-bar">
+  <input
+    type="text"
+    className="search-input"
+    placeholder="Tìm theo tên, email hoặc ID..."
+    value={searchTerm}
+    onChange={(e) => setSearchTerm(e.target.value)}
+  />
+  <button className="search-button" onClick={() => { setPage(1); loadOrders(); }}>
+    Tìm
+  </button>
+</div>
+
       <table className="order-table">
         <thead>
           <tr>
-            
             <th>ID</th>
             <th>Customer</th>
             <th>Total Amount</th>
@@ -89,9 +103,7 @@ const OrderManagement = () => {
                   )}
                 </td>
                 <td>{(order.order_total ?? 0).toLocaleString()}₫</td>
-
                 <td>{order.orderStatus?.status || 'Đang xử lý'}</td>
-
                 <td>{order.orderDate ? new Date(order.orderDate).toLocaleString('vi-VN') : ''}</td>
                 <td>
                   <button className="order-button btn-detail" onClick={() => handleDetail(order.id)}>Chi tiết</button>

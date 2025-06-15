@@ -40,11 +40,11 @@ app.use(cors({
     origin: "http://localhost:3000",
     credentials: true
 }));
-app.use(
-    "/api/users",
-    keycloak.protect(isAuthenticated),
-    UserRouter
-);
+// app.use(
+//     "/api/users",
+//     keycloak.protect(isAuthenticated),
+//     UserRouter
+// );
 
 
 const Keycloak = require("keycloak-connect");
@@ -89,25 +89,18 @@ app.use("/api/products", productRoutes);
 app.use("/api/product-items", product_itemRoutes);
 app.use("/api/images", imageRoutes);
 app.use("/api/categories", categoryRoutes);
-app.use("/api/orders", keycloak.protect(isAuthenticated),orderRoutes);
+// app.use("/api/orders", keycloak.protect(isAuthenticated),orderRoutes);
 app.use("/api/auth", keycloak.protect(isAuthenticated),authRoutes);
-app.use("/api/statistics",keycloak.protect(adminOnly), StatisticsRoutes);
+// app.use("/api/statistics",keycloak.protect(adminOnly), StatisticsRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/order_items",Order_itemRoutes);
-app.use('/admin/api/orders', orderRoutes);
+app.use('/admin/api/orders', adminOrderRoutes);
 // Serve static files from the uploads directory
 app.use("/uploads", keycloak.protect(adminOnly),express.static(path.join(__dirname, "../uploads")));
+app.use("/api/statistics", StatisticsRoutes);
 
-// DB + start server
-AppDataSource.initialize()
-    .then(() => {
-        console.log("Database connected successfully");
-        app.listen(PORT, () => {
-            console.log(`Server running at http://localhost:${PORT}`);
-        });
-    })
-    .catch((error) => console.log("Database connection error:", error))
+
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 app.use("/api/upload", uploadRoute);
 app.use("/api/invoice", invoice);

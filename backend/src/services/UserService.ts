@@ -5,6 +5,7 @@ import { Repository } from "typeorm";
 import { AppDataSource } from "../config/datasource";
 import bcrypt from "bcrypt";
 
+const userRepository = AppDataSource.getRepository(User);
 export class UserService {
     private userRepository: Repository<User>;
     private addressRepository: Repository<Address>;
@@ -89,4 +90,8 @@ export class UserService {
             where: { username: username, hash_password: password },
         });
     }
+async countUsers(): Promise<number> {
+    return await this.userRepository.count();
+}
+
 }

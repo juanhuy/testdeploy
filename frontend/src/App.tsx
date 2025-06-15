@@ -40,6 +40,8 @@ const App = () => {
         <Routes>
           {/* Public routes */}
           <Route path="/" element={<Home />} />
+          <Route path="/category/:id" element={<CategoryPage />} />
+
           <Route path="/clothing" element={<ClothingPage />} />
           <Route path="/swimwear" element={<Swimwear />} />
           <Route path="/accessories" element={<AccessoriesPage />} />

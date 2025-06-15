@@ -113,18 +113,24 @@ export class ProductItemService {
       return image;
     });
   }
-   async getPaginatedProductItems(page: number, limit: number, categoryIds: number[]) {
-    const [data, totalCount] = await repo.findAndCount({
-      relations: ["product", "images"],
-      where: {
-        product: {
-          category_id: In(categoryIds),
-        },
-      },
-      skip: (page - 1) * limit,
-      take: limit,
-      order: { id: "ASC" },
-    });
+  
+  async getPaginatedProductItems(page: number, limit: number, categoryIds: number[]) {
+    const productItemRepo = AppDataSource.getRepository(ProductItem);
+    const skip = (page - 1) * limit;
+
+    const query = productItemRepo
+      .createQueryBuilder("productItem")
+      .leftJoinAndSelect("productItem.product", "product")
+      .leftJoinAndSelect("productItem.images", "images");
+
+    if (categoryIds.length > 0) {
+      query.where("product.category_id IN (:...categoryIds)", { categoryIds });
+    }
+
+    const [data, totalCount] = await query
+      .skip(skip)
+      .take(limit)
+      .getManyAndCount();
 
     return { data, totalCount };
   }

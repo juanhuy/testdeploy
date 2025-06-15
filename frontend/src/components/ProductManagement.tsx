@@ -45,6 +45,7 @@ type FormDataType = {
 
 const ProductManagement = () => {
 
+  const [searchTerm, setSearchTerm] = useState('');
 
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -273,9 +274,19 @@ const ProductManagement = () => {
     }
   };
 
+const filteredProducts = products.filter(p =>
+  p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  p.description.toLowerCase().includes(searchTerm.toLowerCase())
+);
+
+const totalPagesfill = Math.ceil(filteredProducts.length / limit);
+
   const start = (page - 1) * limit;
-  const currentProducts = products.slice(start, start + limit);
+ const currentProducts = filteredProducts.slice(start, start + limit);
+
+  
   return (
+    
     <div className="product-table-container">
       {showForm ? (
         <div className="form-popup">
@@ -391,7 +402,25 @@ const ProductManagement = () => {
           </div>
         </div>
       ) : (
-        <>
+        <><div style={{ marginBottom: 16, textAlign: 'center' }}>
+  <input
+    type="text"
+    placeholder=" Tìm kiếm sản phẩm theo tên..."
+    value={searchTerm}
+    onChange={(e) => {
+      setSearchTerm(e.target.value);
+      setPage(1); // Reset về trang đầu khi tìm
+    }}
+    style={{
+      padding: '8px 12px',
+      width: '300px',
+      borderRadius: '4px',
+      border: '1px solid #ccc',
+      fontSize: '14px'
+    }}
+  />
+</div>
+
           <table className="product-table">
             <thead>
               <tr>

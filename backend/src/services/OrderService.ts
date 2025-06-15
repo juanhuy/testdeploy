@@ -2,11 +2,11 @@ import { Repository } from "typeorm";
 import { Order } from "../entity/Order";
 import { OrderItem } from "../entity/OrderItems";
 import { AppDataSource } from "../config/datasource";
-<<<<<<< HEAD
+
 const orderRepository = AppDataSource.getRepository(Order);
-=======
+
 import { Order_status } from "../entity/Order_status";
->>>>>>> origin/cuong_routes
+
 export class OrderService {
   getDataSource() {
     throw new Error("Method not implemented.");
@@ -81,13 +81,12 @@ async getAllOrders(page: number, limit: number) {
 
     return this.orderItemRepository.save(orderItem);
   }
-<<<<<<< HEAD
+
   async getOrderCount(): Promise<number> {
     return await orderRepository.count();
   }
 }
-=======
 
 
-}
->>>>>>> origin/cuong_routes
+
+

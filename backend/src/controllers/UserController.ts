@@ -182,16 +182,16 @@ export class UserController {
             res.status(500).json({ message: "Error creating user", error });
         }
     }
-<<<<<<< HEAD
+
     static async getUserCount(req: Request, res: Response) {
   try {
-    const count = await userRepository.count();
+    const count = await userService.countUsers();
     res.json({ count });
   } catch (error) {
     res.status(500).json({ message: "Error counting users", error });
   }
 }
-=======
+
 
     static async getCurrentUser(req: Request, res: Response){
         try {
@@ -288,6 +288,6 @@ export class UserController {
             res.status(500).json({ message: 'Error fetching user', error });
         }
     }
->>>>>>> origin/cuong_routes
+
 
 }
